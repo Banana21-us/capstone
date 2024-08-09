@@ -1,0 +1,106 @@
+<section class="form-section">
+    <h2 style="  margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #0056b3;">Class Management</h2>
+    
+    <form id="classManagementForm">
+        <div class="row">
+            <div class="col me-2">
+                <div class="form-group">
+                    <label for="section">Section:</label>
+                    <input type="text" id="section" name="section" required>
+                </div>
+                <div class="form-group">
+                    <label for="room">Room:</label>
+                    <input type="text" id="room" name="room" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="teacher">Teacher:</label>
+            <select id="teacher" name="teacher" required>
+                <option value="">Select a Teacher</option>
+                <option value="mathematics">Mario</option>
+                <option value="english">Dionecens</option>
+                <option value="science">Jhonnel</option>
+                <option value="history">Sobido</option>
+                <option value="physical-education">Lorna</option>
+                <!-- Add more subjects as needed -->
+            </select>
+        </div>   
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <select id="subject" name="subject" required>
+                <option value="">Select a Subject</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="english">English</option>
+                <option value="science">Science</option>
+                <option value="history">History</option>
+                <option value="physical-education">Physical Education</option>
+                <!-- Add more subjects as needed -->
+            </select>
+        </div>        
+        <div class="row">
+            <div class="col me-2">
+                <div class="form-group">
+                    <label for="time">Time Start:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="time">Time End:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+            </div>
+        </div>
+        <div class="days">
+            <label>Days:</label>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for Mon">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Mon" readonly placeholder="Mon">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for Tues">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Tues" readonly placeholder="Tues">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for Wed">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Wed" readonly placeholder="Wed">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for Thurs">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Thurs" readonly placeholder="Thurs">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for Fri">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Fri" readonly placeholder="Fri">
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        
+        <button type="submit">Submit</button>
+    </form>
+</section>
