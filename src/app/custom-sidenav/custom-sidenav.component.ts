@@ -54,12 +54,12 @@ export class CustomSidenavComponent {
     {
       icon: 'account_circle',
       label: 'Profile',
-      route: ''
+      route: 'account'
     },
     {
       icon: 'logout',
       label: 'Logout',
-      route: ''
+      route: '/login'
     }
   ]);
 
