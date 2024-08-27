@@ -79,31 +79,46 @@ html, body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 992px) { /* Medium screens and below */
+
+/* 
+/* Make the sidepanel full-width on small screens */
+@media (max-width: 768px) {
   .sidepanel {
-    width: 30%; /* Adjust width for medium screens */
+    width: 100%;
+    position: relative;
+    height: auto;
   }
 }
 
-@media (max-width: 768px) { /* Small screens and below */
-  .sidepanel {
-    width: 100%; /* Full width for small screens */
-    position: relative; /* Change to relative for better stacking */
-    height: auto; /* Adjust height to auto for content overflow */
+/* Adjust the sidepanel content layout on small screens */
+@media (max-width: 768px) {
+  .sidepanel-content {
+    flex-direction: column;
   }
-
   .parent-section, .inquiry-section {
-    height: auto; /* Allow height to adjust */
+    height: auto;
     margin-bottom: 0;
   }
+}
 
+/* Adjust the list layout on small screens */
+@media (max-width: 768px) {
   .parent-list, .inquiry-list {
-    max-height: 300px; /* Optional max-height for smaller screens */
+    max-height: 300px;
+    overflow-y: auto;
   }
 }
 
-@media (max-width: 576px) { /* Extra small screens */
-  .sidepanel {
-    padding: 15px; /* Reduce padding for extra small screens */
+/* Adjust the inquiry item layout on small screens */
+@media (max-width: 768px) {
+  .inquiry-item {
+    flex-direction: column;
+    align-items: center;
+  }
+  .inquiry-name {
+    font-size: 1rem;
+  }
+  .inquiry-message {
+    font-size: 0.875rem;
   }
 }

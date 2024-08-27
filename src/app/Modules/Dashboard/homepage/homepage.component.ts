@@ -24,10 +24,10 @@ export class HomepageComponent implements AfterViewInit {
       this.chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['7', '8', '9', '10', 'STEM', 'ABM','HUMMS'],
           datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '# of Students',
+            data: [12, 19, 3, 5, 2, 3,50],
             borderWidth: 1
           }]
         },

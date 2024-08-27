@@ -7,11 +7,12 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CustomSidenavComponent } from "../custom-sidenav/custom-sidenav.component";
-
+import { MatBadgeModule } from '@angular/material/badge'
+import { MatMenuModule } from '@angular/material/menu'
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [RouterModule, MatSidenavModule, CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule, CustomSidenavComponent],
+  imports: [RouterModule, MatSidenavModule, CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule, CustomSidenavComponent,MatBadgeModule,MatMenuModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })

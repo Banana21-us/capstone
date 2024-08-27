@@ -52,3 +52,46 @@ button {
 button:hover {
     background-color: #003d79;
 }
+
+/* Small screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .form-container {
+        max-width: 90%;
+        height: auto;
+        padding: 1.5rem;
+    }
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 0.6rem;
+    }
+    button {
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* Extra small screens (max-width: 576px) */
+@media (max-width: 576px) {
+    .form-container {
+        max-width: 95%;
+        padding: 1rem;
+    }
+    .form-container h2 {
+        font-size: 1.2rem;
+    }
+    .form-group {
+        margin-bottom: 0.6rem;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 0.4rem;
+    }
+    button {
+        padding: 0.4rem 1rem;
+    }
+}
