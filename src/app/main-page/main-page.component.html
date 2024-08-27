@@ -4,6 +4,42 @@
   </button>
   <img [width]="180" [height]="40" src="assets/logo.png"/>
   <!-- <h3>NLAC Portal</h3> -->
+  <span class="example-spacer"></span>
+   <!-- notif -->
+  <button mat-icon-button class="example-icon" [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
+    <mat-icon matBadgeColor="accent" matBadge="3">notifications</mat-icon>
+  </button>
+
+  <mat-menu #notificationsMenu="matMenu">
+    <mat-list>
+        <mat-list-item>
+            <p matLine>No Classes on January 27</p>
+        </mat-list-item>
+        <mat-list-item>
+            <p matLine>Card Day on February 14</p>
+        </mat-list-item>
+        <mat-list-item>
+            <p matLine>May libreng kape</p>
+        </mat-list-item>
+    </mat-list>
+  </mat-menu>
+
+  <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
+    <img src="assets/russ.png" class="prof-image" />
+  </button>
+
+<!-- Profile Dropdown Menu -->
+<mat-menu #profileMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/main-page/account/account']">
+        <mat-icon>settings</mat-icon>
+        <span>Account Settings</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/login']">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+    </button>
+</mat-menu>
+
 </mat-toolbar> 
 
 <mat-sidenav-container>

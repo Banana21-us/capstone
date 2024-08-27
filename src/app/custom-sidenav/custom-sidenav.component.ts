@@ -51,16 +51,16 @@ export class CustomSidenavComponent {
       label: 'Message',
       route: 'message'
     },
-    {
-      icon: 'account_circle',
-      label: 'Profile',
-      route: 'account'
-    },
-    {
-      icon: 'logout',
-      label: 'Logout',
-      route: '/login'
-    }
+    // {
+    //   icon: 'account_circle',
+    //   label: 'Profile',
+    //   route: 'account'
+    // },
+    // {
+    //   icon: 'logout',
+    //   label: 'Logout',
+    //   route: '/login'
+    // }
   ]);
 
   profilePicSize = computed( ()=> this.sideNavCollapsed() ? '50' : '100');
