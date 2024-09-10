@@ -17,8 +17,6 @@
 
 .announcement-list {
     flex: 1 1 45%;
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 76.5vh; /* Adjust this value as needed */
 }
 
 /* Form and button styles */
@@ -52,7 +50,7 @@
     resize: vertical;
 }
 
-button {
+/* button {
     background-color: #0056b3;
     color: #fff;
     border: none;
@@ -61,11 +59,11 @@ button {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-}
+} */
 
-button:hover {
+/* button:hover {
     background-color: #003d79;
-}
+} */
 
 /* Announcement list styles */
 .announcement-list .announcement {
@@ -111,4 +109,132 @@ button:hover {
 .announcement p {
     margin: 0;
     line-height: 1.6;
+}
+mat-accordion {
+    max-width: 100px; /* Match the width of your announcement */
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+mat-expansion-panel-header {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+mat-panel-title {
+    font-weight: bold;
+    color: #0056b3; /* Matching your current color scheme */
+}
+
+mat-expansion-panel {
+    margin-bottom: 10px;
+}
+
+mat-expansion-panel-body {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    mat-accordion {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}
+/* Thread Styles */
+mat-accordion {
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.thread-message {
+    margin-bottom: 1.5rem;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.message-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #0056b3;
+}
+
+.date-posted {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.thread-message p {
+    background-color: #f0f0f0;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+/* User's own post aligned to the right */
+.user-post {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-post .message-header {
+    flex-direction: row-reverse;
+}
+
+.user-post .profile-picture {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.user-post p {
+    background-color: #d1e7ff;
+}
+
+/* Form for posting a reply */
+.thread-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.thread-input textarea {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+}
+
+.thread-input button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.thread-input button:hover {
+    background-color: #003d79;
 }

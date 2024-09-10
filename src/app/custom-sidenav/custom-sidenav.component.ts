@@ -33,8 +33,20 @@ export class CustomSidenavComponent {
     },
     {
       icon: 'home',
-      label: 'Class Management',
-      route: 'classmanagement'
+      label: 'Management',
+      route: 'classmanagement',
+      subItems: [
+        {
+          icon: 'class',
+          label: 'Class',
+          route: 'classmanagement'
+        },
+        {
+          icon: 'subject',
+          label: 'Subject',
+          route: 'subjectmanagement'
+        }
+      ]
     },
     {
       icon: 'person',
@@ -51,16 +63,7 @@ export class CustomSidenavComponent {
       label: 'Message',
       route: 'message'
     },
-    // {
-    //   icon: 'account_circle',
-    //   label: 'Profile',
-    //   route: 'account'
-    // },
-    // {
-    //   icon: 'logout',
-    //   label: 'Logout',
-    //   route: '/login'
-    // }
+    
   ]);
 
   profilePicSize = computed( ()=> this.sideNavCollapsed() ? '50' : '100');

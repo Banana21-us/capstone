@@ -1,6 +1,25 @@
 <div class="container">
     <div class="table-container">
-        <h2>Class List</h2>
+        <div class="row align-items-center">
+            <div class="col d-flex align-items-center">
+              <h2>Class List <button type="button" class="btn btn-success ms-2" routerLink="/main-page/classmanagement/addclass">+</button>
+              </h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+              <mat-form-field>
+                <mat-label>Class</mat-label>
+                <mat-select>
+                  <mat-option>None</mat-option>
+                  @for (state of states; track state) {
+                    <mat-option [value]="state">{{state}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+        
+
         <table id="classTable">
             <thead>
                 <tr>
@@ -17,7 +36,7 @@
                 <tr>
                     <td>A</td>
                     <td>101</td>
-                    <td>Sobido</td>
+                    <td>Sobido, Arjay</td>
                     <td>Mathematics</td>
                     <td>Monday,Tuesday</td>
                     <td>9:00 AM - 11:30 AM</td>
@@ -29,7 +48,7 @@
                 <tr>
                     <td>B</td>
                     <td>102</td>
-                    <td>Mario</td>
+                    <td>Mario Miko Check Ofiaza</td>
                     <td>English</td>
                     <td>Wednesday, Friday</td>
                     <td>11:00 AM - 12:00 AM</td>

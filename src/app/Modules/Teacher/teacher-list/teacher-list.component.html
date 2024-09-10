@@ -1,10 +1,25 @@
 <div class="container">
     <div class="table-container">
-        <h2>Registered Teachers</h2>
+        <div class="row align-items-center">
+            <div class="col d-flex align-items-center">
+                <h2>Registered Teachers  <button type="button" class="btn btn-success" routerLink="/main-page/teacher/addteacher">+</button></h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+              <mat-form-field>
+                <mat-label>Teacher</mat-label>
+                <mat-select>
+                  @for (state of states; track state) {
+                    <mat-option [value]="state">{{state}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         <table id="userTable">
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Role</th>
                     <th>Email</th>
                     <th>Address</th>
                     <th></th>
@@ -15,6 +30,7 @@
                 <!-- Sample user rows -->
                 <tr>
                     <td>Rianne Agnieka Castaenyeo</td>
+                    <td>General Mathematics</td>
                     <td>john.doeexample.com</td>
                     <td>123ElmSt reet,Spring field</td>
                     <td><i class="bi bi-pencil-fill"></i></td>
@@ -22,6 +38,7 @@
                 </tr>
                 <tr>
                     <td>Rianne Agnieka Castaenyeo</td>
+                    <td>General Mathematics</td>
                     <td>john.doeexample.com</td>
                     <td>123ElmSt reet,Spring field</td>
                     <td><i class="bi bi-pencil-fill"></i></td>
@@ -29,6 +46,7 @@
                 </tr>
                 <tr>
                     <td>Rianne Agnieka Castaenyeo</td>
+                    <td>General Mathematics</td>
                     <td>john.doeexample.com</td>
                     <td>123ElmSt reet,Spring field</td>
                     <td><i class="bi bi-pencil-fill"></i></td>
@@ -36,6 +54,7 @@
                 </tr>
                 <tr>
                     <td>Rianne Agnieka Castaenyeo</td>
+                    <td>General Mathematics</td>
                     <td>john.doeexample.com</td>
                     <td>123ElmSt reet,Spring field</td>
                     <td><i class="bi bi-pencil-fill"></i></td>
@@ -43,31 +62,13 @@
                 </tr>
                 <tr>
                     <td>Rianne Agnieka Castaenyeo</td>
+                    <td>General Mathematics</td>
                     <td>john.doeexample.com</td>
                     <td>123ElmSt reet,Spring field</td>
                     <td><i class="bi bi-pencil-fill"></i></td>
                     <td><i class="bi bi-trash3-fill"></i></td>
                 </tr>
-                <tr>
-                    <td>Rianne Agnieka Castaenyeo</td>
-                    <td>john.doeexample.com</td>
-                    <td>123ElmSt reet,Spring field</td>
-                    <td><i class="bi bi-pencil-fill"></i></td>
-                    <td><i class="bi bi-trash3-fill"></i></td>
-                </tr><tr>
-                    <td>Rianne Agnieka Castaenyeo</td>
-                    <td>john.doeexample.com</td>
-                    <td>123ElmSt reet,Spring field</td>
-                    <td><i class="bi bi-pencil-fill"></i></td>
-                    <td><i class="bi bi-trash3-fill"></i></td>
-                </tr>
-                <tr>
-                    <td>Rianne Agnieka Castaenyeo</td>
-                    <td>john.doeexample.com</td>
-                    <td>123ElmSt reet,Spring field</td>
-                    <td><i class="bi bi-pencil-fill"></i></td>
-                    <td><i class="bi bi-trash3-fill"></i></td>
-                </tr>
+                
                 
             </tbody>
         </table>

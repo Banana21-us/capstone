@@ -27,11 +27,8 @@
                 [routerLink]="subItem.route" 
                 [class.indented]="!collapsed()"
                 class="menu-item"
-                routerLinkActive
-                #rla="routerLinkActive" 
-                [activated]="rla.isActive">
-                <mat-icon matListItemIcon 
-                [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'">{{subItem.icon}}</mat-icon>
+                routerLinkActive>
+                <mat-icon matListItemIcon >{{subItem.icon}}</mat-icon>
                 @if (!collapsed()) {
                     <span matListItemTitle>{{subItem.label}}</span>
                 }

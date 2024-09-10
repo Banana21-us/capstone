@@ -5,11 +5,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin: 2rem auto;
-    min-width: 110%; /* Make sure it scales to fit its container */
-    max-width: 110%;
-    max-height: 99vh; /* Set a maximum height for scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 h2 {
@@ -23,6 +18,7 @@ table {
     width: auto;
     border-collapse: collapse;
     position: relative;
+    width: 100%;
     
 }
 

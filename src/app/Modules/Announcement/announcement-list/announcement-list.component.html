@@ -1,5 +1,7 @@
 <section class="announcement-list">
-    <h2>Latest Announcements</h2>
+
+    <h2>Latest Announcements <button type="button" class="btn btn-success" routerLink="/main-page/announcement/addannouncement">+</button></h2>            
+    <hr>
     <div id="announcementsContainer">
         <!-- Sample announcement 1 -->
         <div class="announcement">
@@ -12,86 +14,67 @@
                 <span class="date">August 7, 2024</span>
             </div>
             <p>Starting next week, the library will open from 8 AM to 8 PM on weekdays and from 10 AM to 5 PM on weekends. Please plan accordingly.</p>
-        </div>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Thread</mat-panel-title>
+                    </mat-expansion-panel-header>
         
-        <!-- Sample announcement 2 -->
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div><div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
-        <div class="announcement">
-            <div class="announcement-header">
-                <h3>Annual Sports Day</h3>
-                <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-                <span class="date">August 5, 2024</span>
-            </div>
-            <p>Our annual sports day is scheduled for August 15, 2024. All students are encouraged to participate in various sports and activities. See you there!</p>
-        </div>
+                    <!-- Thread message with profile picture, name, and date -->
+                    <div class="thread-message">
+                        <div class="message-header">
+                            <img src="assets/nlac1.jpg" alt="Profile Picture" class="profile-picture">
+                            <div class="message-info">
+                                <span class="name">John Doe</span>
+                                <span class="date-posted">August 7, 2024</span>
+                            </div>
+                        </div>
+                        <p>The library hours are more convenient now!</p>
+                    </div>
         
+                    <div class="thread-message">
+                        <div class="message-header">
+                            <img src="assets/nlac1.jpg" alt="Profile Picture" class="profile-picture">
+                            <div class="message-info">
+                                <span class="name">Jane Smith</span>
+                                <span class="date-posted">August 8, 2024</span>
+                            </div>
+                        </div>
+                        <p>Thank you for the update.</p>
+                    </div>
+                    <!-- own -->
+                    <div class="thread-message user-post">
+                        <div class="message-header">
+                            <img src="assets/nlac1.jpg" alt="My Profile Picture" class="profile-picture">
+                            <div class="message-info">
+                                <span class="name">Me Glen</span>
+                                <span class="date-posted">August 9, 2024</span>
+                            </div>
+                        </div>
+                        <p>Can we also extend weekend hours in the future?</p>
+                    </div>
+        
+                    <div class="thread-message">
+                        <div class="message-header">
+                            <img src="assets/nlac1.jpg" alt="Profile Picture" class="profile-picture">
+                            <div class="message-info">
+                                <span class="name">Alex Johnson</span>
+                                <span class="date-posted">August 9, 2024</span>
+                            </div>
+                        </div>
+                        <p>Can we also extend weekend hours in the future?</p>
+                    </div>
+
+                    
+        
+                    <!-- Static form to post a new message (UI only) -->
+                    <div class="form-group thread-input">
+                        <textarea rows="1" placeholder="Post a reply..."></textarea>
+                        <button>Post</button>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
         
     </div>
 </section>
