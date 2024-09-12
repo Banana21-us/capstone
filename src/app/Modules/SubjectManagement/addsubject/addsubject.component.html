@@ -1,28 +1,26 @@
 <section class="form-section">
-    <h2 style="  margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    color: #0056b3;">Subject Management</h2>
+    <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem; color: #0056b3;">Subject Management</h2>
     
-    <form id="classManagementForm">
+    <form [formGroup]="subjectManagementForm" (ngSubmit)="onSubmit()" id="classManagementForm">
         <div class="row">
-                <div class="form-group">
-                    <label for="subject">Subject Name:</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="gradelvl">Grade Level:</label>
-                    <input type="number" id="gradelvl" name="gradelvl" required>
-                </div>
-                <div class="form-group">
-                    <label for="strand">Strand:</label>
-                    <select id="strand" name="strand" required>
-                        <option value="">Select a strand</option>
-                        <option value="mathematics">STEM</option>
-                        <option value="english">HUMMS</option>
-                        <option value="science">ABM</option>
-                        <!-- Add more subjects as needed -->
-                    </select>
-                </div>  
+            <div class="form-group">
+                <label for="subject">Subject Name:</label>
+                <input type="text" id="subject" formControlName="subjectname" required>
+            </div>
+            <div class="form-group">
+                <label for="gradelvl">Grade Level:</label>
+                <input type="number" id="gradelvl" formControlName="gradelevel" required>\
+            </div>
+            <div class="form-group">
+                <label for="strand">Strand:</label>
+                <select id="strand" formControlName="strand" required>
+                    <option value="">Select a strand</option>
+                    <option value="mathematics">STEM</option>
+                    <option value="english">HUMMS</option>
+                    <option value="science">ABM</option>
+                    <!-- Add more subjects as needed -->
+                </select>
+            </div>  
         </div>
         <button type="submit">Submit</button>
     </form>

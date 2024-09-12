@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { LoginService } from '../../../login.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-subjectlist',
@@ -17,29 +17,22 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     FormsModule,
     CommonModule,
-    // ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   templateUrl: './subjectlist.component.html',
-  styleUrls: ['./subjectlist.component.css'], // Corrected styleUrls
+  styleUrls: ['./subjectlist.component.css'],
 })
-export class SubjectlistComponent {
-  states: string[] = [
-    'Math',
-    'English',
-    'Literature',
-    'Science',
-    'Bible',
-  ];
+export class SubjectlistComponent  {
+  // implements OnInit
+  states: string[] = ['Math', 'English', 'Literature', 'Science', 'Bible'];
+  // classes: any[] = [];
 
-  products: any[] = [];
+  // constructor(private logservice: LoginService) {}
 
-  constructor(private logservice: LoginService) {}
-
-  ngOnInit(): void {
-   this.logservice.getProducts().subscribe(
-    (data) => {
-      this.products = data;
-    }
-   )
-  }
+  // ngOnInit(): void {
+  //   this.logservice.getclasses().subscribe((data) => {
+  //     this.classes = data;
+  //   });
+  // }
 }
