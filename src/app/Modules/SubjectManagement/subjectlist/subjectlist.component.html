@@ -27,95 +27,17 @@
                 </tr>
             </thead>
             <tbody>
+                @for (sub of subjects; track sub) {
                 <tr>
-                    <td>Mathematics</td>
-                    <td>10</td>
-                    <td>STEM</td>
+                    <td>{{sub.subjectname}}</td>
+                    <td>{{sub.gradelevel}}</td>
+                    <td>{{sub.strand}}</td> 
                     <td>
                         <i class="bi bi-pencil-fill" title="Edit"></i>
                         <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
                     </td>
                 </tr>
-                <tr>
-                    <td>English</td>
-                    <td>11</td>
-                    <td>Humanities</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr><tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science adada  dadadada asda</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>12</td>
-                    <td>STEM</td>
-                    <td>
-                        <i class="bi bi-pencil-fill" title="Edit"></i>
-                        <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                    </td>
-                </tr>
+                }
             </tbody>
         </table>
 

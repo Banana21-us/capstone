@@ -34,10 +34,10 @@
         <mat-icon>settings</mat-icon>
         <span>Account Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['/login']">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-    </button>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+  </button>
 </mat-menu>
 
 </mat-toolbar> 

@@ -17,4 +17,8 @@ export class SubjectService {
     postsubject(subjectData:any):Observable<any>{
       return this.http.post<any>(this.apiUrl,subjectData)
     }
+
+    getsubjects(): Observable<any[]> {
+      return this.http.get<any[]>('http://localhost:8000/api/subjects'); 
+    }
 }

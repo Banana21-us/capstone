@@ -6,10 +6,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { SubjectService } from '../../../subject.service';
 
 @Component({
   selector: 'app-subjectlist',
   standalone: true,
+  providers:[SubjectService],
   imports: [
     RouterLink,
     MatFormFieldModule,
@@ -26,13 +28,13 @@ import { HttpClientModule } from '@angular/common/http';
 export class SubjectlistComponent  {
   // implements OnInit
   states: string[] = ['Math', 'English', 'Literature', 'Science', 'Bible'];
-  // classes: any[] = [];
+  subjects: any[] = [];
 
-  // constructor(private logservice: LoginService) {}
+  constructor(private subjectservice: SubjectService) {}
 
-  // ngOnInit(): void {
-  //   this.logservice.getclasses().subscribe((data) => {
-  //     this.classes = data;
-  //   });
-  // }
+  ngOnInit(): void {
+    this.subjectservice.getsubjects().subscribe((data) => {
+      this.subjects = data;
+    });
+  }
 }
