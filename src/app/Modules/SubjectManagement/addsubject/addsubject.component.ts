@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SubjectService } from '../../../subject.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-addsubject',
