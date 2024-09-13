@@ -24,18 +24,23 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'main-page', component: MainPageComponent,
       children: [
-        { path: 'homepage', loadChildren: () => import('./Modules/Dashboard/dashboard.routes').then(r => Dashboardroute),canActivate:[authGuard] },
-        { path: 'classmanagement', loadChildren: () => import('./Modules/ClassManagement/classmanagement.routes').then(r => managementroute) },
-        { 
-          path: 'subjectmanagement', 
+        { path: 'homepage', 
+          loadChildren: () => import('./Modules/Dashboard/dashboard.routes').then(r => Dashboardroute),
+          canActivate:[authGuard] },
+        { path: 'classmanagement', 
+          loadChildren: () => import('./Modules/ClassManagement/classmanagement.routes').then(r => managementroute) },
+        { path: 'subjectmanagement', 
           loadChildren: () => 
             import('./Modules/SubjectManagement/subjectmanagement.routes').then((r) => subjectmanagementroute) 
         },
-        { 
-          path: 'teacher', loadChildren: () => import('./Modules/Teacher/teacher.routes').then(r => teacherroutes) },
-        { path: 'announcement', loadChildren: () => import('./Modules/Announcement/announcement.routes').then(r => announcementroutes) },
-        { path: 'message', loadChildren: () => import('./Modules/Message/message.routes').then(r => messageroutes) },
-        { path: 'account', loadChildren: () => import('./Modules/Account/account.routes').then(r => accountroutes) },
+        {  path: 'teacher', 
+          loadChildren: () => import('./Modules/Teacher/teacher.routes').then(r => teacherroutes) },
+        { path: 'announcement', 
+          loadChildren: () => import('./Modules/Announcement/announcement.routes').then(r => announcementroutes) },
+        { path: 'message', 
+          loadChildren: () => import('./Modules/Message/message.routes').then(r => messageroutes) },
+        { path: 'account', 
+          loadChildren: () => import('./Modules/Account/account.routes').then(r => accountroutes) },
         { path: '', redirectTo: 'homepage', pathMatch: 'full' }
       ],
     },
