@@ -1,4 +1,4 @@
-import { CanActivate, CanActivateFn, Routes } from '@angular/router';
+import { CanActivate, CanActivateFn, Routes,Router } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { Dashboardroute } from './Modules/Dashboard/dashboard.routes';
 import { managementroute } from './Modules/ClassManagement/classmanagement.routes';
@@ -10,6 +10,7 @@ import { accountroutes } from './Modules/Account/account.routes';
 import { subjectmanagementroute } from './Modules/SubjectManagement/subjectmanagement.routes';
 import { authGuard } from './auth.guard';
 import { inject } from '@angular/core';
+
 
 export const loginGuard: CanActivateFn = (route,state)=>{
   const localData = localStorage.getItem('token');
