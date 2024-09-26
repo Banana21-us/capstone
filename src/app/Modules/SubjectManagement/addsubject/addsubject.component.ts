@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { SubjectService } from '../../../subject.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ConnectService } from '../../../connect.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class AddsubjectComponent {
 
-  constructor (private subservice: SubjectService,private router: Router) {}
+  constructor (private subservice: ConnectService,private router: Router) {}
 
   subjectManagementForm = new FormGroup({
     subjectname: new FormControl(''),

@@ -27,20 +27,52 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Sample user rows -->
-                <tr>
-                    <td>Rianne Agnieka Castaenyeo</td>
-                    <td>General Mathematics</td>
-                    <td>john.doeexample.com</td>
-                    <td>123ElmSt reet,Spring field</td>
-                    <td><i class="bi bi-pencil-fill"></i></td>
-                    <td><i class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" class="bi bi-trash3-fill"></i></td>
-                    
-                </tr>
+                @for (teach of teachers; track teach) {
+                    <tr>
+                        <td>{{ teach.lastname}}, {{teach.firstname}} {{ teach.middlename}} </td>
+                        <td>{{teach.role}}</td>
+                        <td>{{teach.email}}</td>
+                        <td>{{teach.address}}</td>
+                        <td>
+                            <i class="bi bi-pencil-fill" title="Edit"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+                        </td>
+                    </tr>
+                    }
+                    <!-- <tr>
+                        <td>Lozaada, Glenson A.</td>
+                        <td>Teacher</td>
+                        <td>glenmail.com</td>
+                        <td>Agat,Sison,Pangasinan</td>
+                        <td>
+                            <i class="bi bi-pencil-fill" title="Edit"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>SUbido, Arjay A.</td>
+                        <td>Teacher</td>
+                        <td>arjay.com</td>
+                        <td>dungon,Sison,Pangasinan</td>
+                        <td>
+                            <i class="bi bi-pencil-fill" title="Edit"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Manaois, Jhonnel A.</td>
+                        <td>Teacher</td>
+                        <td>jhonnel.com</td>
+                        <td>Agat,Sison,Pangasinan</td>
+                        <td>
+                            <i class="bi bi-pencil-fill" title="Edit"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+                        </td>
+                    </tr> -->
             </tbody>
         </table>
 
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
                     <th>Subject</th>
@@ -53,6 +85,6 @@
                     </tr>
                 }
             </tbody>
-        </table>
+        </table> -->
     </div>
 </div>

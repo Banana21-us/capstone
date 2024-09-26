@@ -12,10 +12,6 @@ export class ConnectService {
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
 
-  // saveToken(token: string): void {
-  //   this.token = token; // Save the token in the service
-  //   localStorage.setItem('token', token); // Optionally save it to localStorage
-  // }
 
   login(data:any){
     return this.http.post(this.url + 'login',data);
@@ -24,5 +20,30 @@ export class ConnectService {
   logout(): Observable<any> {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'logout', {}, { headers });
-}
+  }
+
+  // Subjects section
+  postsubject(subjectData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'subjects',subjectData)
+  }
+
+  getsubjects(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'subjects'); 
+  }
+
+  // teacher section 
+  postteacher(teacherData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'admins',teacherData)
+  }
+  getteacher(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'admins'); 
+  }
+
+  // announcement section 
+  submitannouncement(announcementData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'announcements',announcementData)
+  }
+  getannouncement(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'announcements'); 
+  }
 }

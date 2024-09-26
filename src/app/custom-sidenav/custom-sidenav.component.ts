@@ -32,21 +32,19 @@ export class CustomSidenavComponent {
       route: 'homepage'
     },
     {
-      icon: 'home',
-      label: 'Management',
-      route: 'classmanagement',
-      subItems: [
-        {
-          icon: 'class',
-          label: 'Class',
-          route: 'classmanagement'
-        },
-        {
-          icon: 'subject',
-          label: 'Subject',
-          route: 'subjectmanagement'
-        }
-      ]
+      icon: 'class',
+      label: 'Class',
+      route: 'classmanagement'
+    },
+    {
+      icon: 'subject',
+      label: 'Subject',
+      route: 'subjectmanagement'
+    },
+    {
+      icon: 'meeting_room',
+      label: 'Section',
+      route: 'section'
     },
     {
       icon: 'person',

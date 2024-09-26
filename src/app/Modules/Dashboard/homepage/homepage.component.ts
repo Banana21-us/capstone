@@ -27,7 +27,7 @@ export class HomepageComponent implements AfterViewInit {
           labels: ['7', '8', '9', '10', 'STEM', 'ABM','HUMMS'],
           datasets: [{
             label: '# of Students',
-            data: [12, 19, 3, 5, 2, 3,50],
+            data: [78, 287, 80, 41, 177, 40,  237,],
             borderWidth: 1
           }]
         },
