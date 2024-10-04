@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 
-
 @Component({
   selector: 'app-addsubject',
   standalone: true,
@@ -14,34 +13,44 @@ import { ConnectService } from '../../../connect.service';
 })
 export class AddsubjectComponent {
 
-  constructor (private subservice: ConnectService,private router: Router) {}
+  subjectManagementForm: FormGroup;
+  isStrandVisible: boolean = false;
 
-  subjectManagementForm = new FormGroup({
-    subjectname: new FormControl(''),
-    gradelevel: new FormControl(''),
-    strand : new FormControl('')
-  });
+  constructor(
+    private fb: FormBuilder,
+    private subservice: ConnectService,
+    private router: Router
+  ) {
+    this.subjectManagementForm = this.fb.group({
+      subject_name: ['', Validators.required],
+      grade_level: ['', Validators.required],
+      strand: ['']
+    });
+  }
+
+  onGradeChange() {
+    const selectedGrade = this.subjectManagementForm.get('grade_level')?.value;
+    this.isStrandVisible = selectedGrade === '11' || selectedGrade === '12';
+
+    if (!this.isStrandVisible) {
+      this.subjectManagementForm.get('strand')?.setValue('-');
+    }
+  }
 
   submitsubjects() {
     this.subservice.postsubject(this.subjectManagementForm.value).subscribe(
       (result: any) => {
         console.log('Subject submitted successfully:', result);
-        // Optionally, reset the form or show a success message
         this.subjectManagementForm.reset();
-        this.navigateToMainPage(); // Navigate to the main page
-
+        this.navigateToMainPage();
       },
       (error) => {
         console.error('Error submitting subject:', error);
-        // Handle the error, e.g., show an error message to the user
       }
     );
   }
+
   navigateToMainPage() {
-    console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/subjectmanagement/subjectlist']);
   }
-        
-    
-  
 }

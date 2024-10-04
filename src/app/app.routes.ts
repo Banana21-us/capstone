@@ -13,6 +13,7 @@ import { accountroutes } from './Modules/Account/account.routes';
 import { subjectmanagementroute } from './Modules/SubjectManagement/subjectmanagement.routes';
 import { authGuard } from './auth.guard';
 import { inject } from '@angular/core';
+import { parentroutes } from './Modules/Parent/parent.routes';
 
 
 export const loginGuard: CanActivateFn = (route,state)=>{
@@ -26,7 +27,7 @@ export const loginGuard: CanActivateFn = (route,state)=>{
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,
-      // canActivate:[loginGuard] 
+      canActivate:[loginGuard] 
     },
     { path: 'main-page', component: MainPageComponent,
       children: [
@@ -46,6 +47,9 @@ export const routes: Routes = [
         {  path: 'section', 
           loadChildren: () => import('./Modules/SectionManagement/section.routes').then(r => sectionroutes),
           canActivate:[authGuard]},
+          {  path: 'parent', 
+            loadChildren: () => import('./Modules/Parent/parent.routes').then(r => parentroutes),
+            canActivate:[authGuard]},
         { path: 'announcement', 
           loadChildren: () => import('./Modules/Announcement/announcement.routes').then(r => announcementroutes),
           canActivate:[authGuard] },

@@ -23,19 +23,17 @@
                     <th>Email</th>
                     <th>Address</th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @for (teach of teachers; track teach) {
                     <tr>
-                        <td>{{ teach.lastname}}, {{teach.firstname}} {{ teach.middlename}} </td>
+                        <td>{{ teach.lname}}, {{teach.fname}} {{ teach.mname}} </td>
                         <td>{{teach.role}}</td>
                         <td>{{teach.email}}</td>
                         <td>{{teach.address}}</td>
                         <td>
-                            <i class="bi bi-pencil-fill" title="Edit"></i>
-                            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete" (click)="onDelete(teach.admin_id)"></i>
                         </td>
                     </tr>
                     }

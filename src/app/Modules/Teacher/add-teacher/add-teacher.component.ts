@@ -18,13 +18,13 @@ export class AddTeacherComponent {
   constructor (private teacherservice: ConnectService,private router: Router) {}
 
   teacherform = new FormGroup({
-    firstname: new FormControl(''),
-    middlename: new FormControl(''),
-    lastname : new FormControl(''),
-    email : new FormControl(''),
-    role : new FormControl(''),
-    address : new FormControl(''),
-    password : new FormControl('')
+    fname: new FormControl('', Validators.required),
+    mname: new FormControl(''),
+    lname : new FormControl('', Validators.required),
+    email : new FormControl('', [Validators.required, Validators.email]),
+    role: new FormControl('Teacher', Validators.required),
+    address : new FormControl('', Validators.required),
+    password : new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   submitteacher() {

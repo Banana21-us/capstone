@@ -1,0 +1,54 @@
+<!-- parentlist.component.html -->
+<div class="container-fluid">
+    <div class="table-container">
+        <div class="row align-items-center">
+            <div class="col d-flex align-items-center">
+                <h2>Registered Parents/Guardians 
+                    <button type="button" class="btn btn-success" routerLink="/main-page/parent/addparent">+</button>
+                </h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <mat-form-field>
+                    <mat-label>Filter by Parent</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <table id="parentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Relationship</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                    <th>Associated Learners (LRN)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let parent of parents; let i = index">
+                    <tr>
+                        <td>{{ parent.lname }}, {{ parent.fname }} {{ parent.mname }}</td>
+                        <td>{{ parent.relationship }}</td>
+                        <td>{{ parent.contact_no }}</td>
+                        <td>{{ parent.email }}</td>
+                        <td>
+                            <li *ngFor="let student of parent.students">
+                                {{ student.fname }} {{ student.lname }} {{ student.mname ? student.mname : '' }}
+                            </li>
+                        </td>
+                    </tr>
+                </ng-container>
+
+                <!-- Handle case where there are no parents -->
+                <ng-container *ngIf="parents.length === 0">
+                    <tr>
+                        <td colspan="7" class="text-center">No Registered Parents or Guardians</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

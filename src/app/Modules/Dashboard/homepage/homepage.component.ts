@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { SidepanelparentComponent } from '../sidepanelparent/sidepanelparent.component';
+// import { SidepanelparentComponent } from '../sidepanelparent/sidepanelparent.component';
 import { Chart, registerables } from 'chart.js';
 
 // Register all necessary components of Chart.js
@@ -8,7 +8,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [SidepanelparentComponent],
+  imports: [],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })

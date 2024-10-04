@@ -4,8 +4,9 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    margin: 2rem auto;
-    margin-bottom: 0%;
+    margin: 1rem 0;
+    margin-top: 0%;
+    
 }
 
 h2 {
@@ -19,6 +20,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     position: relative;
+    
+    
 }
 
 table th,
@@ -27,6 +30,7 @@ table td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 1rem;
+    
 }
 
 table th {
@@ -42,9 +46,28 @@ table tbody tr:hover {
 table td {
     color: #333;
 }
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table-dark th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table td, .table th {
+    padding: 15px;
+    text-align: left;
+}
+
+.table-secondary {
+    background-color: #f8f9fa;
+}
 
 /* Responsive design for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -80,24 +103,3 @@ table td {
         color: #0056b3;
     }
 }
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-}
-
-th {
-    white-space: nowrap;
-    background-color: #f2f2f2;
-    font-weight: bold;
-    color: #333;
-}
-
-td {
-    white-space: nowrap;
-}
-

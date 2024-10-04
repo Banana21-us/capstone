@@ -17,8 +17,10 @@ export class AddAnnouncementComponent {
 
 
   announcementform = new FormGroup({
+    admin_id: new FormControl(1),
+    class_id: new FormControl(1),
     title: new FormControl(''),
-    message: new FormControl(''),
+    announcement: new FormControl(''),
   });
 
   postannouncement() {
@@ -31,7 +33,7 @@ export class AddAnnouncementComponent {
 
       },
       (error) => {
-        console.error('Error submitting anouncement account:', error);
+        console.error('Error submitting announcement:', error);
         // Handle the error, e.g., show an error message to the user
       }
     );

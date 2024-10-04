@@ -33,10 +33,13 @@ export class ConnectService {
 
   // teacher section 
   postteacher(teacherData:any):Observable<any>{
-    return this.http.post<any>(this.url + 'admins',teacherData)
+    return this.http.post<any>(this.url + 'register',teacherData)
   }
   getteacher(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'admins'); 
+  }
+  deleteteacher(admin_id: number): Observable<any> {
+    return this.http.delete(`${this.url}admins/${admin_id}`);
   }
 
   // announcement section 
@@ -45,5 +48,28 @@ export class ConnectService {
   }
   getannouncement(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'announcements'); 
+  }
+  getupdateannouncement(ancmnt_id: number): Observable<any> {
+    return this.http.get<any>(`${this.url}announcements/${ancmnt_id}`); // Adjust the endpoint as necessary
+  }
+  updateannouncement(ancmnt_id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.url}announcements/${ancmnt_id}`, data);
+  }
+  
+  deleteAnnouncement(ancmnt_id: number): Observable<any> {
+    return this.http.delete(`${this.url}announcements/${ancmnt_id}`);
+  }
+
+  // section section
+  postsection(sectionData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'sections',sectionData)
+  }
+  getsection(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'sections'); 
+  }
+
+  // parent section
+  getparent(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'parentguardian'); 
   }
 }

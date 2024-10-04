@@ -58,6 +58,7 @@ label{
 .form-group input,
 .form-group select {
     width: 100%;
+    height: 60px;
     padding: 0.75rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -74,7 +75,7 @@ label{
     outline: none;
 }
 
-button {
+.btnsbmt {
     background-color: #0056b3;
     color: #fff;
     border: none;
@@ -85,7 +86,7 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.btnsbmt:hover {
     background-color: #003d79;
 }
 
@@ -117,3 +118,35 @@ button:hover {
     border-left: 0;
     border-radius: 0 4px 4px 0;
 }
+
+
+.custom-select {
+    width: 100%; /* Adjust the width as needed */
+    height: 82px;
+  }
+  
+  .mat-form-field {
+    width: 100%; /* Ensure the form field takes full width */
+    border-radius: 4px; /* Rounded corners */
+    
+  }
+  
+  
+  .mat-form-field-outline {
+    border-radius: 4px; /* Same rounding as above */
+    
+  }
+  
+  .mat-form-field-outline .mat-form-field-outline-start,
+  .mat-form-field-outline .mat-form-field-outline-end {
+    display: none; /* Hide start and end outlines */
+  }
+  
+  .mat-select .mat-select-trigger {
+    padding: 10px; /* Add some padding */
+    height: auto; /* Allow height to auto adjust */
+    display: flex;
+    align-items: center; /* Center align content */
+    border-radius: 4px; /* Rounded corners */
+    
+  }

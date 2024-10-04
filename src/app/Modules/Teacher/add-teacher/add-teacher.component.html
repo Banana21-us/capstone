@@ -6,19 +6,19 @@
             <div class="col-md-6 me-5">
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" formControlName="firstname" name="firstname" class="form-control" required>
+                    <input type="text" id="firstName" formControlName="fname" name="firstname" class="form-control" required>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-group">
                     <label for="middleInitial">Middle Initial:</label>
-                    <input type="text" id="middleInitial" formControlName="middlename" name="middlename" class="form-control" required>
+                    <input type="text" id="middleInitial" formControlName="mname" name="middlename" class="form-control" required>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" formControlName="lastname" class="form-control" required>
+            <input type="text" id="lastName" name="lastName" formControlName="lname" class="form-control" required>
         </div>
         <div class="row">
             <div class="col-md-6 me-5">
@@ -27,7 +27,7 @@
                     <input type="email" id="email" formControlName="email" name="email" class="form-control" required>
                 </div>
             </div>
-            <div class="col-md">
+            <div class="col-md" style="display:none;">
                 <div class="form-group">
                     <label for="role">Role:</label>
                     <input type="text" id="Role" formControlName="role" name="Role" class="form-control" required>

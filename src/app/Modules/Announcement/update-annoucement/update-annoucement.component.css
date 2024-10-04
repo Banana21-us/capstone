@@ -1,0 +1,65 @@
+/* Styles for form and list */
+.announcement-form,
+.announcement-list {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    flex: 1;
+}
+
+.announcement-form {
+    flex: 1 1 45%;
+}
+
+.announcement-list {
+    flex: 1 1 45%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 80vh; /* Adjust this value as needed */
+}
+
+/* Form and button styles */
+.announcement-form h2,
+.announcement-list h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #003d79;
+}

@@ -52,6 +52,11 @@ export class CustomSidenavComponent {
       route: 'teacher'
     },
     {
+      icon: 'family_restroom',
+      label: 'Parent',
+      route: 'parent'
+    },
+    {
       icon: 'announcement',
       label: 'Announcement',
       route: 'announcement'

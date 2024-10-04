@@ -15,8 +15,8 @@
                     <!-- Exciting School Events Coming Up! -->
                 </h3> <!-- Dynamically render announcement title -->
                 <div class="announcement-actions">
-                    <a href="#" class="edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="delete"><i class="bi bi-trash-fill"></i></a>
+                    <a class="edit"><i class="bi bi-pencil-fill" (click)="onUpdate(ann.ancmnt_id)"></i></a>
+                    <a class="delete"><i class="bi bi-trash-fill" (click)="onDelete(ann.ancmnt_id)" ></i></a>
                 </div>
                 <span class="date">
                     <!-- September 12,2024 -->
@@ -24,7 +24,7 @@
                 </span>
                 
             </div>
-            <p class="announcement-p">{{ann.message}}</p>
+            <p class="announcement-p">{{ann.announcement}}</p>
         </div>
         
     }

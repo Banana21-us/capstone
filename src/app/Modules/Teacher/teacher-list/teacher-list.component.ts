@@ -23,16 +23,39 @@ export class TeacherListComponent implements OnInit{
     'Dionece College',
     'Glen lozada',
   ];
-  // classes: any[] = [];
 
   teachers: any[] = [];
 
   constructor(private teacherservice: ConnectService) {}
 
   ngOnInit(): void {
+    this.fetchteacher();
+  }
+  fetchteacher(){
     this.teacherservice.getteacher().subscribe((data) => {
       this.teachers = data;
     });
+  }
+
+  onDelete(admin_id: number): void {
+    this.teacherservice.deleteteacher(admin_id).subscribe(
+        response => {
+            console.log('Deleting teacher:', response.message);
+            // Optionally refresh the teacher list here
+            this.fetchteacher(); 
+        },
+        error => {
+            console.error('Error deleting teacher:', error);
+            if (error.status) {
+                console.error('HTTP Status:', error.status);
+            }
+            if (error.error && error.error.message) {
+                console.error('Server message:', error.error.message);
+            } else {
+                console.error('Unexpected error format:', error);
+            }
+        }
+    );
   }
   
 }

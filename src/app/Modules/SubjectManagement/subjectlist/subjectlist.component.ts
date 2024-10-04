@@ -20,7 +20,6 @@ import { ConnectService } from '../../../connect.service';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
   ],
   templateUrl: './subjectlist.component.html',
   styleUrls: ['./subjectlist.component.css'],
