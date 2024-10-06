@@ -77,13 +77,20 @@ export class ParentlistComponent implements OnInit {
     }, error => {
         console.error('Error fetching parents:', error);
     });
-}
-
-
-
-
+  }
   // Method to check if a value is an array
   isArray(value: any): boolean {
       return Array.isArray(value);
+  }
+  deleteParent(email: string): void {
+    this.parentservice.deleteParent(email).subscribe(
+      () => {
+        this.parents = this.parents.filter(parent => parent.email !== email);
+        console.log('All Parent/Guardians with that email deleted successfully.');
+      },
+      (error) => {
+        console.error('Error deleting Parent/Guardian:', error);
+      }
+    );
   }
 }

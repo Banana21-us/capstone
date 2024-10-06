@@ -24,7 +24,8 @@
                     <th>Relationship</th>
                     <th>Contact Number</th>
                     <th>Email</th>
-                    <th>Associated Learners (LRN)</th>
+                    <th>Children</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,10 @@
                             <li *ngFor="let student of parent.students">
                                 {{ student.fname }} {{ student.lname }} {{ student.mname ? student.mname : '' }}
                             </li>
+                        </td>
+                        <td>
+                            <i class="bi bi-pencil-fill" title="Edit"></i>
+                            <i class="bi bi-trash3-fill ms-3" title="Delete" (click)="deleteParent(parent.email)"></i>
                         </td>
                     </tr>
                 </ng-container>

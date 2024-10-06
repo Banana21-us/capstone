@@ -72,4 +72,7 @@ export class ConnectService {
   getparent(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'parentguardian'); 
   }
+  deleteParent(email: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}parentguardian/${email}`);
+  }
 }
