@@ -8,6 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
+import { AddupdatelrndialogComponent } from '../addupdatelrndialog/addupdatelrndialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 
 interface Student {
     fname: string;
@@ -39,7 +42,8 @@ interface Parent {
     MatExpansionModule,
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule,
   ],
   templateUrl: './parentlist.component.html',
   styleUrls: ['./parentlist.component.css'] // Fixed typo here
@@ -56,13 +60,23 @@ export class ParentlistComponent implements OnInit {
   
   parents: Parent[] = []; 
 
-  constructor(private parentservice: ConnectService, private router: Router) {}
+  constructor(private parentservice: ConnectService, private router: Router,private dialog: MatDialog,) {}
 
   ngOnInit(): void {
       this.fetchParent();
       console.log(this.parents);
 
   }
+  openDialog(email: string): void {
+    const dialogRef = this.dialog.open(AddupdatelrndialogComponent, {
+        data: { email }
+    });
+
+    // Listen for update success event
+    dialogRef.componentInstance.updateSuccess.subscribe(() => {
+        this.fetchParent(); // Call method to fetch updated parent list
+    });
+}
 
   fetchParent() {
     this.parentservice.getparent().subscribe((data) => {

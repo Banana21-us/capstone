@@ -41,11 +41,11 @@ export class CustomSidenavComponent {
       label: 'Subject',
       route: 'subjectmanagement'
     },
-    {
-      icon: 'meeting_room',
-      label: 'Section',
-      route: 'section'
-    },
+    // {
+    //   icon: 'meeting_room',
+    //   label: 'Section',
+    //   route: 'section'
+    // },
     {
       icon: 'person',
       label: 'Teacher',

@@ -75,4 +75,20 @@ export class ConnectService {
   deleteParent(email: string): Observable<void> {
     return this.http.delete<void>(`${this.url}parentguardian/${email}`);
   }
+  getStudentByLRN(lrn: string): Observable<any> {
+    return this.http.get<any>(`${this.url}student/${lrn}`); // Adjust endpoint as necessary
+  }
+  getAllLRNs(): Observable<string[]> {  
+    return this.http.get<string[]>(`${this.url}lrns`); // Adjust endpoint as necessary
+  }
+  getAllStudents(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'student');
+  }
+  submitparent(parentData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'parentguardian',parentData)
+  }
+  updateParentGuardian(email: string, lrn: string[]): Observable<any> {
+    const payload = { LRN: lrn }; // Wrap LRN in an object
+    return this.http.patch(`${this.url}parentguardian/${email}`, payload);
+  }
 }

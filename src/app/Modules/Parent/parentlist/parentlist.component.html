@@ -41,9 +41,10 @@
                             </li>
                         </td>
                         <td>
-                            <i class="bi bi-pencil-fill" title="Edit"></i>
-                            <i class="bi bi-trash3-fill ms-3" title="Delete" (click)="deleteParent(parent.email)"></i>
+                            <i class="bi bi-person-plus-fill" type='button' (click)="openDialog(parent.email)"></i>
+                            <i class="bi bi-trash3-fill ms-3" type='button' title="Delete" (click)="deleteParent(parent.email)"></i>
                         </td>
+
                     </tr>
                 </ng-container>
 
