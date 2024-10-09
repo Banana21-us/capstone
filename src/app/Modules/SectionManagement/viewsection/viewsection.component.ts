@@ -75,7 +75,7 @@ export class ViewsectionComponent {
     });
 
     const dialogRef = this.dialog.open(EditsectiondialogComponent, {
-        width: 'auto',
+      width: 'auto',
         data: {
             grade_level: grade.level,
             section_name: Array.isArray(grade.sections) ? grade.sections : [] // Ensure it's an array
@@ -88,26 +88,26 @@ export class ViewsectionComponent {
             console.log('Data passed to dialog:', result);
         }
     });
-}
-updateSection(updatedData: any): void {
-  const gradeLevel = updatedData.grade_level; // Get grade level from updated data
+  }
+  updateSection(updatedData: any): void {
+    const gradeLevel = updatedData.grade_level; // Get grade level from updated data
 
-  // Use the Section interface to define the type of section
-  const sectionNames = updatedData.section_names.map((section: Section) => section.name);
+    // Use the Section interface to define the type of section
+    const sectionNames = updatedData.section_names.map((section: Section) => section.name);
 
-  const sectionData = { 
-      section_name: sectionNames, // Use the transformed array
-      grade_level: gradeLevel 
-  }; 
+    const sectionData = { 
+        section_name: sectionNames, // Use the transformed array
+        grade_level: gradeLevel 
+    }; 
 
-  this.sectionservice.updateSectionsByGrade(gradeLevel, sectionData).subscribe(
-      response => {
-          console.log('Sections updated successfully:', response);
-          this.fetchGrades(); // Optionally refresh your sections or grades here
-      },
-      error => {
-          console.error('Error updating sections:', error);
-      }
-  );
-}
+    this.sectionservice.updateSectionsByGrade(gradeLevel, sectionData).subscribe(
+        response => {
+            console.log('Sections updated successfully:', response);
+            this.fetchGrades(); // Optionally refresh your sections or grades here
+        },
+        error => {
+            console.error('Error updating sections:', error);
+        }
+    );
+  }
 }

@@ -26,15 +26,16 @@ export interface EditSectionDialogData {
   templateUrl: './editsectiondialog.component.html',
 })
 
-
 export class EditsectiondialogComponent {
   editSectionForm: FormGroup;
+  grade_level: number; // Property to hold grade level
 
   constructor(
     private dialogRef: MatDialogRef<EditsectiondialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditSectionDialogData,
     private formBuilder: FormBuilder
   ) {
+    this.grade_level = data.grade_level; // Assign passed grade level
     this.editSectionForm = this.formBuilder.group({
       grade_level: [data.grade_level, Validators.required],
       section_names: this.formBuilder.array(
@@ -51,6 +52,14 @@ export class EditsectiondialogComponent {
 
   get sectionNamesArray(): FormArray {
     return this.editSectionForm.get('section_names') as FormArray;
+  }
+
+  addSection(): void {
+    this.sectionNamesArray.push(this.createSectionGroup('')); // Add an empty section
+  }
+
+  removeSection(index: number): void {
+    this.sectionNamesArray.removeAt(index); // Remove the section at the specified index
   }
 
   onSubmit(): void {
