@@ -76,7 +76,7 @@ export class ParentlistComponent implements OnInit {
     dialogRef.componentInstance.updateSuccess.subscribe(() => {
         this.fetchParent(); // Call method to fetch updated parent list
     });
-}
+  }
 
   fetchParent() {
     this.parentservice.getparent().subscribe((data) => {

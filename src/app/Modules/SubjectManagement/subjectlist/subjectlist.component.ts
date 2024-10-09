@@ -25,7 +25,6 @@ import { ConnectService } from '../../../connect.service';
   styleUrls: ['./subjectlist.component.css'],
 })
 export class SubjectlistComponent  {
-  // implements OnInit
   states: string[] = ['Math', 'English', 'Literature', 'Science', 'Bible'];
   subjects: any[] = [];
 

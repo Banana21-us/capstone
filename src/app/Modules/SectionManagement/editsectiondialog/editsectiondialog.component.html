@@ -1,0 +1,23 @@
+<mat-dialog-content>
+    <h2>Edit Section</h2>
+    <form [formGroup]="editSectionForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Grade Level</mat-label>
+            <input matInput formControlName="grade_level" placeholder="Enter Grade Level">
+        </mat-form-field>
+
+        <div formArrayName="section_names">
+            <div *ngFor="let section of sectionNamesArray.controls; let i = index" [formGroupName]="i">
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                    <mat-label>Section Name</mat-label>
+                    <input matInput formControlName="name" placeholder="Enter Section Name">
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" [disabled]="editSectionForm.invalid" (click)="onSubmit()">Ok</button>
+</mat-dialog-actions>

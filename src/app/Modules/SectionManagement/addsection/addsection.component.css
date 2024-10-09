@@ -42,7 +42,7 @@ button {
     background-color: #0056b3;
     color: #fff;
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.1rem 0.5rem;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
@@ -50,6 +50,19 @@ button {
 }
 
 button:hover {
+    background-color: #003d79;
+}
+.btn-custom{
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+btn-custom:hover {
     background-color: #003d79;
 }
 
@@ -94,4 +107,9 @@ button:hover {
     button {
         padding: 0.4rem 1rem;
     }
+}
+.section-list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin-left: -32px; /* Remove default margin */
 }

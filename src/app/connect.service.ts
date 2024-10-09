@@ -11,7 +11,7 @@ export class ConnectService {
 
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
-
+  apiUrl ="http://localhost:8000/api/sections";
 
   login(data:any){
     return this.http.post(this.url + 'login',data);
@@ -67,6 +67,13 @@ export class ConnectService {
   getsection(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'sections'); 
   }
+  updateSectionsByGrade(gradeLevel: number, sectionData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${gradeLevel}`, sectionData);
+}
+  deleteSectionsByGrade(gradeLevel: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${gradeLevel}`); // No body sent here
+}
+  
 
   // parent section
   getparent(): Observable<any[]> {
@@ -76,10 +83,10 @@ export class ConnectService {
     return this.http.delete<void>(`${this.url}parentguardian/${email}`);
   }
   getStudentByLRN(lrn: string): Observable<any> {
-    return this.http.get<any>(`${this.url}student/${lrn}`); // Adjust endpoint as necessary
+    return this.http.get<any>(`${this.url}student/${lrn}`); 
   }
   getAllLRNs(): Observable<string[]> {  
-    return this.http.get<string[]>(`${this.url}lrns`); // Adjust endpoint as necessary
+    return this.http.get<string[]>(`${this.url}lrns`); 
   }
   getAllStudents(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'student');

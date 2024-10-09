@@ -3,13 +3,31 @@
 
     <form [formGroup]="sectionform" (ngSubmit)="submitsection()" id="teacher">
         <div class="row">
-            <div class="col">
                 <div class="form-group">
-                    <label for="section">Seection Name:</label>
-                    <input type="text" id="section" formControlName="sectionname" name="section" class="form-control" required>
+                    <label for="grade_level">Grade Level:</label>
+                    <input type="text" id="grade_level" formControlName="grade_level" name="grade_level" class="form-control" required>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="sectionList">Section List: <button type="button" class="btn btn-success" (click)="openDialog()">+</button>
+                    </label>
+                    <!-- Display added subjects -->
+                    <ul>
+                      <li class="section-list" *ngFor="let section of sectionList; let i = index" style="display: flex; align-items: center; position: relative;">
+                        <i *ngIf="sectionList.length > 1"
+                           (click)="removeSection(i)"
+                           style="color: red; font-size: 15px;"
+                           class="bi bi-trash me-2"></i>
+                        <span  style="flex-grow: 1;">{{ section }}</span>
+                      </li>
+                    </ul>
+                    <!-- Button to open dialog -->
+                </div>
+              
+
+               
+
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button  type="submit" class="btn btn-primary btn-custom mt-2">Register</button>
     </form>
 </div>

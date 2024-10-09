@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
+import { AddsubjectdialogComponent } from '../addsubjectdialog/addsubjectdialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addsubject',
@@ -13,20 +15,18 @@ import { ConnectService } from '../../../connect.service';
 })
 export class AddsubjectComponent {
 
-  subjectManagementForm: FormGroup;
   isStrandVisible: boolean = false;
+  subjectsList: string[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private subservice: ConnectService,
-    private router: Router
-  ) {
-    this.subjectManagementForm = this.fb.group({
-      subject_name: ['', Validators.required],
-      grade_level: ['', Validators.required],
-      strand: ['']
-    });
-  }
+  constructor ( private dialog: MatDialog,private subservice: ConnectService,private router: Router) {}
+
+  subjectManagementForm = new FormGroup({
+    subject_name: new FormControl(''),
+    grade_level: new FormControl(''),
+    strand: new FormControl(''),
+    section_name: new FormControl(''),
+  });
+   
 
   onGradeChange() {
     const selectedGrade = this.subjectManagementForm.get('grade_level')?.value;
@@ -38,19 +38,51 @@ export class AddsubjectComponent {
   }
 
   submitsubjects() {
-    this.subservice.postsubject(this.subjectManagementForm.value).subscribe(
-      (result: any) => {
-        console.log('Subject submitted successfully:', result);
-        this.subjectManagementForm.reset();
-        this.navigateToMainPage();
-      },
-      (error) => {
-        console.error('Error submitting subject:', error);
-      }
+    const formData = {
+        ...this.subjectManagementForm.value,
+        subject_name: this.subjectsList, // Ensure this is an array
+        section: this.subjectManagementForm.get('section_name')?.value // Change to 'section'
+    };
+
+    // Log the formData to see what is being submitted
+    console.log('Submitting the following data:', formData);
+
+    // Check if subject_name array is empty
+    if (formData.subject_name.length === 0) {
+        console.error('Subject name array is empty.');
+        return; // Prevent submission if empty
+    }
+
+    this.subservice.postsubject(formData).subscribe(
+        (result) => {
+            console.log('Subjects submitted successfully:', result);
+            this.subjectManagementForm.reset();
+            this.subjectsList = []; // Reset subjects list after submission
+            this.navigateToMainPage();
+        },
+        (error) => {
+            console.error('Error submitting subjects:', error);
+        }
     );
-  }
+}
 
   navigateToMainPage() {
     this.router.navigate(['/main-page/subjectmanagement/subjectlist']);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddsubjectdialogComponent, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.subjectsList.push(result);
+      }
+    });
+  }
+  removeSubject(index: number): void {
+    this.subjectsList.splice(index, 1); // Remove the subject from the list
   }
 }

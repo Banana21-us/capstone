@@ -24,6 +24,10 @@ body {
     font-size: 1.8rem; /* Adjusted to match inline style in HTML */
     color: #0056b3;   /* Adjusted to match inline style in HTML */
 }
+.form-section h3 {
+    font-size: 1rem; /* Adjusted to match inline style in HTML */
+    color: #000;   /* Adjusted to match inline style in HTML */
+}
 
 .form-group {
     margin-bottom: 1rem;
@@ -55,11 +59,26 @@ body {
     outline: none;
 }
 
-button {
+.button-submit {
     background-color: #0056b3;
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-submit:hover {
+    background-color: #003d79;
+}
+
+button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 0.1rem 0.5rem;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
