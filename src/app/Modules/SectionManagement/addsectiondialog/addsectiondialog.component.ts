@@ -21,7 +21,7 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddsectiondialogComponent {
-  sectionName: string = '';
+  sectionName: string = ''; // Only capturing section name
 
   constructor(
     private dialogRef: MatDialogRef<AddsectiondialogComponent>,
@@ -35,7 +35,7 @@ export class AddsectiondialogComponent {
   addsections(): void {
     console.log('addsections called'); // Debugging line
     if (this.sectionName.trim()) {
-      this.dialogRef.close(this.sectionName.trim());
+      this.dialogRef.close(this.sectionName.trim()); // Return only section name
     }
   }
 }

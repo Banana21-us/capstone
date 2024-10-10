@@ -26,10 +26,12 @@ export class ConnectService {
   postsubject(subjectData:any):Observable<any>{
     return this.http.post<any>(this.url + 'subjects',subjectData)
   }
-
   getsubjects(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'subjects'); 
   }
+  deleteSubjectByGrade(gradeLevel: number): Observable<any> {
+    return this.http.delete(`${this.url}subjects/${gradeLevel}`); 
+}
 
   // teacher section 
   postteacher(teacherData:any):Observable<any>{
@@ -67,12 +69,13 @@ export class ConnectService {
   getsection(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'sections'); 
   }
+
   updateSectionsByGrade(gradeLevel: number, sectionData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${gradeLevel}`, sectionData);
-}
+    return this.http.put(`${this.url}sections/${gradeLevel}`, sectionData);
+  }
   deleteSectionsByGrade(gradeLevel: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${gradeLevel}`); // No body sent here
-}
+    return this.http.delete(`${this.url}sections/${gradeLevel}`); // No body sent here
+  }
   
 
   // parent section

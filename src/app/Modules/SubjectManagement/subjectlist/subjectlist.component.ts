@@ -31,8 +31,34 @@ export class SubjectlistComponent  {
   constructor(private subjectservice: ConnectService) {}
 
   ngOnInit(): void {
+    // Fetch subjects from the service
+    this.fethsubject();
+  }
+  fethsubject(){
     this.subjectservice.getsubjects().subscribe((data) => {
+      // Log the received data to the console
+      console.log('Fetched subjects:', data);
+
+      // Assign the fetched data to the component's subjects property
       this.subjects = data;
-    });
+  }, (error) => {
+      // Log any errors that occur during the fetch
+      console.error('Error fetching subjects:', error);
+  });
+  }
+  openEditSubjectModal(){
+    
+  }
+  deleteGrade(gradeLevel: number) {
+    console.log(`Attempting to delete sections for grade level: ${gradeLevel}`);
+    this.subjectservice.deleteSubjectByGrade(gradeLevel).subscribe(
+        response => {
+            console.log('gradesubjects deleted successfully:', response);
+            this.fethsubject(); // Refresh the grades list after deletion
+        },
+        error => {
+            console.error('Error deleting gradesubjects:', error);
+        }
+    );
   }
 }

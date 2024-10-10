@@ -20,6 +20,7 @@
           <thead>
               <tr>
                   <th>Grade</th>
+                  <th>Strand</th>
                   <th>Section</th>
                   <th>Actions</th>
               </tr>
@@ -28,6 +29,7 @@
             <ng-container *ngFor="let grade of grades">
               <tr>
                 <td>{{ grade.level }}</td>
+                <td>{{ grade.strand }}</td>
                 <td>
                   <div *ngIf="grade?.sections">
                     <ul>

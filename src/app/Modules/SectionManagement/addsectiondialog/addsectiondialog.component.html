@@ -1,14 +1,14 @@
 <mat-dialog-content style="padding: 24px; font-family: 'Roboto', sans-serif; font-size: 16px; color: #424242;">
-    <p>Add New Section</p>
-    <mat-form-field>
-        <mat-label>Section</mat-label>
-        <input matInput [(ngModel)]="sectionName">
-    </mat-form-field>
-  </mat-dialog-content>
+  <p>Add New Section</p>
   
-  <mat-dialog-actions style="display: flex; justify-content: flex-end; padding: 16px; margin-top: -30px; text-transform: uppercase; font-weight: 500;">
-    <button mat-button (click)="onNoClick()" style="font-size: 14px; padding: 8px 16px;">Cancel</button>
-    
-    <button mat-button (click)="addsections()" 
-            style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;">Ok</button>
-  </mat-dialog-actions>
+  <mat-form-field>
+      <mat-label>Section</mat-label>
+      <input matInput [(ngModel)]="sectionName" required>
+  </mat-form-field>
+
+<mat-dialog-actions style="display: flex; justify-content: flex-end; padding: 16px; margin-top: -30px; text-transform: uppercase; font-weight: 500;">
+  <button mat-button (click)="onNoClick()" style="font-size: 14px; padding: 8px 16px;">Cancel</button>
+  
+  <button mat-button (click)="addsections()" 
+          style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;">Ok</button>
+</mat-dialog-actions>

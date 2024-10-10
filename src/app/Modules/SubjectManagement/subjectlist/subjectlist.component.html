@@ -30,28 +30,41 @@
             <tbody>
                 <!-- @for (sub of subjects; track sub) {
                 <tr>
-                    <td>{{sub.subject_name}}</td>
-                    <td>{{sub.grade_level}}</td>
+                    <td>{{sub.level}}</td>
                     <td>{{sub.strand}}</td> 
+                    <ul>
+                      <li *ngFor="let subject of sub.subject_name">{{ subject }}</li>
+                    </ul>
+
                     <td>
                         <i class="bi bi-pencil-fill" title="Edit"></i>
                         <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
                     </td>
                 </tr>
                 } -->
-                <tr>
-                  
-                  <td>7</td>
-                  <td>-</td>
-                  <td>
-                    <li>Math</li>
-                    <li>English</li>
-                  </td>
-                  <td>
-                    <i class="bi bi-pencil-fill" title="Edit"></i>
-                    <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                  </td>
-                </tr>
+                
+                <ng-container *ngFor="let subject of subjects">
+                  <tr>
+                    <td>{{ subject.level }}</td>
+                    <td>{{ subject.strand }}</td>
+                    <td>
+                      <div *ngIf="subject?.subject_name?.length">
+                        <ul>
+                          <li *ngFor="let name of subject.subject_name">{{ name }}</li>
+                        </ul>
+                      </div>
+                      <div *ngIf="!subject?.subject_name?.length">
+                        No subjects available
+                      </div>
+                    </td>
+                    <td>
+                      <i class="bi bi-pencil-fill m-2" type='button' 
+                         ></i> <!-- Pass entire subject -->
+                      <i class="bi bi-trash3-fill ms-3" type='button'
+                      (click)="deleteGrade(subject.level)" title="Delete"></i>
+                    </td>
+                  </tr>
+                </ng-container>
                 
             </tbody>
         </table>

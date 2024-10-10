@@ -15,12 +15,13 @@ import { AddsectiondialogComponent } from '../addsectiondialog/addsectiondialog.
   styleUrl: './addsection.component.css'
 })
 export class AddsectionComponent {
-  sectionList: string[] = [];
+  sectionList: { name: string; strand: string }[] = []; // Updated to hold both name and strand
 
-  constructor ( private dialog: MatDialog,private sectionservice: ConnectService,private router: Router) {}
+  constructor(private dialog: MatDialog, private sectionservice: ConnectService, private router: Router) {}
 
   sectionform = new FormGroup({
     grade_level: new FormControl('', Validators.required),
+    strand: new FormControl('', Validators.required), // Strand control remains in the main form
   });
 
   openDialog(): void {
@@ -31,33 +32,51 @@ export class AddsectionComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.sectionList.push(result); 
+        // Ensure result contains only section name
+        this.sectionList.push({ name: result, strand: this.sectionform.value.strand ?? '' }); // Use nullish coalescing
       }
     });
   }
 
   submitsection() {
+    // Check if sectionList is not empty
+    if (this.sectionList.length === 0) {
+      console.error('No sections to submit');
+      return;
+    }
+
     const form = {
-        section_name: this.sectionList, 
-        grade_level: this.sectionform.value.grade_level
+      section_name: this.sectionList.map(section => section.name), // Extract names
+      grade_level: this.sectionform.value.grade_level,
+      strand: this.sectionform.value.strand // Include strand from the form
     };
 
     console.log('form to be sent:', form);
+    
+    // Ensure all fields are valid before sending
+    if (!form.grade_level || !form.strand || form.section_name.length === 0) {
+      console.error('Form is invalid:', form);
+      return;
+    }
+
     this.sectionservice.postsection(form).subscribe(
       (result: any) => {
-        console.log('section submitted successfully:', result);
+        console.log('Section submitted successfully:', result);
         this.sectionform.reset();
+        this.sectionList = []; // Clear section list after submission
         this.navigateToMainPage();
       },
       (error) => {
         console.error('Error submitting section account:', error);
       }
     );
-}
+  }
+
   navigateToMainPage() {
     console.log('Router:', this.router); 
     this.router.navigate(['/main-page/section/viewsection']);
   }
+
   removeSection(index: number): void {
     this.sectionList.splice(index, 1); 
   }

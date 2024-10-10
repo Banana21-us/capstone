@@ -33,6 +33,7 @@ export class ViewsectionComponent {
   
   grades: any[] = [];
   section: any;
+  strand:any;
 
   constructor(private sectionservice: ConnectService,private dialog: MatDialog,) {}
 
@@ -71,15 +72,17 @@ export class ViewsectionComponent {
   openEditSectionModal(grade: any): void {
     console.log('Opening Edit Section Modal with:', {
         grade_level: grade.level,
+        strand: grade.strand, // Assuming strand is part of grade object
         section_name: grade.sections // This should be an array
     });
 
     const dialogRef = this.dialog.open(EditsectiondialogComponent, {
       width: 'auto',
-        data: {
-            grade_level: grade.level,
-            section_name: Array.isArray(grade.sections) ? grade.sections : [] // Ensure it's an array
-        }
+      data: {
+          grade_level: grade.level,
+          strand: grade.strand, // Pass strand to dialog
+          section_name: Array.isArray(grade.sections) ? grade.sections : [] // Ensure it's an array
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -88,26 +91,28 @@ export class ViewsectionComponent {
             console.log('Data passed to dialog:', result);
         }
     });
-  }
-  updateSection(updatedData: any): void {
-    const gradeLevel = updatedData.grade_level; // Get grade level from updated data
+}
+updateSection(updatedData: any): void {
+  const gradeLevel = updatedData.grade_level; // Get grade level from updated data
 
-    // Use the Section interface to define the type of section
-    const sectionNames = updatedData.section_names.map((section: Section) => section.name);
+  // Transform section names into the expected format
+  const sectionNames = updatedData.section_names.map((section: Section) => section.name);
 
-    const sectionData = { 
-        section_name: sectionNames, // Use the transformed array
-        grade_level: gradeLevel 
-    }; 
+  // Correct the key names to match API expectations
+  const sectionData = { 
+      section_name: sectionNames, // Change from 'section_names' to 'section_name'
+      grade_level: gradeLevel,
+      strand: updatedData.strand // Include strand in the payload
+  }; 
 
-    this.sectionservice.updateSectionsByGrade(gradeLevel, sectionData).subscribe(
-        response => {
-            console.log('Sections updated successfully:', response);
-            this.fetchGrades(); // Optionally refresh your sections or grades here
-        },
-        error => {
-            console.error('Error updating sections:', error);
-        }
-    );
-  }
+  this.sectionservice.updateSectionsByGrade(gradeLevel, sectionData).subscribe(
+      response => {
+          console.log('Sections updated successfully:', response);
+          this.fetchGrades(); // Optionally refresh your sections or grades here
+      },
+      error => {
+          console.error('Error updating sections:', error);
+      }
+  );
+}
 }
