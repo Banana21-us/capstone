@@ -16,14 +16,21 @@ import { AddsectiondialogComponent } from '../addsectiondialog/addsectiondialog.
 })
 export class AddsectionComponent {
   sectionList: { name: string; strand: string }[] = []; // Updated to hold both name and strand
-
+  isStrandVisible: boolean = false;
   constructor(private dialog: MatDialog, private sectionservice: ConnectService, private router: Router) {}
 
   sectionform = new FormGroup({
     grade_level: new FormControl('', Validators.required),
     strand: new FormControl('', Validators.required), // Strand control remains in the main form
   });
+  onGradeChange() {
+    const selectedGrade = this.sectionform.get('grade_level')?.value;
+    this.isStrandVisible = selectedGrade === '11' || selectedGrade === '12';
 
+    if (!this.isStrandVisible) {
+      this.sectionform.get('strand')?.setValue('-');
+    }
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddsectiondialogComponent, {
       width: '250px',

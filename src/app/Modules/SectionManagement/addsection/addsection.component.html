@@ -5,13 +5,27 @@
       <div class="row">
           <div class="form-group">
               <label for="grade_level">Grade Level:</label>
-              <input type="text" id="grade_level" formControlName="grade_level" name="grade_level" class="form-control" required>
+              <select id="grade_level" formControlName="grade_level" required (change)="onGradeChange()">
+                <option value="">Select a Grade Level</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+              <!-- <input type="text" id="grade_level" formControlName="grade_level" name="grade_level" class="form-control" required> -->
           </div>
 
-          <div class="form-group">
-              <label for="strand">Strand:</label>
-              <input type="text" id="strand" formControlName="strand" name="strand" class="form-control" required>
-          </div>
+          <div class="form-group" *ngIf="isStrandVisible">
+            <label for="strand">Strand:</label>
+            <select id="strand" formControlName="strand">
+                <option value="">Select a strand</option>
+                <option value="STEM">STEM</option>
+                <option value="HUMMS">HUMMS</option>
+                <option value="ABM">ABM</option>
+            </select>
+        </div>
 
           <div class="form-group">
               <label for="sectionList">Section List:

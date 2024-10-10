@@ -28,7 +28,7 @@ export interface EditSectionDialogData {
 })
 export class EditsectiondialogComponent {
   editSectionForm: FormGroup;
-  grade_level: number; // Property to hold grade level
+  grade_level: number;
 
   constructor(
     private dialogRef: MatDialogRef<EditsectiondialogComponent>,

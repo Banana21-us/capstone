@@ -31,7 +31,10 @@ export class ConnectService {
   }
   deleteSubjectByGrade(gradeLevel: number): Observable<any> {
     return this.http.delete(`${this.url}subjects/${gradeLevel}`); 
-}
+  }
+  updateSubjectsByGrades(gradeLevel: number, subjectData: any): Observable<any> {
+    return this.http.put(`${this.url}subjects/${gradeLevel}`, subjectData);
+  }
 
   // teacher section 
   postteacher(teacherData:any):Observable<any>{
@@ -43,6 +46,7 @@ export class ConnectService {
   deleteteacher(admin_id: number): Observable<any> {
     return this.http.delete(`${this.url}admins/${admin_id}`);
   }
+  
 
   // announcement section 
   submitannouncement(announcementData:any):Observable<any>{
