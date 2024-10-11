@@ -46,7 +46,7 @@ export class ViewsectionComponent {
         console.log('Fetched Grades:', data); // Log full response
         this.grades = data.map(grade => ({
             ...grade,
-            sections: Array.isArray(grade.sections) ? grade.sections : [] // Ensure sections is an array
+            sections: Array.isArray(grade.sections) ? grade.sections : [] 
         }));
     }, error => {
         console.error('Error fetching grades:', error);

@@ -12,7 +12,7 @@ import { ConnectService } from '../connect.service';
     RouterLink,
     RouterModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'] // Corrected from styleUrl to styleUrls
