@@ -1,51 +1,41 @@
 <div class="container">
-    <div class="table-container">
-        <div class="row align-items-center">
-            <div class="col d-flex align-items-center">
-              <h2>Class List <button type="button" class="btn btn-success ms-2" routerLink="/main-page/classmanagement/addclass">+</button>
-              </h2>
-            </div>
-            <div class="col d-flex justify-content-end">
-              <mat-form-field>
-                <mat-label>Class</mat-label>
-                <mat-select>
-                  <mat-option>None</mat-option>
-                  @for (state of states; track state) {
-                    <mat-option [value]="state">{{state}}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          
-        
-
-        <table id="classTable">
-            <thead>
-                <tr>
-                  <th>Room</th>
-                  <th>Section</th>
-                  <th>Teacher</th>
-                  <th>Subject</th>
-                  <th>Day</th>
-                  <th>Time</th>
-                  <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td>101</td>
-                  <td>Beryl</td>
-                  <td>Sobido, Arjay</td>
-                  <td>Mathematics</td>
-                  <td>Monday,Tuesday</td>
-                  <td>9:00 AM - 11:30 AM</td>
-                  <td>
-                    <i class="bi bi-pencil-fill" title="Edit"></i>
-                    <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
-                  </td>
-                </tr>
-            </tbody>
-        </table>
+  <div class="table-container">
+    <div class="row align-items-center">
+      <div class="col d-flex align-items-center">
+        <h2>Class List 
+          <button type="button" class="btn btn-success ms-2" routerLink="/main-page/classmanagement/addclass">+</button>
+        </h2>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <!-- Additional UI elements can be added here -->
+      </div>
     </div>
+
+    <!-- Displaying submitted data -->
+    <table id="classTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>Grade</th>
+          <th>Teacher</th>
+          <th>Subject</th>
+          <th>Schedule</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let form of classes; let i = index">
+          <td>{{ form.room }}</td>
+          <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand}} | {{ form.section_name }}</td>
+          <td>{{ form.fname }} {{ form.lname }}</td> <!-- Teacher's name -->
+          <td>{{ form.subject_name }}</td> <!-- Subject name -->
+          <td>{{ form.time }} | {{ form.schedule }}</td> 
+          <td>
+            <i class="bi bi-pencil-fill" title="Edit"></i>
+            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

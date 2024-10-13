@@ -6,63 +6,63 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } fro
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-export interface EditSectionDialogData {
-  grade_level: number;
-  strand: string;
-  subject_names: string[];
+export interface EditSubjectDialogData {
+    grade_level: number;
+    strand: string;
+    subject_name: string[]; // Use subject_names instead of subject_name
 }
 
 @Component({
-    selector: 'app-editsectiondialog',
+    selector: 'app-editsubjectdialog',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDialogActions,
-        MatDialogContent
-    ],
-    templateUrl: './editsubjectdialog.component.html',
-    
+      CommonModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+      MatDialogActions,
+      MatDialogContent
+  ],
+  templateUrl: './editsubjectdialog.component.html',
 })
-export class Editsubjectdialog {
-  editSubjectForm: FormGroup;
-  grade_level: number;
-
-  constructor(
-    private dialogRef: MatDialogRef<Editsubjectdialog>,
-    @Inject(MAT_DIALOG_DATA) public data: EditSectionDialogData,
-    private formBuilder: FormBuilder
-) {
-  this.grade_level = data.grade_level; // Initialize here
-  this.editSubjectForm = this.formBuilder.group({
-    grade_level: [this.grade_level, Validators.required],
-    strand: [data.strand, Validators.required],
-    subject_names: this.formBuilder.array(
-        Array.isArray(data.subject_names) ? data.subject_names.map(name => this.createSubjectGroup(name)) : []
-    )
-  });
-}
+export class Editsubjectdialogcomponent {
+    editSubjectForm: FormGroup;
+    grade_level: number;
+    constructor(
+        private dialogRef: MatDialogRef<Editsubjectdialogcomponent>,
+        @Inject(MAT_DIALOG_DATA) public data: EditSubjectDialogData,
+        private formBuilder: FormBuilder
+    ) {
+        console.log('Received dialog data:', data); // Log received data
+            this.grade_level = data.grade_level;
+            this.editSubjectForm = this.formBuilder.group({
+            grade_level: [data.grade_level, Validators.required],
+            strand: [data.strand,Validators.required],
+            subject_names: this.formBuilder.array(
+                Array.isArray(data.subject_name) ? data.subject_name.map(name => this.createSubjectGroup(name)) : []
+            )
+        });
+    }
 
   private createSubjectGroup(name: string): FormGroup {
       return this.formBuilder.group({
-          name: [name, Validators.required] // Use 'name' as the control name
+          name: [name, Validators.required]
       });
   }
 
   get subjectNamesArray(): FormArray {
-      return this.editSubjectForm.get('subject_names') as FormArray; // Ensure it's subject_names
+      return this.editSubjectForm.get('subject_names') as FormArray;
   }
 
+
   addsubject(): void {
-      this.subjectNamesArray.push(this.createSubjectGroup('')); // Add an empty subject
+      this.subjectNamesArray.push(this.createSubjectGroup(''));
   }
 
   removesubject(index: number): void {
-      if (this.subjectNamesArray.length > 1) { 
-          this.subjectNamesArray.removeAt(index); 
+      if (this.subjectNamesArray.length > 1) {
+          this.subjectNamesArray.removeAt(index);
       }
   }
 
@@ -71,14 +71,15 @@ export class Editsubjectdialog {
         const formData = {
             grade_level: this.editSubjectForm.value.grade_level,
             strand: this.editSubjectForm.value.strand,
-            subject_name: this.editSubjectForm.value.subject_names.map((subject: any) => subject.name)
+            subject_names: this.editSubjectForm.value.subject_names
         };
-        console.log('Form Data:', JSON.stringify(formData, null, 2));
+        console.log('Form Data being sent back:', formData);
         this.dialogRef.close(formData);
     }
 }
 
+
   onCancel(): void {
-      this.dialogRef.close(); 
+      this.dialogRef.close();
   }
 }

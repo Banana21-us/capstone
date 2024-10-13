@@ -9,8 +9,8 @@
               <mat-form-field>
                 <mat-label>Subjects</mat-label>
                 <mat-select>
-                  @for (state of states; track state) {
-                    <mat-option [value]="state">{{state}}</mat-option>
+                  @for (sub of subs; track sub) {
+                    <mat-option [value]="sub">{{sub}}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
@@ -22,34 +22,33 @@
                 <tr>
                     
                     <th>Grade Level</th>
-                    <th>Strand</th>
                     <th>Subject List</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let subject of subjects">
-                  <tr>
-                    <td>{{ subject.level }}</td>
-                    <td>{{ subject.strand }}</td>
+              <ng-container *ngFor="let subject of subjects">
+                <tr>
+                  <td>{{ subject.level }} {{ subject.strand.trim() === '-' ? ' ' : subject.strand }}</td>
+                
                     <td>
-                      <div *ngIf="subject?.subject_name?.length">
-                          <ul>
-                              <li *ngFor="let name of subject.subject_name">{{ name }}</li>
-                          </ul>
-                      </div>
-                      <div *ngIf="!subject?.subject_name?.length">
-                          No subjects available
-                      </div>
-                  </td>
-                    <td>
-                      <i class="bi bi-pencil-fill m-2" type='button' 
-                      (click)="openEditSubjectModal(subject)"   ></i> <!-- Pass entire subject -->
-                      <i class="bi bi-trash3-fill ms-3" type='button'
-                      (click)="deleteGrade(subject.level)" title="Delete"></i>
+                        <div *ngIf="subject?.subjects?.length">
+                            <ul>
+                                <li *ngFor="let name of subject.subjects">{{ name }}</li>
+                            </ul>
+                        </div>
+                        <div *ngIf="!subject?.subjects?.length">
+                            No subjects available
+                        </div>
                     </td>
-                  </tr>
-                </ng-container>
+                    <td>
+                        <i class="bi bi-pencil-fill m-2" type='button' 
+                           (click)="openEditSubjectModal(subject)"></i> 
+                        <i class="bi bi-trash3-fill ms-3" type='button'
+                           (click)="deleteGrade(subject.level, subject.strand)" title="Delete"></i>
+                    </td>
+                </tr>
+            </ng-container>
                 
             </tbody>
         </table>

@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { run } from 'node:test';
 import { Observable } from 'rxjs';
+import { Teacher } from './Modules/ClassManagement/addclass/addclass.component';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,6 @@ export class ConnectService {
 
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
-  apiUrl ="http://localhost:8000/api/sections";
 
   login(data:any){
     return this.http.post(this.url + 'login',data);
@@ -21,6 +22,27 @@ export class ConnectService {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'logout', {}, { headers });
   }
+  // classes section
+  getClasses(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'classes-list');
+  }
+  getclasssubjects(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'class-subjects'); 
+  }
+  getTeachers(): Observable<Teacher[]> {
+    return this.http.get<Teacher[]>(`${this.url}admins?role=Teacher`); // Ensure this URL is correct
+  }
+  getTeacher(): Observable<{ id: number; fname: string; lname: string }[]> {
+    return this.http.get<{ id: number; fname: string; lname: string }[]>(`${this.url}admins?role=Teacher`);
+  }
+  
+  createClass(classData: any): Observable<any> {
+    return this.http.post(`${this.url}classes`, classData);
+  }
+  getsectioncclass(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'class/sections'); 
+  }
+
 
   // Subjects section
   postsubject(subjectData:any):Observable<any>{
@@ -29,12 +51,14 @@ export class ConnectService {
   getsubjects(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'subjects'); 
   }
-  deleteSubjectByGrade(gradeLevel: number): Observable<any> {
-    return this.http.delete(`${this.url}subjects/${gradeLevel}`); 
+  deleteSubjectByGrade(gradeLevel: number, strand: string): Observable<any> {
+    return this.http.delete(`${this.url}subjects/${gradeLevel}/${strand}`); 
   }
-  updateSubjectsByGrades(gradeLevel: number, subjectData: any): Observable<any> {
-    return this.http.put(`${this.url}subjects/${gradeLevel}`, subjectData);
+  updateSubjectsByGrade(gradeLevel: number, strand: string, subjectData: any): Observable<any> {
+    return this.http.put(`${this.url}subjects/${gradeLevel}/${strand}`, subjectData);
   }
+  
+  
 
   // teacher section 
   postteacher(teacherData:any):Observable<any>{
@@ -73,13 +97,16 @@ export class ConnectService {
   getsection(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'sections'); 
   }
+  getSubjects(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'subjects'); // Adjust endpoint as necessary
+  }
 
-  updateSectionsByGrade(gradeLevel: number, sectionData: any): Observable<any> {
-    return this.http.put(`${this.url}sections/${gradeLevel}`, sectionData);
-  }
-  deleteSectionsByGrade(gradeLevel: number): Observable<any> {
-    return this.http.delete(`${this.url}sections/${gradeLevel}`); // No body sent here
-  }
+  updateSectionsByGrade(gradeLevel: number, strand: string, sectionData: any): Observable<any> {
+    return this.http.put(`${this.url}sections/${gradeLevel}/${strand}`, sectionData);
+}
+  deleteSectionsByGrade(gradeLevel: number, strand: string): Observable<any> {
+    return this.http.delete(`${this.url}sections/${gradeLevel}/${strand}`); // No body sent here
+}
   
 
   // parent section

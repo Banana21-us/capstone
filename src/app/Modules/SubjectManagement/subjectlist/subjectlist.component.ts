@@ -7,109 +7,108 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Editsubjectdialog } from '../editsubjectdialog/editsubjectdialog.component';
+import { Editsubjectdialogcomponent } from '../editsubjectdialog/editsubjectdialog.component';
 
 export interface Subject {
-  name: any; // Adjust as necessary based on your actual data structure
+    name: any; // Adjust as necessary based on your actual data structure
 }
 
 @Component({
-  selector: 'app-subjectlist',
-  standalone: true,
-  providers: [ConnectService],
-  imports: [
-    RouterLink,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './subjectlist.component.html',
-  styleUrls: ['./subjectlist.component.css'],
-  
+    selector: 'app-subjectlist',
+    standalone: true,
+    providers: [ConnectService],
+    imports: [
+        RouterLink,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './subjectlist.component.html',
+    styleUrls: ['./subjectlist.component.css'],
 })
 export class SubjectlistComponent implements OnInit {
-  states: string[] = ['Math', 'English', 'Literature', 'Science', 'Bible'];
-  subjects: any[] = [];
+    subjects: any[] = [];
+    subs: string[] = [
+      'Math',
+      'Englist',
+    ];
+    constructor(private subjectservice: ConnectService, private dialog: MatDialog) {}
 
-  constructor(private subjectservice: ConnectService, private dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    // Fetch subjects from the service
-    this.fetchSubjects();
-  }
-
-  fetchSubjects() {
-    this.subjectservice.getsubjects().subscribe(
-      (data) => {
-        // Log the received data to the console
-        console.log('Fetched subjects:', data);
-        // Assign the fetched data to the component's subjects property
-        this.subjects = data;
-      },
-      (error: any) => { // Explicitly define error type
-        // Log any errors that occur during the fetch
-        console.error('Error fetching subjects:', error);
-      }
-    );
-  }
-
-  openEditSubjectModal(subject: any) {
-    const dialogRef = this.dialog.open(Editsubjectdialog, {
-      width: 'auto',
-      data: {
-          grade_level: subject.level,
-          strand: subject.strand,
-          subject_names: subject.subject_name // Ensure this matches your data structure
-      }
-  });
-
-    // Handle the dialog closing event
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.updateSubjectsByGrade(subject.level, result);
-      }
-    });
-  }
-
-  updateSubjectsByGrade(gradeLevel: number, updatedData: any): void {
-    if (!updatedData || !updatedData.subject_name || !Array.isArray(updatedData.subject_name)) {
-        console.error('Invalid data received for updating subjects:', updatedData);
-        return; // Exit if data is invalid
+    ngOnInit(): void {
+        this.fetchSubjects();
     }
 
+    fetchSubjects() {
+        this.subjectservice.getsubjects().subscribe((data) => {
+            console.log('Fetched subjects:', data);
+            this.subjects = data.map(subject => ({
+                ...subject,
+                subjects: Array.isArray(subject.subjects) ? subject.subjects : []
+            }));
+        }, (error: any) => {
+            console.error('Error fetching subjects:', error);
+        });
+    }
+
+    openEditSubjectModal(subject: any): void {
+      const dialogRef = this.dialog.open(Editsubjectdialogcomponent, {
+          width: 'auto',
+          data: {
+              grade_level: subject.level,
+              strand: subject.strand,
+              subject_name: Array.isArray(subject.subjects) ? subject.subjects : []
+          }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+              this.updateSubjects(result);
+              console.log('Data passed to dialog:', result);
+          }
+      });
+  }
+
+  updateSubjects(updatedData: any): void {
+    const gradeLevel = updatedData.grade_level; 
+    const strand = updatedData.strand;
+
+    const subjectNames = (updatedData.subject_names || []).map((subject: { name: string }) => subject.name);
+
     const subjectData = { 
-        grade_level: gradeLevel, // Use 'grade_level' as expected by API
-        strand: updatedData.strand,
-        subject_name: updatedData.subject_name // Ensure it matches API expectations
-    };
+        subject_name: subjectNames,
+        grade_level: gradeLevel,
+        strand: strand
+    }; 
 
-    console.log('Updating subjects with data:', subjectData); // Debug log
+    console.log('Sending data to API:', subjectData);
 
-    this.subjectservice.updateSubjectsByGrades(gradeLevel, subjectData).subscribe(
-        (response) => {
-          console.log('Updating subjects with data:', subjectData);
+    this.subjectservice.updateSubjectsByGrade(gradeLevel, strand, subjectData).subscribe(
+        response => {
             console.log('Subjects updated successfully:', response);
-            this.fetchSubjects(); 
+            this.fetchSubjects(); // Refresh subjects after updating
         },
-        (error: any) => {
+        error => {
             console.error('Error updating subjects:', error);
+            alert('Failed to update subjects. Please try again.');
         }
     );
 }
 
-  deleteGrade(gradeLevel: number) {
-    console.log(`Attempting to delete subjects for grade level: ${gradeLevel}`);
-    this.subjectservice.deleteSubjectByGrade(gradeLevel).subscribe(
-      (response) => {
-        console.log('Subjects deleted successfully:', response);
-        this.fetchSubjects(); // Refresh the subjects list after deletion
-      },
-      (error: any) => { // Explicitly define error type
-        console.error('Error deleting subjects:', error);
-      }
-    );
-  }
+    deleteGrade(gradeLevel: number, strand: string) {
+        console.log(`Attempting to delete subjects for grade level: ${gradeLevel} and strand: ${strand}`);
+        
+        this.subjectservice.deleteSubjectByGrade(gradeLevel, strand).subscribe(
+            (response) => {
+                console.log('Subjects deleted successfully:', response);
+                this.fetchSubjects();
+            },
+            (error: any) => {
+                console.error('Error deleting subjects:', error);
+                alert('Failed to delete subjects. Please try again.');
+            }
+        );
+    }
 }

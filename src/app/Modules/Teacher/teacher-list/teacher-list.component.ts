@@ -31,9 +31,9 @@ export class TeacherListComponent implements OnInit{
   ngOnInit(): void {
     this.fetchteacher();
   }
-  fetchteacher(){
+  fetchteacher() {
     this.teacherservice.getteacher().subscribe((data) => {
-      this.teachers = data;
+      this.teachers = data.filter(teacher => teacher.role === 'Teacher');
     });
   }
 
