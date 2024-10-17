@@ -20,16 +20,15 @@
           <thead>
               <tr>
                   <th>Grade</th>
-                  <th>Strand</th>
                   <th>Section</th>
                   <th>Actions</th>
               </tr>
           </thead>
-          <tbody> 
-            <ng-container *ngFor="let grade of grades">
+          <tbody>
+            @for (grade of grades; track $index) {
+            <ng-container>
               <tr>
-                  <td>{{ grade.level }}</td>
-                  <td>{{ grade.strand }}</td>
+                  <td>{{ grade.level }}  {{ grade.strand.trim() === '-' ? ' ' :  grade.strand}}</td>
                   <td>
                       <div *ngIf="grade?.sections?.length">
                           <ul>
@@ -48,6 +47,7 @@
                   </td>
               </tr>
           </ng-container>
+        }
       </table>
       
   </div>

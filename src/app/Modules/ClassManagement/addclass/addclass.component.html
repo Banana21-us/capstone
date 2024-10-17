@@ -9,7 +9,7 @@
                     <mat-select formControlName="section" required (selectionChange)="onSectionChange($event.value)">
                         <mat-option value="">Select a Section</mat-option>
                         <mat-option *ngFor="let section of sections" [value]="section.section_id">
-                           {{section.grade_level}} | {{ section.section_name }}
+                           {{section.grade_level}} {{ section.strand.trim() === '-' ? ' ' :section.strand  }} | {{ section.section_name }}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="classManagementForm.get('section')?.invalid && classManagementForm.get('section')?.touched">

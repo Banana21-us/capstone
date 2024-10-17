@@ -35,15 +35,11 @@ export class UpdateAnnoucementComponent implements OnInit {
     console.log('Announcement ID:', storedId);
     
     if (storedId) {
-      this.ancmnt_id = Number(storedId); // Convert to number
-      
-      // Call the service method with the ID
+      this.ancmnt_id = Number(storedId); 
       this.apiService.getupdateannouncement(this.ancmnt_id).subscribe(
         (result) => {
           this.announcement = result;
           console.log(result);
-          
-          // Check if announcement is valid before setting values
           if (this.announcement) {
             this.updateannouncementForm.controls['title'].setValue(this.announcement.title);
             this.updateannouncementForm.controls['announcement'].setValue(this.announcement.announcement);
@@ -57,7 +53,6 @@ export class UpdateAnnoucementComponent implements OnInit {
       );
     } else {
       console.error('No Announcement ID found in local storage.');
-      // Optionally navigate back or show an error message
     }
   }
 

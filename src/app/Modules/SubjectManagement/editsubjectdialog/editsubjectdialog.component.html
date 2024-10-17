@@ -18,13 +18,13 @@
                     <mat-label>Subject Name</mat-label>
                     <input matInput formControlName="name" placeholder="Enter Subject Name" required>
                 </mat-form-field>
-                <button mat-button color="warn" type="button" (click)="removesubject(i)">
+                <!-- <button mat-button color="warn" type="button" (click)="removesubject(i)">
                     <i class="bi bi-trash3-fill"></i>
-                </button> <!-- Remove button -->
+                </button>  -->
             </div>
         </div>
 
-        <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addsubject()">Add Subject</button> <!-- Add button -->
+        <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addsubject()">Add Subject</button> 
 
         <div *ngIf="editSubjectForm.invalid && (editSubjectForm.dirty || editSubjectForm.touched)">
             <p style="color:red;">Please fill out all required fields.</p>
@@ -33,6 +33,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="border-top">
-    <button mat-button class="ms-3" (click)="onCancel()">Cancel</button>
+    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">Cancel</button>
     <button mat-raised-button color="primary" [disabled]="editSubjectForm.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>

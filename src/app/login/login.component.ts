@@ -30,6 +30,7 @@ export class LoginComponent {
       (result: any) => {
         if (result.token != null) {
           localStorage.setItem('token', result.token);
+          console.log('Token stored:', result.token);
           this.navigateToMainPage(); // Navigate to the main page
         }
         console.log(result);

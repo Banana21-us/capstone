@@ -22,6 +22,11 @@ export class ConnectService {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'logout', {}, { headers });
   }
+  // dashboard
+  getdash(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'dashboard');
+  }
+
   // classes section
   getClasses(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'classes-list');
@@ -29,20 +34,21 @@ export class ConnectService {
   getclasssubjects(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'class-subjects'); 
   }
-  getTeachers(): Observable<Teacher[]> {
-    return this.http.get<Teacher[]>(`${this.url}admins?role=Teacher`); // Ensure this URL is correct
-  }
-  getTeacher(): Observable<{ id: number; fname: string; lname: string }[]> {
-    return this.http.get<{ id: number; fname: string; lname: string }[]>(`${this.url}admins?role=Teacher`);
-  }
-  
-  createClass(classData: any): Observable<any> {
-    return this.http.post(`${this.url}classes`, classData);
-  }
   getsectioncclass(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'class/sections'); 
   }
-
+  getTeachers(): Observable<Teacher[]> {
+    return this.http.get<Teacher[]>(`${this.url}admins?role=Teacher`); // Ensure this URL is correct
+  }
+  deleteClass(classId: number): Observable<any> {
+    return this.http.delete<any>(`${this.url}classes/${classId}`);
+  }
+  createClass(classData: any): Observable<any> {
+    return this.http.post(`${this.url}classes`, classData);
+  }
+  updateClass(classData: any): Observable<any> {
+    return this.http.put(`${this.url}classes/${classData.class_id}`, classData);
+  }
 
   // Subjects section
   postsubject(subjectData:any):Observable<any>{

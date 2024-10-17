@@ -4,7 +4,7 @@ import {Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  // debugger
+
    const router = inject(Router);
   return next(req).pipe(catchError ((err: any) =>{
     if([401,403].includes(JSON.parse(err.status))){

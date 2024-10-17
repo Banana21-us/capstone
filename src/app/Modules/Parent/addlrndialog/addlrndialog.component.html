@@ -5,7 +5,7 @@
       <mat-label>Select Student</mat-label>
       <mat-select [(ngModel)]="selectedStudent" (selectionChange)="searchStudent()">
         <mat-option *ngFor="let student of students; let i = index" [value]="student">
-          {{ student.fname }} {{ student.lname }}
+          {{ student.lname }}, {{ student.fname }}
         </mat-option>
       </mat-select>
   </mat-form-field>

@@ -47,7 +47,7 @@ export class SubjectlistComponent implements OnInit {
             this.subjects = data.map(subject => ({
                 ...subject,
                 subjects: Array.isArray(subject.subjects) ? subject.subjects : []
-            }));
+            })).sort((a, b) => parseInt(a.level) - parseInt(b.level));
         }, (error: any) => {
             console.error('Error fetching subjects:', error);
         });
@@ -88,7 +88,7 @@ export class SubjectlistComponent implements OnInit {
     this.subjectservice.updateSubjectsByGrade(gradeLevel, strand, subjectData).subscribe(
         response => {
             console.log('Subjects updated successfully:', response);
-            this.fetchSubjects(); // Refresh subjects after updating
+            this.fetchSubjects(); 
         },
         error => {
             console.error('Error updating subjects:', error);

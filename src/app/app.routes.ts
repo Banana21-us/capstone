@@ -33,32 +33,41 @@ export const routes: Routes = [
       children: [
         { path: 'homepage', 
           loadChildren: () => import('./Modules/Dashboard/dashboard.routes').then(r => Dashboardroute),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         { path: 'classmanagement', 
           loadChildren: () => import('./Modules/ClassManagement/classmanagement.routes').then(r => managementroute),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         { path: 'subjectmanagement', 
           loadChildren: () => 
             import('./Modules/SubjectManagement/subjectmanagement.routes').then((r) => subjectmanagementroute),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         {  path: 'teacher', 
           loadChildren: () => import('./Modules/Teacher/teacher.routes').then(r => teacherroutes),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         {  path: 'section', 
           loadChildren: () => import('./Modules/SectionManagement/section.routes').then(r => sectionroutes),
-          canActivate:[authGuard]},
+          canActivate:[authGuard]
+        },
           {  path: 'parent', 
             loadChildren: () => import('./Modules/Parent/parent.routes').then(r => parentroutes),
-            canActivate:[authGuard]},
+            canActivate:[authGuard]
+          },
         { path: 'announcement', 
           loadChildren: () => import('./Modules/Announcement/announcement.routes').then(r => announcementroutes),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         { path: 'message', 
           loadChildren: () => import('./Modules/Message/message.routes').then(r => messageroutes),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         { path: 'account', 
           loadChildren: () => import('./Modules/Account/account.routes').then(r => accountroutes),
-          canActivate:[authGuard] },
+          canActivate:[authGuard] 
+        },
         { path: '', redirectTo: 'homepage', pathMatch: 'full' }
       ],
     },

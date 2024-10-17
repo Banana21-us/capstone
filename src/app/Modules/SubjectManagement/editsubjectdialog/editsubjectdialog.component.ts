@@ -61,10 +61,14 @@ export class Editsubjectdialogcomponent {
   }
 
   removesubject(index: number): void {
-      if (this.subjectNamesArray.length > 1) {
-          this.subjectNamesArray.removeAt(index);
-      }
-  }
+    console.log('Before removal:', this.subjectNamesArray.controls);
+    if (this.subjectNamesArray.length > 1) {
+        this.subjectNamesArray.removeAt(index);
+        console.log('After removal:', this.subjectNamesArray.controls);
+    } else {
+        console.warn('Cannot remove the last subject.');
+    }
+}
 
   onSubmit(): void {
     if (this.editSubjectForm.valid) {

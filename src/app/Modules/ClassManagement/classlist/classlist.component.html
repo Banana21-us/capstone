@@ -7,7 +7,14 @@
         </h2>
       </div>
       <div class="col d-flex justify-content-end">
-        <!-- Additional UI elements can be added here -->
+        <mat-form-field>
+          <mat-label>Class</mat-label>
+          <mat-select>
+            @for (class of classss; track class) {
+              <mat-option [value]="class">{{class}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
 
@@ -15,24 +22,26 @@
     <table id="classTable" class="table table-striped">
       <thead>
         <tr>
-          <th>Room</th>
+          
           <th>Grade</th>
-          <th>Teacher</th>
           <th>Subject</th>
+          <th>Teacher</th>
           <th>Schedule</th>
+          <th>Room</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let form of classes; let i = index">
-          <td>{{ form.room }}</td>
           <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand}} | {{ form.section_name }}</td>
-          <td>{{ form.fname }} {{ form.lname }}</td> <!-- Teacher's name -->
           <td>{{ form.subject_name }}</td> <!-- Subject name -->
+          <td>{{ form.fname }} {{ form.lname }}</td> <!-- Teacher's name -->
           <td>{{ form.time }} | {{ form.schedule }}</td> 
+          <td>{{ form.room }}</td>
           <td>
-            <i class="bi bi-pencil-fill" title="Edit"></i>
-            <i class="bi bi-trash3-fill ms-3" title="Delete"></i>
+            <i class="bi bi-pencil-fill m-2" type='button' 
+                           (click)="openEditSubjectModal(form)"></i> 
+            <i class="bi bi-trash3-fill ms-3" title="Delete" (click)="deleteClass(form.class_id)"></i>
           </td>
         </tr>
       </tbody>

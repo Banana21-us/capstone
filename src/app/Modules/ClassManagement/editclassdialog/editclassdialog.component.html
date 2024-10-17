@@ -1,0 +1,63 @@
+<mat-dialog-content>
+  <h1>Grade: {{level}} {{strand.trim() === '-' ? ' ' :strand }} | {{section_name}}</h1>
+  <h1>Edit Subjects: {{subject_name}}</h1>
+  <h1>Room: {{room}}</h1>
+  <form [formGroup]="editclassForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col ">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Teacher</mat-label>
+          <mat-select formControlName="admin_id" required>
+            <mat-option value="">Select a Teacher</mat-option>
+            <mat-option *ngFor="let teacher of teachers" [value]="teacher.admin_id">
+              {{ teacher.lname }}, {{ teacher.fname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </div>
+
+      <div class="col ">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Time</mat-label>
+          <input matInput type="text" formControlName="time" required />
+        </mat-form-field>
+      </div>
+
+      
+
+      <div class="col ">
+        <mat-form-field appearance="outline" class="custom-select">
+          <mat-label>Select Days</mat-label>
+          <mat-select multiple formControlName="selectedDays">
+            <mat-option *ngFor="let day of availableDays" [value]="day">{{ day }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row" style="display: none;">
+        <div class="col me-2">
+          <mat-form-field  appearance="outline" class="w-100">
+            <mat-label>subject_id</mat-label>
+            <input matInput type="text" formControlName="subject_id" required />
+          </mat-form-field>
+        </div>
+        <div class="col me-2">
+          <mat-form-field  appearance="outline" class="w-100">
+            <mat-label>section_id</mat-label>
+            <input matInput type="text" formControlName="section_id" required />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="border-top">
+  <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" [disabled]="editclassForm.invalid" (click)="onSubmit()">
+    Save
+  </button>
+</mat-dialog-actions>
