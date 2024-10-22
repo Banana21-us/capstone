@@ -1,7 +1,7 @@
 <mat-dialog-content>
-  <h1>Grade: {{level}} {{strand.trim() === '-' ? ' ' :strand }} | {{section_name}}</h1>
-  <h1>Edit Subjects: {{subject_name}}</h1>
-  <h1>Room: {{room}}</h1>
+  <h2><strong>Grade: {{level}} {{strand.trim() === '-' ? ' ' :strand }} | {{section_name}}</strong></h2>
+  <h3><strong>Subject: {{subject_name}}</strong></h3>
+  <h3><strong>Room: {{room}}</strong></h3>
   <form [formGroup]="editclassForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col ">

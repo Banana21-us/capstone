@@ -34,8 +34,8 @@
       <tbody>
         <tr *ngFor="let form of classes; let i = index">
           <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand}} | {{ form.section_name }}</td>
-          <td>{{ form.subject_name }}</td> <!-- Subject name -->
-          <td>{{ form.fname }} {{ form.lname }}</td> <!-- Teacher's name -->
+          <td>{{ form.subject_name }}</td> 
+          <td>{{ form.fname }} {{ form.lname }}</td> 
           <td>{{ form.time }} | {{ form.schedule }}</td> 
           <td>{{ form.room }}</td>
           <td>

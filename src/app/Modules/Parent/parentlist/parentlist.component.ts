@@ -13,10 +13,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 
 interface Student {
-    fname: string;
-    lname: string;
-    mname: string;
-    LRNs:string;
+  LRN: number;
+  fname: string;
+  lname: string;
+  mname?: string; // Optional property
+  LRNs: number[];  // Ensure this is a number
 }
 
 interface Parent {
@@ -57,10 +58,11 @@ export class ParentlistComponent implements OnInit {
     'Dionece College',
     'Glen Lozada',
   ];
-  
-  parents: Parent[] = []; 
+  parents: any[] = [];
+  // parents: Parent[] = []; 
 
   constructor(private parentservice: ConnectService, private router: Router,private dialog: MatDialog,) {}
+  
 
   ngOnInit(): void {
       this.fetchParent();
@@ -80,24 +82,20 @@ export class ParentlistComponent implements OnInit {
 
   fetchParent() {
     this.parentservice.getparent().subscribe((data) => {
-        // Assuming 'data' is an array of parents with their associated students
-        this.parents = data.map(parent => ({
-            ...parent,
-            // Ensure 'students' is populated correctly
-            students: parent.students || [] // Use existing students or an empty array
-        }));
-        
-        console.log(this.parents); // Log the structure of parents for debugging
-    }, error => {
-        console.error('Error fetching parents:', error);
+        this.parents = data;
+        console.log('Fetched parents data:', this.parents); // Log the entire data
     });
-  }
+}
+
   // Method to check if a value is an array
   isArray(value: any): boolean {
       return Array.isArray(value);
   }
+  
   deleteParent(email: string): void {
+    console.log("clicked");
     this.parentservice.deleteParent(email).subscribe(
+      
       () => {
         this.parents = this.parents.filter(parent => parent.email !== email);
         console.log('All Parent/Guardians with that email deleted successfully.');
@@ -107,4 +105,25 @@ export class ParentlistComponent implements OnInit {
       }
     );
   }
+
+// Update the deletion logic to check if studentLRN is in the LRNs array
+removelrn(email: string, lrn: number) {
+  this.parentservice.removelrn(email, lrn).subscribe(
+    (response) => {
+      console.log('Student removed successfully!'); // Log success message
+      this.updateParentsList(email, lrn); // Update local state after deletion
+    },
+    (error) => {
+      console.error('Error removing student:', error); // Log error message
+    }
+  );
+}
+
+updateParentsList(email: string, lrn: number) {
+  const parent = this.parents.find(p => p.email === email);
+  if (parent) {
+    parent.students = parent.students.filter((student: Student) => student.LRN !== lrn); // Specify the type here
+  }
+}
+  
 }

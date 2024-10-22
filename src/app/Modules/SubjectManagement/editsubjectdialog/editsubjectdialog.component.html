@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <h1>Edit Subjects: Grade {{grade_level}} </h1>
+    <h1><strong>Edit Subjects: Grade {{grade_level}} </strong></h1>
     <form [formGroup]="editSubjectForm" (ngSubmit)="onSubmit()">
         
         <mat-form-field style="display: none;" appearance="outline" class="w-100 mt-3">
@@ -15,12 +15,11 @@
         <div formArrayName="subject_names">
             <div *ngFor="let subject of subjectNamesArray.controls; let i = index" [formGroupName]="i" class="subject-item">
                 <mat-form-field appearance="outline" class="flex-grow-1 mt-3">
-                    <mat-label>Subject Name</mat-label>
                     <input matInput formControlName="name" placeholder="Enter Subject Name" required>
                 </mat-form-field>
-                <!-- <button mat-button color="warn" type="button" (click)="removesubject(i)">
+                <button mat-button color="warn" type="button" (click)="removesubject(i)">
                     <i class="bi bi-trash3-fill"></i>
-                </button>  -->
+                </button> 
             </div>
         </div>
 

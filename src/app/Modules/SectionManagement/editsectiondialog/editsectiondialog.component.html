@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <h2>Edit Section: Grade {{grade_level}}</h2>
+    <h2><strong>Edit Section: Grade {{grade_level}}</strong></h2>
 
     <form [formGroup]="editSectionForm" (ngSubmit)="onSubmit()">
         <mat-form-field style="display: none;" appearance="outline" class="w-100">
@@ -15,7 +15,6 @@
         <div formArrayName="section_names">
             <div *ngFor="let section of sectionNamesArray.controls; let i = index" [formGroupName]="i" class="section-item">
                 <mat-form-field appearance="outline" class="flex-grow-1 mt-3">
-                    <mat-label>Section Name</mat-label>
                     <input matInput formControlName="name" placeholder="Enter Section Name" required>
                 </mat-form-field>
                 <!-- <button mat-button color="warn" type="button" (click)="removeSection(i)">

@@ -35,14 +35,22 @@ export class AddparentComponent {
     const dialogRef = this.dialog.open(AddlrndialogComponent, {
       data: { children: 'LRN' },
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.studentList.push(result); // Add the student's name and LRN to the list
-        this.addLRN(result.LRN); // Add the LRN to the FormArray
+        // Check if the LRN already exists in the studentList
+        const exists = this.studentList.some(student => student.LRN === result.LRN);
+        if (!exists) {
+          this.studentList.push(result); // Add the student's name and LRN to the list
+          this.addLRN(result.LRN); // Add the LRN to the FormArray
+        } else {
+          // Optionally, you can show a message that the LRN is a duplicate
+          console.log('This LRN already exists in the list.');
+        }
       }
     });
   }
+  
 
   addLRN(lrn: number): void {
     if (lrn) { // Check if lrn is valid

@@ -138,4 +138,9 @@ export class ConnectService {
     const payload = { LRN: lrn }; // Wrap LRN in an object
     return this.http.patch(`${this.url}parentguardian/${email}`, payload);
   }
+  removelrn(email: string, lrn: number): Observable<any> {
+    return this.http.delete(`${this.url}parentguardian/${email}/remove`, {
+      params: { LRN: lrn.toString() } // Send LRN as a query parameter
+    });
+  }
 }

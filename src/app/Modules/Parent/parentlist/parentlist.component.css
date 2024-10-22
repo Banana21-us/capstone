@@ -103,3 +103,17 @@ table td {
         color: #0056b3;
     }
 }
+.student-item {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between name and icon */
+    align-items: center; /* Center align items vertically */
+    padding: 3px; /* Add some padding */
+    list-style: none; /* Remove bullet points */
+}
+
+.remove-icon {
+    margin-left: 1px; /* Add some space between the name and icon */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    color: #e74c3c;
+}
+
