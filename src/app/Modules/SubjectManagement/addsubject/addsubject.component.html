@@ -36,16 +36,31 @@
                   <label for="subjects">Subject List: <button type="button" class="btn btn-success ms-1" (click)="openDialog()">+</button>
                   </label>
                   <!-- Display added subjects -->
-                  <ul>
-                    <li *ngFor="let subject of subjectsList; let i = index" style="display: flex; align-items: center; position: relative;">
-                      <i *ngIf="subjectsList.length > 1"
-                         (click)="removeSubject(i)"
-                         style="color: red; font-size: 15px;"
-                         class="bi bi-trash me-2"></i>
-                      <span style="flex-grow: 1;">{{ subject }}</span>
+                  <ul style="display: flex; flex-wrap: wrap; gap: 16px; list-style-type: none; padding: 0;">
+                    <li *ngFor="let subject of subjectsList; let i = index" 
+                        style="flex: 0 0 calc(33.33% - 16px); /* Ensure each item takes up 1/3 of the width */
+                               display: flex; 
+                               align-items: center; 
+                               position: relative; 
+                               border: 1px solid #ccc; 
+                               border-radius: 4px; 
+                               background-color: #f0f8ff; 
+                               padding: 12px; 
+                               margin-bottom: 10px; 
+                               height: 60px;">
+                        
+                        <span style="flex-grow: 1; 
+                                     font-size: 16px; 
+                                     font-weight: 500;">
+                            {{ subject }}
+                        </span>
+                        <i *ngIf="subjectsList.length > 1" 
+                            (click)="removeSubject(i)" 
+                            style="color: red; font-size: 15px;" 
+                            class="bi bi-trash me-2"></i>
                     </li>
-                  </ul>
-                  <!-- Button to open dialog -->
+                </ul>
+                
               </div>
           </div>
       </div>

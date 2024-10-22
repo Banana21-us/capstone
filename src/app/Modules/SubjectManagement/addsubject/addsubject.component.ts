@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 import { AddsubjectdialogComponent } from '../addsubjectdialog/addsubjectdialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-addsubject',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,MatFormField,MatLabel],
   templateUrl: './addsubject.component.html',
   styleUrls: ['./addsubject.component.css']
 })

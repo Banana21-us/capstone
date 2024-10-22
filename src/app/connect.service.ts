@@ -76,7 +76,9 @@ export class ConnectService {
   deleteteacher(admin_id: number): Observable<any> {
     return this.http.delete(`${this.url}admins/${admin_id}`);
   }
-  
+  updateAdmin(admin: any): Observable<any> {
+    return this.http.put(`${this.url}admins/${admin.admin_id}`, admin);
+}
 
   // announcement section 
   submitannouncement(announcementData:any):Observable<any>{

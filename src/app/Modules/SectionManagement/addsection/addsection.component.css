@@ -1,19 +1,18 @@
-/* Form container styles */
+/* Updated form-container styles */
 .form-container {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     padding: 2rem;
-    /* max-width: 600px; */
-    margin: 0 auto;
-    /* height: 82vh; */
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-container h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font-size: 1.8rem;
     color: #0056b3;
 }
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -58,7 +57,7 @@ button {
 button:hover {
     background-color: #003d79;
 }
-.btn-custom{
+.button-submit {
     background-color: #0056b3;
     color: #fff;
     border: none;
@@ -68,54 +67,73 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-btn-custom:hover {
-    background-color: #003d79;
+
+/* Section list styles */
+.section-list {
+    flex: 0 0 calc(33.33% - 16px);
+    display: flex;
+    align-items: center;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f8ff;
+    padding: 12px;
+    margin-bottom: 10px;
+    height: 60px;
 }
 
-/* Small screens (max-width: 768px) */
+.section-list span {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
     .form-container {
         max-width: 90%;
         height: auto;
         padding: 1.5rem;
     }
+
     .form-container h2 {
         font-size: 1.5rem;
     }
+
     .form-group {
         margin-bottom: 0.8rem;
     }
+
     .form-group input,
     .form-group textarea {
         padding: 0.6rem;
     }
+
     button {
         padding: 0.6rem 1.2rem;
     }
 }
 
-/* Extra small screens (max-width: 576px) */
 @media (max-width: 576px) {
     .form-container {
         max-width: 95%;
         padding: 1rem;
     }
+
     .form-container h2 {
         font-size: 1.2rem;
     }
+
     .form-group {
         margin-bottom: 0.6rem;
     }
+
     .form-group input,
     .form-group textarea {
         padding: 0.4rem;
     }
+
     button {
         padding: 0.4rem 1rem;
     }
-}
-.section-list {
-    list-style-type: none; /* Remove default list styling */
-    padding: 0; /* Remove default padding */
-    margin-left: -32px; /* Remove default margin */
 }

@@ -1,0 +1,52 @@
+<mat-dialog-content>
+    <h1>Edit Teacher</h1>
+    <form [formGroup]="editteacherform" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col ">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Lastnam</mat-label>
+                  <input matInput type="text" formControlName="lname" required />
+                </mat-form-field>
+            </div>
+            <div class="col ">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Firstname</mat-label>
+                  <input matInput type="text" formControlName="fname" required />
+                </mat-form-field>
+            </div>
+            <div class="col ">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Middlename</mat-label>
+                  <input matInput type="text" formControlName="mname" required />
+                </mat-form-field>
+            </div>
+        </div>
+      <div class="row">
+  
+        <div class="col ">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email" required />
+          </mat-form-field>
+        </div>
+  
+        
+  
+        <div class="col ">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Address</mat-label>
+              <input matInput type="text" formControlName="address" required />
+            </mat-form-field>
+          </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions class="border-top">
+    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" [disabled]="editteacherform.invalid" (click)="onSubmit()">
+      Save
+    </button>
+  </mat-dialog-actions>

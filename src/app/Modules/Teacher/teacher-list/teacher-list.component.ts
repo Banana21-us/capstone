@@ -5,6 +5,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ConnectService } from '../../../connect.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTeacherComponent } from '../edit-teacher/edit-teacher.component';
 
 @Component({
   selector: 'app-teacher-list',
@@ -26,7 +28,7 @@ export class TeacherListComponent implements OnInit{
 
   teachers: any[] = [];
 
-  constructor(private teacherservice: ConnectService) {}
+  constructor(private teacherservice: ConnectService,private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchteacher();
@@ -34,6 +36,7 @@ export class TeacherListComponent implements OnInit{
   fetchteacher() {
     this.teacherservice.getteacher().subscribe((data) => {
       this.teachers = data.filter(teacher => teacher.role === 'Teacher');
+      console.log(data);
     });
   }
 
@@ -57,5 +60,18 @@ export class TeacherListComponent implements OnInit{
         }
     );
   }
+  openEditSubjectModal(teacher: any): void {
+    console.log(teacher);
+    const dialogRef = this.dialog.open(EditTeacherComponent, {
+        width: 'auto',
+        data: teacher // Ensure this includes the ID
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+            this.fetchteacher(); // Refresh teacher list after closing dialog
+        }
+    });
+}
   
 }
