@@ -17,9 +17,12 @@ h2 {
 
 /* Table styles */
 table {
-    width: 100%;
+    width: auto;
     border-collapse: collapse;
     position: relative;
+    width: 100%;
+    border-radius: 10px 10px 0 0; 
+    overflow: hidden; /* Ensures the corners are rounded */
     
     
 }
@@ -111,9 +114,4 @@ table td {
     list-style: none; /* Remove bullet points */
 }
 
-.remove-icon {
-    margin-left: 1px; /* Add some space between the name and icon */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    color: #e74c3c;
-}
 

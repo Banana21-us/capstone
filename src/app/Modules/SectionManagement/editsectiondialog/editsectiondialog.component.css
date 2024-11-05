@@ -21,8 +21,9 @@ button[type='button']:hover {
 }
 .section-item {
     display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-    margin-bottom: 8px; /* Space between each section item */
+    justify-content: space-between; /* Space between name and icon */
+    align-items: start;
+    margin-left: -30px;
 }
 
 .section-item .mat-form-field {

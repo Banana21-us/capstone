@@ -19,7 +19,7 @@ table {
     border-collapse: collapse;
     position: relative;
     width: 100%;
-    /* border-radius: 10px 10px 0 0;  */
+    border-radius: 10px 10px 0 0; 
     overflow: hidden; /* Ensures the corners are rounded */
 }
 

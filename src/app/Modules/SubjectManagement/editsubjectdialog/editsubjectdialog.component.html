@@ -13,15 +13,17 @@
         </mat-form-field>
 
         <div formArrayName="subject_names">
-            <div *ngFor="let subject of subjectNamesArray.controls; let i = index" [formGroupName]="i" class="subject-item">
-                <mat-form-field appearance="outline" class="flex-grow-1 mt-3">
+            <div *ngFor="let subject of subjectNamesArray.controls; let i = index" [formGroupName]="i" class="subject-item d-flex align-items-center">
+                <mat-form-field appearance="outline" class="subject-input flex-grow-1">
+                    <mat-label>Subject Name</mat-label>
                     <input matInput formControlName="name" placeholder="Enter Subject Name" required>
                 </mat-form-field>
-                <button mat-button color="warn" type="button" (click)="removesubject(i)">
+                <button mat-icon-button color="warn" type="button" (click)="removesubject(i)" class="remove-button ms-2 mb-4">
                     <i class="bi bi-trash3-fill"></i>
-                </button> 
+                </button>
             </div>
         </div>
+        
 
         <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addsubject()">Add Subject</button> 
 
@@ -32,6 +34,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="border-top">
-    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">Cancel</button>
+    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">Exit  </button>
     <button mat-raised-button color="primary" [disabled]="editSubjectForm.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>

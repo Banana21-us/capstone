@@ -7,16 +7,14 @@
               </h2>            
           </div>
           <div class="col d-flex justify-content-end">
-              <mat-form-field>
-                  <mat-label>Section</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
+            <mat-form-field>
+                <mat-label>Filter by Section</mat-label>
+                <input matInput [formControl]="sectionFilterCtrl" placeholder="Search by name..." />
+            </mat-form-field>
+        </div>
       </div>
       
-      <table id="subjectTable">
+      <table>
           <thead>
               <tr>
                   <th>Grade</th>
@@ -25,29 +23,28 @@
               </tr>
           </thead>
           <tbody>
-            @for (grade of grades; track $index) {
-            <ng-container>
-              <tr>
-                  <td>{{ grade.level }}  {{ grade.strand.trim() === '-' ? ' ' :  grade.strand}}</td>
-                  <td>
-                      <div *ngIf="grade?.sections?.length">
+            @for (grade of filteredGrades; track $index) {
+                <ng-container >
+                    <tr>
+                      <td>{{ grade.level }} {{ grade.strand.trim() === '-' ? ' ' : grade.strand }}</td>
+                      <td>
+                        <div *ngIf="grade?.sections?.length">
                           <ul>
-                              <li *ngFor="let section of grade.sections">{{ section }}</li>
+                            <li *ngFor="let section of grade.sections" class="section-item">{{ section.name }}</li>
                           </ul>
-                      </div>
-                      <div *ngIf="!grade?.sections?.length">
+                        </div>
+                        <div *ngIf="!grade?.sections?.length">
                           No sections available
-                      </div>
-                  </td>
-                  <td>
-                      <i class="bi bi-pencil-fill m-2" type='button' 
-                         (click)="openEditSectionModal(grade)"></i>
-                      <i class="bi bi-trash3-fill ms-3" type='button'
-                         (click)="deleteGrade(grade.level, grade.strand)" title="Delete"></i>
-                  </td>
-              </tr>
-          </ng-container>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil-fill m-2" type='button' (click)="openEditSectionModal(grade)"></i>
+                        <i class="bi bi-trash3-fill ms-3" type='button' (click)="deleteGrade(grade.level, grade.strand)" title="Delete"></i>
+                      </td>
+                    </tr>
+                  </ng-container>
         }
+          </tbody>
       </table>
       
   </div>

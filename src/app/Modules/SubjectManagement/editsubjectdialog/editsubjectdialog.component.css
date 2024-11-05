@@ -1,0 +1,14 @@
+.subject-item {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Optional: Adjust spacing between the input and button */
+}
+
+.subject-input {
+    flex: 9; /* 90% width */
+}
+
+.remove-button {
+    flex: 1; /* 10% width */
+    padding: 0; /* Optional: adjust padding to make it smaller */
+}

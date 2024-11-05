@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +18,7 @@ export interface Section {
   grade_level: number; // Add this property
   strand: string; // Add this property
 }
+
   
 @Component({
   selector: 'app-viewsection',
@@ -33,65 +34,78 @@ export interface Section {
   styleUrl: './viewsection.component.css'
 })
 export class ViewsectionComponent {
-  states: string[] = ['Math', 'English', 'Literature', 'Science', 'Bible'];
-  
+  sectionFilterCtrl = new FormControl();
   grades: any[] = [];
   section: any;
   strand:any;
+  filteredGrades: any[] = [];
 
   constructor(private sectionservice: ConnectService,private dialog: MatDialog,) {}
 
   ngOnInit(): void {
-    this.fetchGrades();
+    this.fetchSections();
+    this.sectionFilterCtrl.valueChanges.subscribe(() => {
+      this.filterSection();
+  });
   }
 
-  fetchGrades() {
-    this.sectionservice.getsection().subscribe((data) => {
-        console.log('Fetched Grades:', data); // Log full response
-        this.grades = data.map(grade => ({
-            ...grade,
-            sections: Array.isArray(grade.sections) ? grade.sections : [] 
-        }));
-    }, error => {
-        console.error('Error fetching grades:', error);
+  filterSection() {
+    const filterValue = this.sectionFilterCtrl.value ? this.sectionFilterCtrl.value.toLowerCase() : '';
+    if (!filterValue) {
+      this.filteredGrades = [...this.grades];
+      return;
+    }
+    this.filteredGrades = this.grades.filter(grade => {
+      const hasMatchingSection = grade.sections && grade.sections.some((section: any) => 
+        section.name.toLowerCase().includes(filterValue)
+      );
+      return hasMatchingSection;
     });
-}
-deleteGrade(gradeLevel: number, strand: string) {
-  // Log the grade level and strand being deleted
-  console.log(`Attempting to delete sections for grade level: ${gradeLevel}, strand: ${strand}`);
+  }
 
-  // Call the service method to delete sections by grade level and strand
+  fetchSections() {
+    this.sectionservice.getsection().subscribe((data) => {
+      console.log('Fetched Grades:', data);
+      this.grades = data.map(grade => ({
+        ...grade,
+        sections: Array.isArray(grade.sections) ? grade.sections : []
+      }));
+  
+      this.filteredGrades = [...this.grades];
+    }, error => {
+      console.error('Error fetching grades:', error);
+    });
+  }
+deleteGrade(gradeLevel: number, strand: string) {
+  console.log(`Attempting to delete sections for grade level: ${gradeLevel}, strand: ${strand}`);
   this.sectionservice.deleteSectionsByGrade(gradeLevel, strand).subscribe(
       response => {
           console.log('Sections deleted successfully:', response);
-          this.fetchGrades(); // Refresh the grades list after deletion
+          this.fetchSections(); 
       },
       error => {
           console.error('Error deleting sections:', error);
-      }
+      } 
   );
 }
  
 
 openEditSectionModal(grade: any): void {
-  console.log('Opening Edit Section Modal with:', {
-      grade_level: grade.level,
-      strand: grade.strand,
-      section_name: grade.sections 
-  });
-
   const dialogRef = this.dialog.open(EditsectiondialogComponent, {
-      width: 'auto',
+      width: '700px',
       data: {
           grade_level: grade.level,
           strand: grade.strand,
-          section_name: Array.isArray(grade.sections) ? grade.sections : []
+          section_names: grade.sections.map((section: any) => ({
+              name: section.name, // Assuming section has a 'name' property
+              id: section.id      // Assuming section has an 'id' property
+          }))
       }
   });
 
   dialogRef.afterClosed().subscribe(result => {
       if (result) {
-          this.updateSection(result);
+          this.updateSection(result); // Update the section with the returned data
           console.log('Data passed to dialog:', result);
       }
   });
@@ -111,7 +125,7 @@ updateSection(updatedData: any): void {
   this.sectionservice.updateSectionsByGrade(gradeLevel, strand, sectionData).subscribe(
       response => {
           console.log('Sections updated successfully:', response);
-          this.fetchGrades(); // Refresh grades after updating
+          this.fetchSections(); // Refresh grades after updating
       },
       error => {
           console.error('Error updating sections:', error);

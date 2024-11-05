@@ -16,9 +16,12 @@ h2 {
 
 /* Table styles */
 table {
-    width: 100%;
+    width: auto;
     border-collapse: collapse;
     position: relative;
+    width: 100%;
+    border-radius: 10px 10px 0 0; 
+    overflow: hidden; /* Ensures the corners are rounded */
 }
 
 table th,

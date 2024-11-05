@@ -49,6 +49,9 @@ export class ConnectService {
   updateClass(classData: any): Observable<any> {
     return this.http.put(`${this.url}classes/${classData.class_id}`, classData);
   }
+  removeSection(id: number): Observable<any> {
+    return this.http.delete(`${this.url}section/removesection/${id}`);
+}
 
   // Subjects section
   postsubject(subjectData:any):Observable<any>{
@@ -63,6 +66,9 @@ export class ConnectService {
   updateSubjectsByGrade(gradeLevel: number, strand: string, subjectData: any): Observable<any> {
     return this.http.put(`${this.url}subjects/${gradeLevel}/${strand}`, subjectData);
   }
+  removesubject(id: number): Observable<any> {
+    return this.http.delete(`${this.url}subject/removesubject/${id}`);
+}
   
   
 

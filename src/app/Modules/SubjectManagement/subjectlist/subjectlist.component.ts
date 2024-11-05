@@ -9,10 +9,16 @@ import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Editsubjectdialogcomponent } from '../editsubjectdialog/editsubjectdialog.component';
 
-export interface Subject {
-    name: any; // Adjust as necessary based on your actual data structure
+interface Subject {
+    name: string;
+    id: number;
 }
 
+interface SubjectData {
+    level: number;
+    strand: string;
+    subject_name: Subject[];
+}
 @Component({
     selector: 'app-subjectlist',
     standalone: true,
@@ -42,62 +48,65 @@ export class SubjectlistComponent implements OnInit {
     }
 
     fetchSubjects() {
-        this.subjectservice.getsubjects().subscribe((data) => {
+        this.subjectservice.getsubjects().subscribe((data: SubjectData[]) => {
             console.log('Fetched subjects:', data);
             this.subjects = data.map(subject => ({
                 ...subject,
-                subjects: Array.isArray(subject.subjects) ? subject.subjects : []
-            })).sort((a, b) => parseInt(a.level) - parseInt(b.level));
+                subject_name: Array.isArray(subject.subject_name) ? subject.subject_name : []
+            }));
         }, (error: any) => {
             console.error('Error fetching subjects:', error);
         });
     }
 
-    openEditSubjectModal(subject: any): void {
-      const dialogRef = this.dialog.open(Editsubjectdialogcomponent, {
-          width: 'auto',
-          data: {
-              grade_level: subject.level,
-              strand: subject.strand,
-              subject_name: Array.isArray(subject.subjects) ? subject.subjects : []
-          }
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-              this.updateSubjects(result);
-              console.log('Data passed to dialog:', result);
-          }
-      });
-  }
+    openEditSubjectModal(subject: SubjectData): void {
+        const dialogRef = this.dialog.open(Editsubjectdialogcomponent, {
+            width: '700px',
+            data: {
+                grade_level: subject.level,
+                strand: subject.strand,
+                subject_name: subject.subject_name.map((item: Subject) => ({
+                    name: item.name,
+                    id: item.id
+                }))
+            }
+        });
 
-  updateSubjects(updatedData: any): void {
-    const gradeLevel = updatedData.grade_level; 
-    const strand = updatedData.strand;
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.updateSubjects(result);
+                console.log('Data passed to dialog:', result);
+            }
+        });
+    }
 
-    const subjectNames = (updatedData.subject_names || []).map((subject: { name: string }) => subject.name);
+    updateSubjects(updatedData: any): void {
+        const gradeLevel = updatedData.grade_level; 
+        const strand = updatedData.strand;
 
-    const subjectData = { 
-        subject_name: subjectNames,
-        grade_level: gradeLevel,
-        strand: strand
-    }; 
+        const subjectNames = (updatedData.subject_name || []).map((subject: { name: string }) => subject.name); // Corrected to subject_name
 
-    console.log('Sending data to API:', subjectData);
+        const subjectData = { 
+            subject_name: subjectNames,
+            grade_level: gradeLevel,
+            strand: strand
+        }; 
 
-    this.subjectservice.updateSubjectsByGrade(gradeLevel, strand, subjectData).subscribe(
-        response => {
-            console.log('Subjects updated successfully:', response);
-            this.fetchSubjects(); 
-        },
-        error => {
-            console.error('Error updating subjects:', error);
-            alert('Failed to update subjects. Please try again.');
-        }
-    );
-}
+        console.log('Sending data to API:', subjectData);
 
-    deleteGrade(gradeLevel: number, strand: string) {
+        this.subjectservice.updateSubjectsByGrade(gradeLevel, strand, subjectData).subscribe(
+            response => {
+                console.log('Subjects updated successfully:', response);
+                this.fetchSubjects(); 
+            },
+            error => {
+                console.error('Error updating subjects:', error);
+                alert('Failed to update subjects. Please try again.');
+            }
+        );
+    }
+
+deleteSubjects(gradeLevel: number, strand: string) {
         console.log(`Attempting to delete subjects for grade level: ${gradeLevel} and strand: ${strand}`);
         
         this.subjectservice.deleteSubjectByGrade(gradeLevel, strand).subscribe(
@@ -111,4 +120,8 @@ export class SubjectlistComponent implements OnInit {
             }
         );
     }
+    removesubject(){
+
+    }
+
 }
