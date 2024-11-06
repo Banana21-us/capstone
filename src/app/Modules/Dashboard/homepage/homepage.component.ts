@@ -75,30 +75,49 @@ export class HomepageComponent implements AfterViewInit {
 }
 
 renderChart(labels: string[], data: number[], maxCount: number): void {
-  const ctx = this.myChart.nativeElement.getContext('2d');
-  if (ctx) {
+    const ctx = this.myChart.nativeElement.getContext('2d');
+    if (ctx) {
       this.chart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: '# of Students',
-                  data: data,
-                  borderWidth: 1,
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)', 
-                  borderColor: 'rgba(75, 192, 192, 1)',      
-              }]
-          },
-          options: {
-              scales: {
-                  y: {
-                      beginAtZero: true,
-                      min: 0,
-                      max: Math.max(maxCount) 
-                  }
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Number of Students',
+            data: data,
+            borderWidth: 1,
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.2)',  // Light teal
+              'rgba(255, 99, 132, 0.2)',  // Light pink
+              'rgba(255, 159, 64, 0.2)',  // Light orange
+              'rgba(54, 162, 235, 0.2)',  // Light blue
+              'rgba(153, 102, 255, 0.2)', // Light purple
+              'rgba(255, 206, 86, 0.2)'   // Light yellow
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)', 
+              'rgba(255, 99, 132, 1)', 
+              'rgba(255, 159, 64, 1)', 
+              'rgba(54, 162, 235, 1)', 
+              'rgba(153, 102, 255, 1)', 
+              'rgba(255, 206, 86, 1)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              min: 0,
+              max: Math.ceil(maxCount * 1.2), // Add padding above max value for visual spacing
+              ticks: {
+                stepSize: Math.ceil(maxCount / 500) // Dynamic steps for cleaner scale
               }
+            }
           }
+        }
       });
-  }
+    }
+    
 }
 }

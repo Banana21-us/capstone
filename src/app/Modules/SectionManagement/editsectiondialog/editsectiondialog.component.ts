@@ -30,6 +30,7 @@ export interface EditSectionDialogData {
 export class EditsectiondialogComponent {
   editSectionForm: FormGroup;
   grade_level: number;
+  strand:any;
 
   constructor(
     private dialogRef: MatDialogRef<EditsectiondialogComponent>,
@@ -38,6 +39,7 @@ export class EditsectiondialogComponent {
     private sectionservice: ConnectService
   ) {
     this.grade_level = data.grade_level; // Assign passed grade level
+    this.strand = data.strand; 
     this.editSectionForm = this.formBuilder.group({
       grade_level: [data.grade_level, Validators.required],
       strand: [data.strand, Validators.required],

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,14 +37,28 @@ interface SubjectData {
 })
 export class SubjectlistComponent implements OnInit {
     subjects: any[] = [];
-    subs: string[] = [
-      'Math',
-      'Englist',
-    ];
+    subjectFilterCtrl = new FormControl();
+    filteredSubject: any[] = [];
     constructor(private subjectservice: ConnectService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.fetchSubjects();
+        this.subjectFilterCtrl.valueChanges.subscribe(() => {
+            this.filterSection();
+        });
+    }
+    filterSection() {
+        const filterValue = this.subjectFilterCtrl.value ? this.subjectFilterCtrl.value.toLowerCase() : '';
+        if (!filterValue) {
+            this.filteredSubject = [...this.subjects];
+            return;
+        }
+        this.filteredSubject = this.subjects.filter(subject => {
+            // Check if any subject name matches the filter value
+            return subject.subject_name.some((item: Subject) => 
+                item.name.toLowerCase().includes(filterValue)
+            );
+        });
     }
 
     fetchSubjects() {
@@ -54,6 +68,8 @@ export class SubjectlistComponent implements OnInit {
                 ...subject,
                 subject_name: Array.isArray(subject.subject_name) ? subject.subject_name : []
             }));
+            // Initialize filteredSubject with all subjects
+            this.filteredSubject = [...this.subjects];
         }, (error: any) => {
             console.error('Error fetching subjects:', error);
         });

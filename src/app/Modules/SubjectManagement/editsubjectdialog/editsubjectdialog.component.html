@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <h1><strong>Edit Subjects: Grade {{grade_level}} </strong></h1>
+    <h1><strong>Edit Subjects: Grade {{grade_level}}   {{ (strand && strand.trim() === '-') ? ' ' : strand }} </strong></h1>
     <form [formGroup]="editSubjectForm" (ngSubmit)="onSubmit()">
         
         <mat-form-field style="display: none;" appearance="outline" class="w-100 mt-3">
@@ -15,7 +15,7 @@
         <div formArrayName="subject_names">
             <div *ngFor="let subject of subjectNamesArray.controls; let i = index" [formGroupName]="i" class="subject-item d-flex align-items-center">
                 <mat-form-field appearance="outline" class="subject-input flex-grow-1">
-                    <mat-label>Subject Name</mat-label>
+                    
                     <input matInput formControlName="name" placeholder="Enter Subject Name" required>
                 </mat-form-field>
                 <button mat-icon-button color="warn" type="button" (click)="removesubject(i)" class="remove-button ms-2 mb-4">

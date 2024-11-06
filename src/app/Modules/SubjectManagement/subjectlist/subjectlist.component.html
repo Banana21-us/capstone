@@ -6,14 +6,10 @@
                 <h2>Subject List <button type="button" class="btn btn-success" routerLink="/main-page/subjectmanagement/addsubject">+</button></h2>            
             </div>
             <div class="col d-flex justify-content-end">
-              <mat-form-field>
-                <mat-label>Subjects</mat-label>
-                <mat-select>
-                  @for (sub of subs; track sub) {
-                    <mat-option [value]="sub">{{sub}}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Filter by Subject</mat-label>
+                    <input matInput [formControl]="subjectFilterCtrl" placeholder="Search by name..." />
+                </mat-form-field>
             </div>
           </div>
           
@@ -27,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-              <ng-container *ngFor="let subject of subjects">
+              <ng-container *ngFor="let subject of filteredSubject">
                 <tr>
                     <td>{{ subject.level }} {{ subject.strand.trim() === '-' ? ' ' : subject.strand }}</td>
                     

@@ -30,6 +30,7 @@ export class LoginComponent {
       (result: any) => {
         if (result.token != null) {
           localStorage.setItem('token', result.token);
+          localStorage.setItem('user', JSON.stringify(result.admin));
           console.log('Token stored:', result.token);
           this.navigateToMainPage(); // Navigate to the main page
         }
@@ -44,5 +45,6 @@ export class LoginComponent {
   navigateToMainPage() {
     console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/homepage/Homepage']);
-  }
+    // window.location.reload()
+    }
 }

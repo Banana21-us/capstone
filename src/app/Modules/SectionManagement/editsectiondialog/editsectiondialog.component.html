@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <h2><strong>Edit Section: Grade {{grade_level}}</strong></h2>
+    <h2><strong>Edit Section: Grade {{grade_level}}  {{ (strand && strand.trim() === '-') ? ' ' : strand }} </strong></h2>
 
     <form [formGroup]="editSectionForm" (ngSubmit)="onSubmit()">
         <mat-form-field style="display: none;" appearance="outline" class="w-100">
@@ -13,13 +13,13 @@
         </mat-form-field>
 
         <div formArrayName="section_names">
-            <div *ngFor="let section of sectionNamesArray.controls; let i = index" [formGroupName]="i" class="section-item">
-                <mat-form-field appearance="outline" class="flex-grow-1 mt-3 w-100">
+            <div *ngFor="let section of sectionNamesArray.controls; let i = index" [formGroupName]="i" class="section-item d-flex align-items-center">
+                <mat-form-field appearance="outline" class="section-input flex-grow-1">
                     <input matInput formControlName="name" placeholder="Enter Section Name" required>
                 </mat-form-field>
-                <button mat-button color="warn" type="button" (click)="removeSection(i)">
+                <button mat-icon-button color="warn" type="button" (click)="removeSection(i)" class="remove-button ms-2 mb-4">
                     <i class="bi bi-trash3-fill"></i>
-                </button> 
+                </button>
             </div>
         </div>
         <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addSection()">Add Section</button> <!-- Add button -->

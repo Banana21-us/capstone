@@ -24,6 +24,25 @@ export class CustomSidenavComponent {
   @Input() set collapsed(val: boolean){
     this.sideNavCollapsed.set(val);
   }
+  // Properties for role and last name
+  role = '';
+  lname = '';
+  fname = '';
+
+  ngOnInit(): void {
+    this.loadUserData();
+  }
+
+  loadUserData() {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+        const parsedData = JSON.parse(userData);
+        this.role = parsedData.role || '';
+        this.lname = parsedData.lname || '';
+        this.fname = parsedData.fname || '';
+    }
+  }
+
 
   menuItems = signal<MenuItem[]>([
     {

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 export interface Subject {
     subject_id: number | null; 
@@ -49,7 +49,7 @@ export class AddclassComponent implements OnInit {
     teachers: Teacher[] = []; 
     sectionIdMap: { [key: string]: string } = {}; 
 
-    constructor(private fb: FormBuilder, private classService: ConnectService) {
+    constructor(private fb: FormBuilder, private classService: ConnectService,private router: Router) {
         this.classManagementForm = this.fb.group({
             section: ['', Validators.required],
             room: ['', Validators.required],
@@ -191,7 +191,8 @@ createFormGroup(subject: Subject): FormGroup {
           this.classService.createClass(formValues).subscribe(
               (response) => {
                   console.log('Form submission successful:', response);
-                  this.classManagementForm.reset();
+                //   this.classManagementForm.reset();
+                this.router.navigate(['/main-page/classmanagement/classlist']);
               },
               (error) => {
                   console.error('Error submitting form:', error);

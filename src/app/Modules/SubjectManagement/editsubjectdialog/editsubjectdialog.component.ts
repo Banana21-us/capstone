@@ -31,6 +31,7 @@ export interface EditSubjectDialogData {
 export class Editsubjectdialogcomponent {
     editSubjectForm: FormGroup;
     grade_level: number;
+    strand:any;
     constructor(
         private dialogRef: MatDialogRef<Editsubjectdialogcomponent>,
         @Inject(MAT_DIALOG_DATA) public data: EditSubjectDialogData,
@@ -39,6 +40,7 @@ export class Editsubjectdialogcomponent {
     ) {
         console.log('Received dialog data:', data); // Log received data
         this.grade_level = data.grade_level;
+        this.strand = data.strand; 
         this.editSubjectForm = this.formBuilder.group({
             grade_level: [data.grade_level, Validators.required],
             strand: [data.strand, Validators.required],

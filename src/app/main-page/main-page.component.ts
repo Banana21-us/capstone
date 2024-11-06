@@ -31,7 +31,8 @@ export class MainPageComponent {
     this.conn.logout().subscribe(
         (response) => {
             console.log('Logout successful:', response);
-            localStorage.removeItem('token'); // Clear the token from localStorage
+            localStorage.removeItem('token');
+            localStorage.removeItem('user'); // Clear the token from localStorage
             this.router.navigate(['/login']); // Navigate to the login page
         },
         (error) => {

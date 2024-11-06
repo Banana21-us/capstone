@@ -151,4 +151,13 @@ export class ConnectService {
       params: { LRN: lrn.toString() } // Send LRN as a query parameter
     });
   }
+
+  // account 
+  update(adminId: number, oldPassword: string, newData: any): Observable<any> {
+    return this.http.put(`${this.url}update-password`, {
+      admin_id: adminId,
+      oldPassword: oldPassword,
+      ...newData
+    });
+  }
 }

@@ -1,14 +1,35 @@
 .subject-item {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Optional: Adjust spacing between the input and button */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between name and icon */
+    align-items: start;
+    margin-left: -30px;
 }
 
-.subject-input {
-    flex: 9; /* 90% width */
+.subject-item .mat-form-field {
+    flex: 1; /* Allow the input field to take up available space */
+    margin-right: 5px; /* Space between input and button */
 }
 
-.remove-button {
-    flex: 1; /* 10% width */
-    padding: 0; /* Optional: adjust padding to make it smaller */
+.subject-item button {
+    min-width: 100px; /* Set a minimum width for the button */
+}
+.mat-button {
+    margin-right: 8px; /* Space between buttons */
+}
+
+.mat-raised-button {
+    background-color: #3f51b5; /* Primary color */
+    color: white;
+}
+
+.mat-raised-button:hover {
+    background-color: #303f9f; /* Darker shade on hover */
+}
+
+button[type='button'] {
+    margin-top: 8px; /* Space above the button */
+}
+
+button[type='button']:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
 }
