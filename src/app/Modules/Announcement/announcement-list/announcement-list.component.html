@@ -1,6 +1,6 @@
 <section class="announcement-list">
     <h2>
-        Latest Announcements
+        Announcements
         <button type="button" class="btn btn-success" routerLink="/main-page/announcement/addannouncement">+</button>
     </h2>            
     <hr>
@@ -14,14 +14,15 @@
                     {{ ann.title }}
                     <!-- Exciting School Events Coming Up! -->
                 </h3> <!-- Dynamically render announcement title -->
-                <div class="announcement-actions">
-                    <a class="edit"><i class="bi bi-pencil-fill" (click)="onUpdate(ann.ancmnt_id)"></i></a>
-                    <a class="delete"><i class="bi bi-trash-fill" (click)="onDelete(ann.ancmnt_id)" ></i></a>
-                </div>
                 <span class="date">
                     <!-- September 12,2024 -->
                     {{ ann.created_at | date:'medium' }}
                 </span>
+                <div class="announcement-actions ms-3">
+                    <a class="edit"><i class="bi bi-pencil-fill" (click)="onUpdate(ann.ancmnt_id)"></i></a>
+                    <a class="delete"><i class="bi bi-trash-fill" (click)="onDelete(ann.ancmnt_id)" ></i></a>
+                </div>
+                
                 
             </div>
             <p class="announcement-p">{{ann.announcement}}</p>

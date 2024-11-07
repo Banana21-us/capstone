@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-announcement',
   standalone: true,
@@ -26,15 +26,19 @@ export class AddAnnouncementComponent {
   postannouncement() {
     this.announcementservice.submitannouncement(this.announcementform.value).subscribe(
       (result: any) => {
-        console.log('anouncement submitted successfully:', result);
-        // Optionally, reset the form or show a success message
-        this.announcementform.reset();
-        this.navigateToMainPage(); // Navigate to the main page
+        console.log('Announcement submitted successfully:', result);
+        // Display success message
+        Swal.fire({
+          title: 'Good job!',
+          text: 'Your announcement was submitted successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK' // You can customize the button text
+        });
 
+        this.navigateToMainPage(); // Navigate to the main page
       },
       (error) => {
         console.error('Error submitting announcement:', error);
-        // Handle the error, e.g., show an error message to the user
       }
     );
   }

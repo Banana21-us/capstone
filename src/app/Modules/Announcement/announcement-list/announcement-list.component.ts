@@ -5,7 +5,7 @@ import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import Swal from 'sweetalert2'; 
 @Component({
   selector: 'app-announcement-list',
   standalone: true,
@@ -33,24 +33,42 @@ export class AnnouncementListComponent implements OnInit{
   }
 
   onDelete(ancmnt_id: number): void {
-    this.announcement.deleteAnnouncement(ancmnt_id).subscribe(
-        response => {
+    
+    // Show confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.announcement.deleteAnnouncement(ancmnt_id).subscribe(
+          response => {
             console.log('Deleting announcement:', response.message);
-            // Optionally refresh the announcement list here
-            this.fetchAnnouncements(); 
-        },
-        error => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+            this.fetchAnnouncements();
+          },
+          error => {
             console.error('Error deleting announcement:', error);
             if (error.status) {
-                console.error('HTTP Status:', error.status);
+              console.error('HTTP Status:', error.status);
             }
             if (error.error && error.error.message) {
-                console.error('Server message:', error.error.message);
+              console.error('Server message:', error.error.message);
             } else {
-                console.error('Unexpected error format:', error);
+              console.error('Unexpected error format:', error);
             }
-        }
-    );
+          }
+        );
+      }
+    });
   }
 
   // onUpdate(ancmnt_id: number): void {

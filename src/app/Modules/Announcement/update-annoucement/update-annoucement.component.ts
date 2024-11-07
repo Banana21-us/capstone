@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Announcement } from '../announcement-list/announcement-list.component';
 import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 
 @Component({
@@ -56,27 +57,37 @@ export class UpdateAnnoucementComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.updateannouncementForm.valid) {
-      const updatedAnnouncement = {
-        title: this.updateannouncementForm.value.title,
-        announcement: this.updateannouncementForm.value.announcement
-      };
-      
-      this.apiService.updateannouncement(this.ancmnt_id, updatedAnnouncement).subscribe(
-        (response) => {
-          console.log('Announcement updated successfully:', response);
-          // Optionally, navigate back to the list or show a success message
+
+onSubmit(): void {
+  if (this.updateannouncementForm.valid) {
+    const updatedAnnouncement = {
+      title: this.updateannouncementForm.value.title,
+      announcement: this.updateannouncementForm.value.announcement
+    };
+    
+    this.apiService.updateannouncement(this.ancmnt_id, updatedAnnouncement).subscribe(
+      (response) => {
+        console.log('Announcement updated successfully:', response);
+        
+        // Show success message
+        Swal.fire({
+          title: "Good job!",
+          text: "Announcement updated successfully!",
+          icon: "success"
+        }).then(() => {
+          // Optionally, navigate back to the list after the alert
           this.router.navigate(['/main-page/announcement/announcementlist']);
-        },
-        (error) => {
-          console.error('Error updating announcement:', error);
-        }
-      );
-    } else {
-      console.error('Form is invalid');
-    }
+        });
+      },
+      (error) => {
+        console.error('Error updating announcement:', error);
+      }
+    );
+  } else {
+    console.error('Form is invalid');
   }
+}
+
 
  
 
