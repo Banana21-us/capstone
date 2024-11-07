@@ -75,19 +75,20 @@ h3 {
 
 /* Card Background Gradients */
 .bg-c-blue {
-  background: linear-gradient(45deg, #4099ff, #73b4ff);
-  border: 1px solid #007bff;
+  background: linear-gradient(45deg, #3ABEF9, #73b4ff); /* Brighter blue gradient */
+  border: 1px solid #007bff; /* Keep the strong blue border */
 }
 
 .bg-c-green {
-  background: linear-gradient(45deg, #2ed8b6, #59e0c5);
-  border: 1px solid #20c997;
+  background: linear-gradient(45deg, #1ed9b4, #98FF98); /* Mint green for a fresh gradient */
+  border: 1px solid #20c997; /* Keep the green border */
 }
 
 .bg-c-yellow {
-  background: linear-gradient(45deg, #FFB64D, #ffcb80);
-  border: 1px solid #ffc107;
+  background: linear-gradient(45deg, #ee9518, #FF6F61); /* Coral and yellow gradient */
+  border: 1px solid #ffc107; /* Maintain yellow border for consistency */
 }
+
 
 /* Notification Styles */
 .card-body-notif {
@@ -151,7 +152,7 @@ h3 {
 .banner {
   display: flex;
   align-items: center;
-  background-color: #9B59B6;
+  background-color: #003366;
   color: #ffffff;
   padding: 20px 40px;
   border-radius: 20px;

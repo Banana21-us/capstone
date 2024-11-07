@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { ConnectService } from '../connect.service';
 
 export type MenuItem = {
   icon: string,
@@ -28,10 +29,26 @@ export class CustomSidenavComponent {
   role = '';
   lname = '';
   fname = '';
+  adminPic: string | null = null;
+  
+  constructor(private conn: ConnectService,) {}
 
   ngOnInit(): void {
+
     this.loadUserData();
+    this.conn.adminPic$.subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.adminPic = newImageUrl; // Update the component's admin picture
+      }
+    });
+
+    // Optionally, initialize with the image from localStorage
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.admin_pic) {
+      this.adminPic = user.admin_pic;
+    }
   }
+  
 
   loadUserData() {
     const userData = localStorage.getItem('user');

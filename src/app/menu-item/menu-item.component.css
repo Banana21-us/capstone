@@ -7,11 +7,13 @@
     color: blue;
     border-left: 5px solid;
     border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: transparent;
   }
   
   .selected-menu-item {
     border-left-color: blue;
-    background: rgba(0, 0, 0, 0.05);
+    background-color: #F5F7F8;
+
   }
 
 .indented {

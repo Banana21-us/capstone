@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Teacher } from './Modules/ClassManagement/addclass/addclass.component';
 
 
@@ -13,6 +13,9 @@ export class ConnectService {
 
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
+  
+  private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
+  adminPic$ = this.adminPicSubject.asObservable();
 
   login(data:any){
     return this.http.post(this.url + 'login',data);
@@ -159,5 +162,11 @@ export class ConnectService {
       oldPassword: oldPassword,
       ...newData
     });
+  }
+  uploadImage(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8000/api/upload-image', formData);
+  }
+  updateAdminPic(newImageUrl: string) {
+    this.adminPicSubject.next(newImageUrl); // Emit new image URL
   }
 }

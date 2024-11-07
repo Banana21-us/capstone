@@ -30,7 +30,15 @@ export class LoginComponent {
       (result: any) => {
         if (result.token != null) {
           localStorage.setItem('token', result.token);
-          localStorage.setItem('user', JSON.stringify(result.admin));
+
+          // image get
+          const user = result.admin;
+          if (user && user.admin_pic) {
+            if (!user.admin_pic.startsWith('http://localhost:8000')) {
+              user.admin_pic = `http://localhost:8000/assets/adminPic/${user.admin_pic}`;
+            }
+          }
+          localStorage.setItem('user', JSON.stringify(user));
           console.log('Token stored:', result.token);
           this.navigateToMainPage(); // Navigate to the main page
         }
@@ -40,11 +48,12 @@ export class LoginComponent {
         console.error('Login error:', error);
       }
     );
-  }
+}
+
 
   navigateToMainPage() {
     console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/homepage/Homepage']);
-    // window.location.reload()
+    window.location.reload()
     }
 }

@@ -16,7 +16,7 @@ import { ConnectService } from '../../connect.service';
 })
 export class AccountComponent implements OnInit {
   user: any;
-
+  adminPic:any;
   constructor(private adminService:ConnectService) {
 
   }
@@ -37,7 +37,14 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserData();
-  }
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.admin_pic) {
+        this.adminPic = user.admin_pic;
+    } else {
+        console.warn('Admin picture URL not found in localStorage');
+    }
+}
+
 
   loadUserData(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -55,6 +62,12 @@ export class AccountComponent implements OnInit {
         role: user.role,
         oldPassword: user.oldPassword,
       });
+    }
+
+    if (user && user.admin_pic) {
+      this.adminPic = user.admin_pic;
+    } else {
+      console.warn('Admin picture URL not found in localStorage');
     }
   }
 
@@ -104,8 +117,40 @@ export class AccountComponent implements OnInit {
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) {
-      console.log('Selected file:', file);
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (file && user.admin_id) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('admin_id', user.admin_id);
+    
+      this.adminService.uploadImage(formData).subscribe(response => {
+        console.log(response); 
+        const newImageUrl = `http://localhost:8000/assets/adminPic/${response['image_url'].split('/').pop()}`;
+        
+        // Update adminPic variable and the service
+        this.adminPic = newImageUrl;
+        user.admin_pic = newImageUrl;
+        localStorage.setItem('user', JSON.stringify(user)); 
+        
+        // Notify other components by updating the service
+        this.adminService.updateAdminPic(newImageUrl); // Notify all subscribers
+        console.log('Admin Picture URL:', this.adminPic);
+      }, error => {
+        console.error('Error uploading image:', error);
+      });
+    
+    
+    } else {
+        console.error('No file selected or admin ID is missing');
     }
-  }
 }
+
+
+
+}
+
+
+
+
+

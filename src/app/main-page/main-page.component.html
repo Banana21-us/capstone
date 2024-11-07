@@ -44,9 +44,9 @@
     </mat-list>
 </mat-menu>
 
-  <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-    <img src="assets/gl.jpg" class="prof-image" />
-  </button>
+<button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
+  <img [src]="adminPic" class="prof-image" alt="Admin Profile Picture" />
+</button>
 
 <!-- Profile Dropdown Menu -->
 <mat-menu #profileMenu="matMenu">
