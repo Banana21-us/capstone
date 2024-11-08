@@ -6,6 +6,7 @@ import { ConnectService } from '../../../connect.service';
 import { AddsubjectdialogComponent } from '../addsubjectdialog/addsubjectdialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-addsubject',
@@ -39,19 +40,29 @@ export class AddsubjectComponent {
   }
 
   submitsubjects() {
+    
+    if (this.subjectsList.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "No subjects to submit",  
+      });
+      return;
+    }
     const formData = {
         ...this.subjectManagementForm.value,
-        subject_name: this.subjectsList, // Ensure this is an array
-        section: this.subjectManagementForm.get('section_name')?.value // Change to 'section'
+        subject_name: this.subjectsList, 
+        section: this.subjectManagementForm.get('section_name')?.value 
     };
 
-    // Log the formData to see what is being submitted
-    console.log('Submitting the following data:', formData);
-
-    // Check if subject_name array is empty
-    if (formData.subject_name.length === 0) {
-        console.error('Subject name array is empty.');
-        return; // Prevent submission if empty
+    if (!formData.grade_level || !formData.strand || formData.subject_name.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "No grade level to submit",  
+      });
+      console.error('Form is invalid:', formData);
+      return;
     }
 
     this.subservice.postsubject(formData).subscribe(
@@ -59,6 +70,11 @@ export class AddsubjectComponent {
             console.log('Subjects submitted successfully:', result);
             this.subjectManagementForm.reset();
             this.subjectsList = []; // Reset subjects list after submission
+            Swal.fire({
+              title: "Success!",
+              text: "Subjects created successfully!",
+              icon: "success"
+            });
             this.navigateToMainPage();
         },
         (error) => {

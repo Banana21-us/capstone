@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 export interface Subject {
     subject_id: number | null; 
@@ -191,15 +192,16 @@ createFormGroup(subject: Subject): FormGroup {
           this.classService.createClass(formValues).subscribe(
               (response) => {
                   console.log('Form submission successful:', response);
-                //   this.classManagementForm.reset();
-                this.router.navigate(['/main-page/classmanagement/classlist']);
+                Swal.fire({
+                    title: "Success!",
+                    text: "Class added successfully .",
+                    icon: "success"
+                  });
+                  this.router.navigate(['/main-page/classmanagement/classlist']);
+
               },
               (error) => {
                   console.error('Error submitting form:', error);
-                  alert('Failed to create classes. Please check your input.');
-                  if (error.status === 422 && error.error && error.error.errors) {
-                      console.log('Validation errors:', error.error.errors);
-                  }
               }
           );
       } else {

@@ -8,6 +8,7 @@ import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTeacherComponent } from '../edit-teacher/edit-teacher.component';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-teacher-list',
@@ -44,30 +45,43 @@ export class TeacherListComponent implements OnInit {
   filterTeachers() {
     const filterValue = this.teacherFilterCtrl.value ? this.teacherFilterCtrl.value.toLowerCase() : '';
     this.filteredTeachers = this.teachers.filter(teacher =>
-      `${teacher.fname} ${teacher.lname}`.toLowerCase().includes(filterValue)
+      `${teacher.fname} ${teacher.lname} ${teacher.email} ${teacher.address}`.toLowerCase().includes(filterValue)
     );
   }
 
-  onDelete(admin_id: number): void {
-    this.teacherservice.deleteteacher(admin_id).subscribe(
-      response => {
-        console.log('Deleting teacher:', response.message);
-        // Optionally refresh the teacher list here
-        this.fetchteacher(); 
-      },
-      error => {
-        console.error('Error deleting teacher:', error);
-        if (error.status) {
-          console.error('HTTP Status:', error.status);
+    onDelete(admin_id: number): void {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.teacherservice.deleteteacher(admin_id).subscribe(
+            response => {
+              console.log('Deleting account:', response.message);
+              Swal.fire({
+                title: "Deleted!",
+                text: "The account has been deleted.",
+                icon: "success"
+              });
+              this.fetchteacher();
+            },
+            error => {
+              console.error('Error deleting account:', error);
+              Swal.fire({
+                title: "Error",
+                text: error.error?.message || "An error occurred while deleting the account.",
+                icon: "error"
+              });
+            }
+          );
         }
-        if (error.error && error.error.message) {
-          console.error('Server message:', error.error.message);
-        } else {
-          console.error('Unexpected error format:', error);
-        }
-      }
-    );
-  }
+      });
+    }
 
   openEditSubjectModal(teacher: any): void {
     console.log(teacher);

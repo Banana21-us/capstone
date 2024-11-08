@@ -9,6 +9,7 @@ import { ConnectService } from '../../../connect.service';
 import { AddupdatelrndialogComponent } from '../../Parent/addupdatelrndialog/addupdatelrndialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditsectiondialogComponent } from '../editsectiondialog/editsectiondialog.component';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 
 export interface Section {
@@ -55,13 +56,17 @@ export class ViewsectionComponent {
       this.filteredGrades = [...this.grades];
       return;
     }
+  
     this.filteredGrades = this.grades.filter(grade => {
+      const matchesGradeLevel = grade.level.toString().includes(filterValue); // Check if grade_level matches filterValue
       const hasMatchingSection = grade.sections && grade.sections.some((section: any) => 
         section.name.toLowerCase().includes(filterValue)
       );
-      return hasMatchingSection;
+  
+      return matchesGradeLevel || hasMatchingSection; // Filter by grade_level or section name
     });
   }
+  
 
   fetchSections() {
     this.sectionservice.getsection().subscribe((data) => {
@@ -76,19 +81,44 @@ export class ViewsectionComponent {
       console.error('Error fetching grades:', error);
     });
   }
-deleteGrade(gradeLevel: number, strand: string) {
-  console.log(`Attempting to delete sections for grade level: ${gradeLevel}, strand: ${strand}`);
-  this.sectionservice.deleteSectionsByGrade(gradeLevel, strand).subscribe(
-      response => {
-          console.log('Sections deleted successfully:', response);
-          this.fetchSections(); 
-      },
-      error => {
-          console.error('Error deleting sections:', error);
-      } 
-  );
-}
- 
+  deleteGrade(gradeLevel: number, strand: string) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `This will delete all sections for Grade ${gradeLevel} ${strand.trim() === '-' ? ' ' : strand.trim()} `,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete sections!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.sectionservice.deleteSectionsByGrade(gradeLevel, strand).subscribe(
+          response => {
+            console.log('Sections deleted successfully:', response);
+            this.fetchSections(); // Refresh section list
+  
+            // Show success message
+            Swal.fire({
+              title: "Deleted!",
+              text: "The sections have been deleted.",
+              icon: "success"
+            });
+          },
+          error => {
+            console.error('Error deleting sections:', error);
+  
+            // Show error message
+            Swal.fire({
+              title: "Error",
+              text: error.error?.message || "An error occurred while deleting the sections.",
+              icon: "error"
+            });
+          }
+        );
+      }
+    });
+  }
+  
 
 openEditSectionModal(grade: any): void {
   const dialogRef = this.dialog.open(EditsectiondialogComponent, {
@@ -108,6 +138,7 @@ openEditSectionModal(grade: any): void {
           this.updateSection(result); // Update the section with the returned data
           console.log('Data passed to dialog:', result);
       }
+      this.fetchSections();
   });
 }
 updateSection(updatedData: any): void {

@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'; 
 import { ConnectService } from '../../../connect.service';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 export interface Teacher {
   admin_id: number;
@@ -101,6 +102,11 @@ export class EditclassdialogComponent implements OnInit {
         response => {
           console.log('Update response:', response);
           this.dialogRef.close(response);
+          Swal.fire({
+            title: "Success!",
+            text: "Class updated successfully .",
+            icon: "success"
+          });
         },
         error => {
           console.error('Error updating class:', error);

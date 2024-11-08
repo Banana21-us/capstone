@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Editsubjectdialogcomponent } from '../editsubjectdialog/editsubjectdialog.component';
+import Swal from 'sweetalert2' // Ensure SweetAlert2 is imported
 
 interface Subject {
     name: string;
@@ -44,22 +45,24 @@ export class SubjectlistComponent implements OnInit {
     ngOnInit(): void {
         this.fetchSubjects();
         this.subjectFilterCtrl.valueChanges.subscribe(() => {
-            this.filterSection();
+            this.filterSubject();
         });
     }
-    filterSection() {
+    filterSubject() {
         const filterValue = this.subjectFilterCtrl.value ? this.subjectFilterCtrl.value.toLowerCase() : '';
         if (!filterValue) {
             this.filteredSubject = [...this.subjects];
             return;
         }
         this.filteredSubject = this.subjects.filter(subject => {
-            // Check if any subject name matches the filter value
-            return subject.subject_name.some((item: Subject) => 
+            const matchesGradeLevel = subject.level.toString().includes(filterValue);
+            const hasMatchingSubjectName = subject.subject_name.some((item: Subject) => 
                 item.name.toLowerCase().includes(filterValue)
             );
+            return matchesGradeLevel || hasMatchingSubjectName; 
         });
     }
+    
 
     fetchSubjects() {
         this.subjectservice.getsubjects().subscribe((data: SubjectData[]) => {
@@ -91,8 +94,11 @@ export class SubjectlistComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.updateSubjects(result);
+                
+
                 console.log('Data passed to dialog:', result);
             }
+            this.fetchSubjects();
         });
     }
 
@@ -122,22 +128,49 @@ export class SubjectlistComponent implements OnInit {
         );
     }
 
-deleteSubjects(gradeLevel: number, strand: string) {
-        console.log(`Attempting to delete subjects for grade level: ${gradeLevel} and strand: ${strand}`);
-        
-        this.subjectservice.deleteSubjectByGrade(gradeLevel, strand).subscribe(
-            (response) => {
+    deleteSubjects(gradeLevel: number, strand: string): void {
+        // Show confirmation alert before attempting to delete the subjects
+        Swal.fire({
+          title: "Are you sure?",
+          text: `This will delete all subjects for grade level ${gradeLevel.toString().trim()} ${strand.trim() === '-' ? ' ' : strand.trim()} permanently.`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete subjects!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log(`Attempting to delete subjects for grade level: ${gradeLevel} and strand: ${strand}`);
+    
+            this.subjectservice.deleteSubjectByGrade(gradeLevel, strand).subscribe(
+              (response) => {
                 console.log('Subjects deleted successfully:', response);
+                
+                // Refresh the subjects list after deletion
                 this.fetchSubjects();
-            },
-            (error: any) => {
+    
+                // Show success message
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "The subjects have been deleted.",
+                  icon: "success"
+                });
+              },
+              (error: any) => {
                 console.error('Error deleting subjects:', error);
-                alert('Failed to delete subjects. Please try again.');
-            }
-        );
+    
+                // Show error message
+                Swal.fire({
+                  title: "Error",
+                  text: error.error?.message || "An error occurred while deleting the subjects.",
+                  icon: "error"
+                });
+              }
+            );
+          }
+        });
     }
-    removesubject(){
+    
 
-    }
 
 }

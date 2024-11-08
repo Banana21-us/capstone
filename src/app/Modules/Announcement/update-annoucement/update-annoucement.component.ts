@@ -71,7 +71,7 @@ onSubmit(): void {
         
         // Show success message
         Swal.fire({
-          title: "Good job!",
+          title: "Success!",
           text: "Announcement updated successfully!",
           icon: "success"
         }).then(() => {

@@ -9,6 +9,7 @@ import { ConnectService } from '../../../connect.service';
 import { AddupdatelrndialogComponent } from '../addupdatelrndialog/addupdatelrndialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 interface Student {
   LRN: number;
@@ -87,31 +88,82 @@ openDialog(email: string): void {
 }
 
 deleteParent(email: string): void {
-    console.log("clicked");
-    this.parentservice.deleteParent(email).subscribe(
-      () => {
-        this.parents = this.parents.filter(parent => parent.email !== email);
-        this.filteredParents = this.filteredParents.filter(parent => parent.email !== email); // Update filtered list as well
-        console.log('All Parent/Guardians with that email deleted successfully.');
-      },
-      (error) => {
-        console.error('Error deleting Parent/Guardian:', error);
-      }
-    );
-}
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.parentservice.deleteParent(email).subscribe(
+        () => {
+          // Remove parent from both lists after deletion
+          this.parents = this.parents.filter(parent => parent.email !== email);
+          this.filteredParents = this.filteredParents.filter(parent => parent.email !== email);
 
-// Update the deletion logic to check if studentLRN is in the LRNs array
-removelrn(email: string, lrn: number) {
-    this.parentservice.removelrn(email, lrn).subscribe(
-        (response) => {
-            console.log('Student removed successfully!'); // Log success message
-            this.updateParentsList(email, lrn); // Update local state after deletion
+          // Show success message
+          Swal.fire({
+            title: "Deleted!",
+            text: "The Parent/Guardian has been deleted.",
+            icon: "success"
+          });
         },
         (error) => {
-            console.error('Error removing student:', error); // Log error message
+          console.error('Error deleting Parent/Guardian:', error);
+          Swal.fire({
+            title: "Error",
+            text: error.error?.message || "An error occurred while deleting the Parent/Guardian.",
+            icon: "error"
+          });
         }
-    );
+      );
+    }
+  });
 }
+
+
+// Update the deletion logic to check if studentLRN is in the LRNs array
+removelrn(email: string, lrn: number): void {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, remove Student!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.parentservice.removelrn(email, lrn).subscribe(
+        (response) => {
+          console.log('Student removed successfully!'); // Log success message
+          this.updateParentsList(email, lrn); // Update local state after deletion
+
+          // Show success message
+          Swal.fire({
+            title: "Removed!",
+            text: "The student has been removed.",
+            icon: "success"
+          });
+        },
+        (error) => {
+          console.error('Error removing student:', error); // Log error message
+
+          // Show error message
+          Swal.fire({
+            title: "Error",
+            text: error.error?.message || "An error occurred while removing the student's LRN.",
+            icon: "error"
+          });
+        }
+      );
+    }
+  });
+}
+
 
 updateParentsList(email: string, lrn: number) {
     const parent = this.parents.find(p => p.email === email);

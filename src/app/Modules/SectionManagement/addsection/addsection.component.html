@@ -50,10 +50,10 @@
                                  font-weight: 500;">
                         {{ section.name }}
                     </span>
-                    <i *ngIf="sectionList.length > 1"
+                    <i *ngIf="sectionList.length > 0"
                         (click)="removeSection(i)"
                         style="color: red; font-size: 15px;" 
-                        class="bi bi-trash me-2"></i>
+                        class="btn bi bi-trash me-2"></i>
                 </li>
             </ul>
             

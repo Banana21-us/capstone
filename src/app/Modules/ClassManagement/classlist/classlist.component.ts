@@ -8,6 +8,7 @@ import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/fo
 import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import Swal from 'sweetalert2' // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-classlist',
@@ -77,20 +78,51 @@ filterSection() {
 }
 
 
-  deleteClass(classId: number) {
-    console.log('Attempting to delete class with ID:', classId);
+deleteClass(classId: number): void {
+  // Show confirmation alert before attempting to delete the class
+  Swal.fire({
+    title: "Are you sure?",
+    text: `This will delete the class permanently.`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete class!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log('Attempting to delete class with ID:', classId);
 
-    this.classservice.deleteClass(classId).subscribe(
-      response => {
-        console.log('Class deletion response:', response.message);
-        this.classes = this.classes.filter(c => c.class_id !== classId);
-        console.log('Updated class list after deletion:', this.classes);
-      },
-      error => {
-        console.error('Error deleting class:', error);
-      }
-    );
-  }
+      this.classservice.deleteClass(classId).subscribe(
+        response => {
+          console.log('Class deletion response:', response.message);
+
+          // Update the class list after successful deletion
+          this.classes = this.classes.filter(c => c.class_id !== classId);
+          console.log('Updated class list after deletion:', this.classes);
+
+          // Show success message
+          Swal.fire({
+            title: "Deleted!",
+            text: "The class has been deleted.",
+            icon: "success"
+          });
+          this.loadClasses();
+        },
+        error => {
+          console.error('Error deleting class:', error);
+
+          // Show error message
+          Swal.fire({
+            title: "Error",
+            text: error.error?.message || "An error occurred while deleting the class.",
+            icon: "error"
+          });
+        }
+      );
+    }
+  });
+}
+
 
   openEditSubjectModal(classData: any): void {
     console.log('Opening edit modal for class:', classData);

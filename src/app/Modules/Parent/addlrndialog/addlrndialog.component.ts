@@ -51,20 +51,22 @@ export class AddlrndialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  searchStudent(): void {
+ searchStudent(): void {
     if (this.selectedStudent) {
-        this.parentservice.getStudentByLRN(this.selectedStudent.LRN).subscribe(
-            (student) => {
-                if (student) {
-                    const fullName = `${student.fname} ${student.lname} ${student.mname || ''}`.trim();
-                    this.dialogRef.close({ fullName, LRN: student.LRN }); // Ensure LRN is included
-                }
-            },
-            (error) => {
-                console.error('Error fetching student:', error);
-            }
-        );
+      const lrn = this.selectedStudent.LRN; 
+      this.parentservice.getStudentByLRN(lrn).subscribe(
+        (student) => {
+          if (student) {
+            const fullName = `${student.fname} ${student.lname} ${student.mname || ''}`.trim();
+            this.dialogRef.close({ fullName, LRN: student.LRN });
+          }
+          
+        },
+        (error) => {
+          console.error('Error fetching student:', error);
+        }
+      );
     }
-}
+  }
   
 }

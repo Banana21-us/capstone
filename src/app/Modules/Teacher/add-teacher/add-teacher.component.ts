@@ -5,7 +5,7 @@ import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
-
+import Swal from 'sweetalert2'; 
 @Component({
   selector: 'app-add-teacher',
   standalone: true,
@@ -31,12 +31,30 @@ export class AddTeacherComponent {
     this.teacherservice.postteacher(this.teacherform.value).subscribe(
       (result: any) => {
         console.log('Teacher submitted successfully:', result);
-        // Optionally, reset the form or show a success message
+        Swal.fire({
+          title: 'Succes!',
+          text: 'Teacher registered successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK' // You can customize the button text
+        });
+
         this.teacherform.reset();
         this.navigateToMainPage(); // Navigate to the main page
 
       },
       (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oopps! Validation Errors",
+          html: `
+            <p>The following issues need to be resolved:</p>
+            <ul style="text-align: left;">
+              <li>Email address is already registered. Please use a different one.</li>
+              <li>Password must be at least 8 characters long.</li>
+            </ul>
+          `,
+        });
+        
         console.error('Error submitting teacher account:', error);
         // Handle the error, e.g., show an error message to the user
       }

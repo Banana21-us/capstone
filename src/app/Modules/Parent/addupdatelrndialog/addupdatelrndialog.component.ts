@@ -6,6 +6,7 @@ import { MatDialogContent, MatDialogActions, MatDialogRef, MAT_DIALOG_DATA } fro
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ConnectService } from '../../../connect.service';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-addupdatelrndialog',
@@ -57,16 +58,30 @@ export class AddupdatelrndialogComponent implements OnInit {
     const lrnArray = [this.selectedStudent]; // Create an array with the selected LRN
     
     this.parentservice.updateParentGuardian(email, lrnArray).subscribe(
-        response => {
-            console.log('Success:', response);
-            this.updateSuccess.emit(); // Emit event on success
-            this.dialogRef.close(); // Close the dialog on success
-        },
-        error => {
-            console.error('Error updating student:', error);
-        }
+      response => {
+        console.log('Success:', response);
+        
+        // Show success message
+        Swal.fire({
+          title: "Success!",
+          text: "Student added successfully .",
+          icon: "success"
+        });
+        
+        this.updateSuccess.emit(); // Emit event on success
+        this.dialogRef.close(); // Close the dialog on success
+      },
+      error => {
+        console.error('Error updating student:', error);
+        Swal.fire({
+          title: "Error",
+          text: error.error?.message || "An error occurred while updating the student.",
+          icon: "error"
+        });
+      }
     );
-}
+  }
+  
   
 
 }

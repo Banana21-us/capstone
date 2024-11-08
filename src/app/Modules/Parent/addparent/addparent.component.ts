@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { ConnectService } from '../../../connect.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-addparent',
@@ -78,9 +79,26 @@ export class AddparentComponent {
             response => {
                 console.log('Registration successful:', response);
                 this.navigateToMainPage();
+                Swal.fire({
+                  title: "Success!",
+                  text: "Parent account created successfully!",
+                  icon: "success"
+                });
                 
             },
             error => {
+              Swal.fire({
+                icon: "error",
+                title: "Oopps! Validation Errors",
+                html: `
+                  <p>The following issues need to be resolved:</p>
+                  <ul style="text-align: left;">
+                    <li>Email address is already registered. Please use a different one.</li>
+                    <li>Contact must be all numbers</li>
+                    <li>Password must be at least 8 characters long.</li>
+                  </ul>
+                `,
+              });
                 console.error('Error during registration:', error.error); // Log specific error details
             }
         );

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddsectiondialogComponent } from '../addsectiondialog/addsectiondialog.component';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-addsection',
@@ -46,12 +47,15 @@ export class AddsectionComponent {
   }
 
   submitsection() {
-    // Check if sectionList is not empty
     if (this.sectionList.length === 0) {
       console.error('No sections to submit');
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "No sections to submit",  
+      });
       return;
     }
-
     const form = {
       section_name: this.sectionList.map(section => section.name), // Extract names
       grade_level: this.sectionform.value.grade_level,
@@ -60,8 +64,12 @@ export class AddsectionComponent {
 
     console.log('form to be sent:', form);
     
-    // Ensure all fields are valid before sending
     if (!form.grade_level || !form.strand || form.section_name.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "No grade level to submit",  
+      });
       console.error('Form is invalid:', form);
       return;
     }
@@ -71,6 +79,11 @@ export class AddsectionComponent {
         console.log('Section submitted successfully:', result);
         this.sectionform.reset();
         this.sectionList = []; // Clear section list after submission
+        Swal.fire({
+          title: "Success!",
+          text: "Sections created successfully!",
+          icon: "success"
+        });
         this.navigateToMainPage();
       },
       (error) => {

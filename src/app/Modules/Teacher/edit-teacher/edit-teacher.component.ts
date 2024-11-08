@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } fro
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConnectService } from '../../../connect.service';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-edit-teacher',
@@ -61,6 +62,11 @@ export class EditTeacherComponent {
             response => {
                 console.log('Admin updated successfully:', response);
                 this.dialogRef.close(true); // Close dialog and return true
+                Swal.fire({
+                  title: "Success!",
+                  text: "Teacher updated successfully!",
+                  icon: "success"
+                });
             },
             error => {
                 console.error('Error updating admin:', error);
