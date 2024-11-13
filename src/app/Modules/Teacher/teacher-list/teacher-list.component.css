@@ -23,8 +23,9 @@ table {
     border-collapse: collapse;
     position: relative;
     width: 100%;
-    border-radius: 10px 10px 0 0; 
-    overflow: hidden; /* Ensures the corners are rounded */
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    /* Ensures the corners are rounded */
 }
 
 table th,
@@ -54,27 +55,27 @@ table td {
     table, thead, tbody, th, td, tr {
         display: block;
     }
-    
+
     thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
-    
+
     tr {
         border: 1px solid #ddd;
         margin-bottom: 1rem;
         display: flex;
         flex-direction: column;
     }
-    
+
     td {
         border: none;
         padding: 0.8rem;
         position: relative;
         text-align: right;
     }
-    
+
     td::before {
         content: attr(data-label);
         position: absolute;
@@ -85,4 +86,16 @@ table td {
         font-weight: 600;
         color: #0056b3;
     }
+}
+
+.delete {
+    background: linear-gradient(135deg, #ff6b6b, #c21807);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.edit {
+    background: linear-gradient(135deg, #1e90ff, #008080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

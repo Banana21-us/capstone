@@ -6,17 +6,15 @@
     padding: 2rem;
     margin: 2rem auto;
     margin-bottom: 0%;
-    
 }
 
 h2 {
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     color: #003366;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-style: normal;
-      
 }
 
 /* Table styles */
@@ -25,10 +23,9 @@ table {
     border-collapse: collapse;
     position: relative;
     width: 100%;
-    border-radius: 10px 10px 0 0; 
-    overflow: hidden; /* Ensures the corners are rounded */
-
-    
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    /* Ensures the corners are rounded */
 }
 
 table th,
@@ -55,30 +52,36 @@ table td {
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
         display: block;
     }
-    
+
     thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
-    
+
     tr {
         border: 1px solid #ddd;
         margin-bottom: 1rem;
         display: flex;
         flex-direction: column;
     }
-    
+
     td {
         border: none;
         padding: 0.8rem;
         position: relative;
         text-align: right;
     }
-    
+
     td::before {
         content: attr(data-label);
         position: absolute;
@@ -90,13 +93,14 @@ table td {
         color: #0056b3;
     }
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
-    
 }
 
-th, td {
+th,
+td {
     padding: 0.75rem;
     text-align: left;
 }
@@ -111,9 +115,23 @@ th {
 td {
     white-space: nowrap;
 }
+
 .section-item {
     display: flex;
-    justify-content: space-between; /* Space between name and icon */
+    justify-content: space-between;
+    /* Space between name and icon */
     align-items: start;
     margin-left: -30px;
+}
+
+.delete {
+    background: linear-gradient(135deg, #ff6b6b, #c21807);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.edit {
+    background: linear-gradient(135deg, #1e90ff, #008080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

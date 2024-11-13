@@ -29,8 +29,8 @@ export class AddAnnouncementComponent {
         console.log('Announcement submitted successfully:', result);
         // Display success message
         Swal.fire({
-          title: 'Good job!',
-          text: 'Your announcement was submitted successfully!',
+          title: 'Success!',
+          text: 'Your announcement was posted successfully!',
           icon: 'success',
           confirmButtonText: 'OK' // You can customize the button text
         });

@@ -77,20 +77,23 @@ filterParents() {
     );
 }
 
-openDialog(email: string): void {
-    const dialogRef = this.dialog.open(AddupdatelrndialogComponent, {
-        data: { email }
-    });
+openDialog(email: string, parent: any): void {
+  const fullName = `${parent.lname}, ${parent.fname} ${parent.mname ? parent.mname : ''}`;  // Build the full name here
+  
+  const dialogRef = this.dialog.open(AddupdatelrndialogComponent, {
+    width: '500px',
+      data: { email, fullName } // Pass the full name and email to the dialog
+  });
 
-    dialogRef.componentInstance.updateSuccess.subscribe(() => {
-        this.fetchParent(); // Call method to fetch updated parent list
-    });
+  dialogRef.componentInstance.updateSuccess.subscribe(() => {
+      this.fetchParent(); // Call method to fetch updated parent list
+  });
 }
 
 deleteParent(email: string): void {
   Swal.fire({
     title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    text: "This will delete the account permanently.",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -134,7 +137,7 @@ removelrn(email: string, lrn: number): void {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, remove Student!"
+    confirmButtonText: "Yes, delete Student!"
   }).then((result) => {
     if (result.isConfirmed) {
       this.parentservice.removelrn(email, lrn).subscribe(

@@ -52,7 +52,7 @@ export class TeacherListComponent implements OnInit {
     onDelete(admin_id: number): void {
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "This will delete the account permanently!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

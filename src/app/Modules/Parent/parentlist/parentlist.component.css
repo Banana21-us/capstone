@@ -6,7 +6,7 @@
     padding: 2rem;
     margin: 2rem auto;
     margin-bottom: 0%;
-    
+
 }
 
 h2 {
@@ -24,10 +24,10 @@ table {
     border-collapse: collapse;
     position: relative;
     width: 100%;
-    border-radius: 10px 10px 0 0; 
-    overflow: hidden; /* Ensures the corners are rounded */
-    
-    
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    /* Ensures the corners are rounded */
+
 }
 
 table th,
@@ -36,9 +36,18 @@ table td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 1rem;
-    
-}
 
+}
+table th:nth-child(1), /* Contact Number */
+table td:nth-child(1){
+    padding-left: 8px; /* Adjust as needed */
+    padding-right: 8px;
+}
+table th:nth-child(4), /* Email */
+table td:nth-child(4) {
+    padding-left: 8px; /* Adjust as needed */
+    padding-right: 8px;
+}
 table th {
     background-color: #003366;
     color: #fff;
@@ -52,6 +61,7 @@ table tbody tr:hover {
 table td {
     color: #333;
 }
+
 .table {
     width: 100%;
     margin: 20px 0;
@@ -77,27 +87,27 @@ table td {
     table, thead, tbody, th, td, tr {
         display: block;
     }
-    
+
     thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
-    
+
     tr {
         border: 1px solid #ddd;
         margin-bottom: 1rem;
         display: flex;
         flex-direction: column;
     }
-    
+
     td {
         border: none;
         padding: 0.8rem;
         position: relative;
         text-align: right;
     }
-    
+
     td::before {
         content: attr(data-label);
         position: absolute;
@@ -109,12 +119,28 @@ table td {
         color: #0056b3;
     }
 }
+
 .student-item {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between name and icon */
-    align-items: center; /* Center align items vertically */
-    padding: 3px; /* Add some padding */
-    list-style: none; /* Remove bullet points */
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: space-between;
+    /* Space between name and icon */
+    align-items: center;
+    /* Center align items vertically */
+    padding: 3px;
+    /* Add some padding */
+    list-style: none;
+    /* Remove bullet points */
 }
 
+.delete {
+    background: linear-gradient(135deg, #ff6b6b, #c21807);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
+.edit {
+    background: linear-gradient(135deg, #1e90ff, #008080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

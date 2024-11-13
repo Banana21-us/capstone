@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConnectService } from '../../connect.service';
+import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 @Component({
   selector: 'app-account',
@@ -80,6 +81,11 @@ export class AccountComponent implements OnInit {
   
       if (adminId <= 0 || !oldPassword) {
         console.error('Invalid admin ID or missing old password');
+        Swal.fire({
+          title: "Error",
+          text: "Enter Old Password to save changes.",
+          icon: "error"
+        });
         return;
       }
       this.adminService.update(adminId, oldPassword, {
@@ -92,6 +98,11 @@ export class AccountComponent implements OnInit {
         newPassword_confirmation: formData.newPassword_confirmation // Include confirmation if needed
       }).subscribe(
         (result) => {
+          Swal.fire({
+            title: "Success!",
+            text: "Profile updated successfully!",
+            icon: "success"
+          });
           console.log('Profile updated successfully', result);
           const updatedUser = {
             ...this.user,
@@ -104,10 +115,26 @@ export class AccountComponent implements OnInit {
   
           localStorage.setItem('user', JSON.stringify(updatedUser));
           this.loadUserData();
+
+          this.profileForm.patchValue({
+            newPassword: '',
+            newPassword_confirmation: ''
+          });
         },
         (error) => {
           console.error('Error updating profile:', error);
-          console.error('Error details:', error.error);
+          console.error('Error details:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oopps! Validation Errors",
+            html: `
+              <p>The following issues need to be resolved:</p>
+              <ul style="text-align: left;">
+                <li>New password must be 8 characters long.</li>
+                <li>Incorrect old password</li>
+              </ul>
+            `,
+          });
         }
       );
     } else {

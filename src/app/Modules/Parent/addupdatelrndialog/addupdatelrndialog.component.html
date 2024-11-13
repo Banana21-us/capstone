@@ -1,11 +1,11 @@
 <mat-dialog-content style="padding: 24px; font-family: 'Roboto', sans-serif; font-size: 16px; color: #424242;">
-    <p>Add Student's Name</p>
-    
+    <p><strong>Add Student's Name</strong></p>
+    <p>Parent: {{ fullName }}</p>
     <mat-form-field style="width: 100%; margin-top: 16px;">
         <mat-label>Select Student</mat-label>
         <mat-select [(value)]="selectedStudent"> <!-- Two-way binding -->
           <mat-option *ngFor="let student of students" [value]="student.LRN"> <!-- Ensure this is the correct property -->
-            {{ student.fname }} {{ student.lname }}
+            {{ student.lname }} {{ student.fname }} 
           </mat-option>
         </mat-select>
     </mat-form-field>

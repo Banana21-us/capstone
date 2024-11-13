@@ -43,17 +43,17 @@ export class LoginComponent {
           }
           localStorage.setItem('user', JSON.stringify(user));
           console.log('Token stored:', result.token);
-          this.navigateToMainPage(); // Navigate to the main page
+          this.navigateToMainPage();
         }
-        console.log(result);
-      },
-      (error) => {
         Swal.fire({
           icon: "error",
           title: "Something went wrong!",
           text: "Invalid Email or Password",  
         });
-        console.error('Login error:', error);
+        
+        console.log(result);
+      },
+      (error) => {
       }
     );
 }

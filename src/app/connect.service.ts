@@ -136,9 +136,6 @@ export class ConnectService {
   getStudentByLRN(lrn: string): Observable<any> {
     return this.http.get<any>(`${this.url}student/${lrn}`); 
   }
-  // getAllLRNs(): Observable<string[]> {  
-  //   return this.http.get<string[]>(`${this.url}lrns`); 
-  // }
   getAllStudents(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'student');
   }

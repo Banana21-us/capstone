@@ -50,7 +50,7 @@ export class AnnouncementListComponent implements OnInit{
             console.log('Deleting announcement:', response.message);
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your announcement has been deleted succesfully.",
               icon: "success"
             });
             this.fetchAnnouncements();
@@ -70,10 +70,6 @@ export class AnnouncementListComponent implements OnInit{
       }
     });
   }
-
-  // onUpdate(ancmnt_id: number): void {
-  //   this.router.navigate(['/main-page/announcement/announcements/update', ancmnt_id]);
-  // }
   onUpdate(ancmnt_id: number): void {
     localStorage.setItem('AnnouncementID', ancmnt_id.toString()); 
     this.router.navigate(['/main-page/announcement/announcements/update', ancmnt_id]);

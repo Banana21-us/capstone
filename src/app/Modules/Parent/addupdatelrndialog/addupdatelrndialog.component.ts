@@ -33,7 +33,7 @@ export class AddupdatelrndialogComponent implements OnInit {
 
   students: any[] = [];
   selectedStudent!: string; // Holds the selected student's LRN
-
+  fullName: string = this.data.fullName;
   ngOnInit(): void {
     this.fetchStudents();
   }
