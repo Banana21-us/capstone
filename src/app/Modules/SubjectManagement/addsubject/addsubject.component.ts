@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-addsubject',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,MatFormField,MatLabel],
+  imports: [CommonModule,
+    ReactiveFormsModule,],
   templateUrl: './addsubject.component.html',
   styleUrls: ['./addsubject.component.css']
 })

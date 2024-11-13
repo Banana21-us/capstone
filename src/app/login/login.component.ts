@@ -10,12 +10,9 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
   standalone: true,
   providers: [ConnectService],
   imports: [
-    RouterLink,
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
-    MatFormField,
-    MatLabel
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'] // Corrected from styleUrl to styleUrls

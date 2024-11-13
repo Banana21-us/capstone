@@ -50,7 +50,7 @@ export class AnnouncementListComponent implements OnInit{
             console.log('Deleting announcement:', response.message);
             Swal.fire({
               title: "Deleted!",
-              text: "Your announcement has been deleted succesfully.",
+              text: "Your announcement has been deleted successfully.",
               icon: "success"
             });
             this.fetchAnnouncements();

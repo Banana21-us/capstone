@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 
 export interface Subject {
@@ -32,7 +32,6 @@ export interface Teacher {
     selector: 'app-addclass',
     standalone: true,
     imports:[
-        RouterLink,
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
