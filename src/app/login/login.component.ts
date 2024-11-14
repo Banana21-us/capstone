@@ -30,6 +30,7 @@ export class LoginComponent {
       (result: any) => {
         if (result.token != null) {
           localStorage.setItem('token', result.token);
+          localStorage.setItem('admin_id', result.admin.admin_id);
 
           // image get
           const user = result.admin;
@@ -39,6 +40,7 @@ export class LoginComponent {
             }
           }
           localStorage.setItem('user', JSON.stringify(user));
+          
           console.log('Token stored:', result.token);
           this.navigateToMainPage();
         }
