@@ -44,11 +44,14 @@ export class LoginComponent {
           console.log('Token stored:', result.token);
           this.navigateToMainPage();
         }
-        Swal.fire({
-          icon: "error",
-          title: "Something went wrong!",
-          text: "Invalid Email or Password",  
-        });
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong!",
+            text: "Invalid Email or Password",  
+          });
+        }
+        
         
         console.log(result);
       },
@@ -61,6 +64,6 @@ export class LoginComponent {
   navigateToMainPage() {
     console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/homepage/Homepage']);
-    window.location.reload()
+    // window.location.reload()
     }
 }
