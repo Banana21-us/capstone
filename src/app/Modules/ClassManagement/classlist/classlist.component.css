@@ -51,7 +51,47 @@ table tbody tr:hover {
 table td {
   color: #333;
 }
+@media (max-width: 1165px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
 
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  td {
+    border: none;
+    padding: 0.8rem;
+    position: relative;
+    text-align: right;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #0056b3;
+  }
+}
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   table,

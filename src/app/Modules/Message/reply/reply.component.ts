@@ -95,6 +95,7 @@ export class ReplyComponent implements OnInit {
             console.log('Message sent successfully:', response);
             // Close the dialog and pass the message back to SendComponent
             this.dialogRef.close(messageData);
+            
           },
           error: (error) => {
             console.error('Error sending message:', error);

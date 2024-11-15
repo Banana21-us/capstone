@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ViewComponent } from "../view/view.component";
-// import { SearchFilterPipe } from '../../../search-filter.pipe';
+import { SearchFilterPipe } from '../../../search-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +12,10 @@ import { ReplyComponent } from '../reply/reply.component';
   standalone: true,
   imports: [
      RouterModule,
+     SearchFilterPipe,
+     ViewComponent,
+      RouterOutlet, 
+      FormsModule
     ],
   templateUrl: './send.component.html',
   styleUrl: './send.component.css'
@@ -40,7 +44,8 @@ export class SendComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+      // this.messages.unshift(result);
+      this.getMessages();
     });
   }
 

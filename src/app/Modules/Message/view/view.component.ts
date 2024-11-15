@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,],
+  imports: [FormsModule, ReactiveFormsModule,CommonModule],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
 export class ViewComponent implements OnInit{
+  @ViewChild('messageInput') messageInput!: ElementRef;
+
+  adjustInputHeight(input: HTMLTextAreaElement) {
+    input.style.height = 'auto'; // Reset height to auto before calculation
+    input.style.height = `${input.scrollHeight}px`; // Set the height to match the scroll height
+  }
 
   convo: any;
   sid: any;
@@ -29,6 +36,10 @@ export class ViewComponent implements OnInit{
     private route: Router,
     private cdRef: ChangeDetectorRef
   ) { }
+  toggleTimeDisplay(message: any) {
+    // Toggle `showTime` for the clicked message
+    message.showTime = !message.showTime;
+  }
 
   ngOnInit(): void {
     const uid = localStorage.getItem('admin_id')

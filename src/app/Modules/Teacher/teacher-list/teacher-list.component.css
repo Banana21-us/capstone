@@ -49,9 +49,8 @@ table tbody tr:hover {
 table td {
     color: #333;
 }
-
 /* Responsive design for smaller screens */
-@media (max-width: 576px) {
+@media (max-width: 991px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }

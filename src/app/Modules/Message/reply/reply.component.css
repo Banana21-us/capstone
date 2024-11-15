@@ -32,7 +32,12 @@
     background-color: #e6f4ff; /* Light blue on hover */
     color: #0056b3; /* Accent color */
   }
-  
+  .textarea{
+    height: 200px;
+  }
+  textarea::-webkit-scrollbar {
+    display: none;
+}
   /* Responsive design for mobile */
   @media (max-width: 600px) {
     .example-form {
