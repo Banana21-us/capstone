@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
+import { Router } from 'express';
+import { RouterModule } from '@angular/router';
 
 // Register all necessary components of Chart.js
 Chart.register(...registerables);
@@ -23,7 +25,7 @@ interface EnrollmentData {
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports:[CommonModule],
+  imports:[CommonModule,RouterModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
@@ -31,7 +33,7 @@ export class HomepageComponent implements AfterViewInit {
   @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
 
   chart: Chart | undefined;
-
+  inquiries:any;
   // Initialize totals
   totalEnrollments: number = 0;
   juniorHighTotal: number = 0;
@@ -39,7 +41,17 @@ export class HomepageComponent implements AfterViewInit {
   currentDate: Date = new Date();
   constructor(private dashboard: ConnectService) {}
 
+  getInquiries(){
+    this.dashboard.getInquiries().subscribe((result: any) => {
+      this.inquiries = result;
+      this.inquiries.forEach((inquiry:any) => {
+        console.log(inquiry);
+      });
+    })
+  }
+  
   ngAfterViewInit(): void {
+    this.getInquiries();
     this.dashboard.getdash().subscribe((response: any) => {
         const enrollmentData: EnrollmentData = response;
         this.totalEnrollments = enrollmentData.totalEnrollments;

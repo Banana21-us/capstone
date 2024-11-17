@@ -29,6 +29,10 @@ export class ConnectService {
   getdash(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'dashboard');
   }
+  getInquiries(){
+    return this.http.get(this.url + 'getInquiries')
+  }
+
 
   // classes section
   getClasses(): Observable<any[]> {

@@ -58,44 +58,15 @@
               <div class="card-body-notif">
                 <div class="notification-list">
                   <!-- Notification 1 -->
-          
-                  <!-- Notification 2 -->
-                  <div class="notification-item">
+                   @for (inq of inquiries; track $index) {
+                  <div class="notification-item" [routerLink]="['/main-page/message/messagepage/messages/view/' + inq.message_sender]">
                     <div class="notification-header">
-                      <div class="sender-name">Jacob Moses</div>
-                      <div class="notification-date">October 16, 2024</div>
+                      <div class="sender-name">{{ inq.student_name }}</div>
+                      <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
                     </div>
-                    <div class="notification-message">hello sir im looking for a sponsor can u help <menu></menu></div>
+                    <div class="notification-message"> {{ inq.message }}</div>
                   </div>
-                  <div class="notification-item">
-                    <div class="notification-header">
-                      <div class="sender-name">Abraham Lincoln</div>
-                      <div class="notification-date">October 16, 2024</div>
-                    </div>
-                    <div class="notification-message">hello sir we have a meeting later</div>
-                  </div>
-                  <div class="notification-item">
-                    <div class="notification-header">
-                      <div class="sender-name">Max Collins</div>
-                      <div class="notification-date">October 16, 2024</div>
-                    </div>
-                    <div class="notification-message">Where are you sir?</div>
-                  </div>
-                  <div class="notification-item">
-                    <div class="notification-header">
-                      <div class="sender-name">Criselda Alvares</div>
-                      <div class="notification-date">October 16, 2024</div>
-                    </div>
-                    <div class="notification-message">Any Announcements?</div>
-                  </div>
-                  <div class="notification-item">
-                    <div class="notification-header">
-                      <div class="sender-name">Daddy Digong</div>
-                      <div class="notification-date">October 16, 2024</div>
-                    </div>
-                    <div class="notification-message">Congratulations!</div>
-                  </div>
-                  
+                }
                 </div>
               </div>
             </div>
