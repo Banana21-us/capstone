@@ -10,6 +10,8 @@ import { AddupdatelrndialogComponent } from '../addupdatelrndialog/addupdatelrnd
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { SearchFilterPipe } from '../../../search-filter.pipe';
+
 
 interface Student {
   LRN: number;
@@ -42,23 +44,21 @@ interface Parent {
     ReactiveFormsModule,
     RouterModule,
     MatButtonModule,
+    SearchFilterPipe
   ],
   templateUrl: './parentlist.component.html',
   styleUrls: ['./parentlist.component.css']
 })
 export class ParentlistComponent implements OnInit {
   
-  parentFilterCtrl = new FormControl(); // Control for the search input
   filteredParents: Parent[] = []; // Initialize as an array of Parent
   parents: Parent[] = []; // Ensure this is typed as Parent[]
+  keyword: any;
 
   constructor(private parentservice: ConnectService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
       this.fetchParent();
-      this.parentFilterCtrl.valueChanges.subscribe(() => {
-          this.filterParents();
-      });
       console.log(this.parents);
   }
   
@@ -70,12 +70,7 @@ export class ParentlistComponent implements OnInit {
     });
 }
 
-filterParents() {
-    const filterValue = this.parentFilterCtrl.value ? this.parentFilterCtrl.value.toLowerCase() : '';
-    this.filteredParents = this.parents.filter(parent =>
-        `${parent.fname} ${parent.lname}`.toLowerCase().includes(filterValue) // Filter based on name
-    );
-}
+
 
 openDialog(email: string, parent: any): void {
   const fullName = `${parent.lname}, ${parent.fname} ${parent.mname ? parent.mname : ''}`;  // Build the full name here
@@ -172,7 +167,7 @@ updateParentsList(email: string, lrn: number) {
     const parent = this.parents.find(p => p.email === email);
     if (parent) {
         parent.students = parent.students.filter((student: Student) => student.LRN !== lrn); // Specify the type here
-        this.filterParents(); // Call filter change to update displayed list after removal
+
     }
 }
 }

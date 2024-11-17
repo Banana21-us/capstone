@@ -10,6 +10,7 @@ import { AddupdatelrndialogComponent } from '../../Parent/addupdatelrndialog/add
 import { MatDialog } from '@angular/material/dialog';
 import { EditsectiondialogComponent } from '../editsectiondialog/editsectiondialog.component';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { SearchFilterPipe } from '../../../search-filter.pipe';
 
 
 export interface Section {
@@ -30,44 +31,25 @@ export interface Section {
     MatInputModule,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    SearchFilterPipe],
   templateUrl: './viewsection.component.html',
   styleUrl: './viewsection.component.css'
 })
 export class ViewsectionComponent {
-  sectionFilterCtrl = new FormControl();
   grades: any[] = [];
   section: any;
   strand:any;
   filteredGrades: any[] = [];
+  keyword: any;
 
   constructor(private sectionservice: ConnectService,private dialog: MatDialog,) {}
 
   ngOnInit(): void {
     this.fetchSections();
-    this.sectionFilterCtrl.valueChanges.subscribe(() => {
-      this.filterSection();
-  });
-  }
 
-  filterSection() {
-    const filterValue = this.sectionFilterCtrl.value ? this.sectionFilterCtrl.value.toLowerCase() : '';
-    if (!filterValue) {
-      this.filteredGrades = [...this.grades];
-      return;
-    }
-  
-    this.filteredGrades = this.grades.filter(grade => {
-      const matchesGradeLevel = grade.level.toString().includes(filterValue); // Check if grade_level matches filterValue
-      const hasMatchingSection = grade.sections && grade.sections.some((section: any) => 
-        section.name.toLowerCase().includes(filterValue)
-      );
-  
-      return matchesGradeLevel || hasMatchingSection; // Filter by grade_level or section name
-    });
   }
   
-
   fetchSections() {
     this.sectionservice.getsection().subscribe((data) => {
       console.log('Fetched Grades:', data);

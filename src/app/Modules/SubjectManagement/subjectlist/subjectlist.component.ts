@@ -9,6 +9,7 @@ import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Editsubjectdialogcomponent } from '../editsubjectdialog/editsubjectdialog.component';
 import Swal from 'sweetalert2' // Ensure SweetAlert2 is imported
+import { SearchFilterPipe } from '../../../search-filter.pipe';
 
 interface Subject {
     name: string;
@@ -32,37 +33,22 @@ interface SubjectData {
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
+        SearchFilterPipe
     ],
     templateUrl: './subjectlist.component.html',
     styleUrls: ['./subjectlist.component.css'],
 })
 export class SubjectlistComponent implements OnInit {
     subjects: any[] = [];
-    subjectFilterCtrl = new FormControl();
     filteredSubject: any[] = [];
+    keyword: any;
+
     constructor(private subjectservice: ConnectService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.fetchSubjects();
-        this.subjectFilterCtrl.valueChanges.subscribe(() => {
-            this.filterSubject();
-        });
+
     }
-    filterSubject() {
-        const filterValue = this.subjectFilterCtrl.value ? this.subjectFilterCtrl.value.toLowerCase() : '';
-        if (!filterValue) {
-            this.filteredSubject = [...this.subjects];
-            return;
-        }
-        this.filteredSubject = this.subjects.filter(subject => {
-            const matchesGradeLevel = subject.level.toString().includes(filterValue);
-            const hasMatchingSubjectName = subject.subject_name.some((item: Subject) => 
-                item.name.toLowerCase().includes(filterValue)
-            );
-            return matchesGradeLevel || hasMatchingSubjectName; 
-        });
-    }
-    
 
     fetchSubjects() {
         this.subjectservice.getsubjects().subscribe((data: SubjectData[]) => {

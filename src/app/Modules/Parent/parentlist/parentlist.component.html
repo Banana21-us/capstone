@@ -9,7 +9,7 @@
             <div class="col d-flex justify-content-end">
                 <mat-form-field>
                     <mat-label>Filter by Parent</mat-label>
-                    <input matInput [formControl]="parentFilterCtrl" placeholder="Search by name..." />
+                    <input  [(ngModel)]="keyword" matInput  placeholder="Search by name..." />
                 </mat-form-field>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let parent of filteredParents; let i = index"> <!-- Use filteredParents here -->
+                <ng-container *ngFor="let parent of filteredParents | searchFilter: keyword; let i = index"> <!-- Use filteredParents here -->
                     <tr>
                         <td>{{ parent.lname }}, {{ parent.fname }} {{ parent.mname }}</td>
                         <td>{{ parent.relationship }}</td>

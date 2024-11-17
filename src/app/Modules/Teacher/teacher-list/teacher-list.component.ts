@@ -9,11 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditTeacherComponent } from '../edit-teacher/edit-teacher.component';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { SearchFilterPipe } from '../../../search-filter.pipe';
 
 @Component({
   selector: 'app-teacher-list',
   standalone: true,
-  imports: [RouterLink, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule,CommonModule,ReactiveFormsModule ],
+  imports: [RouterLink, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule,CommonModule,ReactiveFormsModule,SearchFilterPipe ],
   templateUrl: './teacher-list.component.html',
   styleUrls: ['./teacher-list.component.css']
 })
@@ -22,16 +23,11 @@ export class TeacherListComponent implements OnInit {
   teacherFilterCtrl = new FormControl(); // Control for the search input
   filteredTeachers: any[] = []; // List of filtered teachers
   teachers: any[] = []; // All teachers
-
+  keyword: any;
   constructor(private teacherservice: ConnectService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchteacher();
-    
-    // Subscribe to changes in the search input
-    this.teacherFilterCtrl.valueChanges.subscribe(() => {
-      this.filterTeachers();
-    });
   }
 
   fetchteacher() {
@@ -42,12 +38,6 @@ export class TeacherListComponent implements OnInit {
     });
   }
 
-  filterTeachers() {
-    const filterValue = this.teacherFilterCtrl.value ? this.teacherFilterCtrl.value.toLowerCase() : '';
-    this.filteredTeachers = this.teachers.filter(teacher =>
-      `${teacher.fname} ${teacher.lname} ${teacher.email} ${teacher.address}`.toLowerCase().includes(filterValue)
-    );
-  }
 
     onDelete(admin_id: number): void {
       Swal.fire({

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { ViewComponent } from "../view/view.component";
 import { SearchFilterPipe } from '../../../search-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
@@ -13,8 +12,7 @@ import { ReplyComponent } from '../reply/reply.component';
   imports: [
      RouterModule,
      SearchFilterPipe,
-     ViewComponent,
-      RouterOutlet, 
+     RouterOutlet, 
       FormsModule
     ],
   templateUrl: './send.component.html',

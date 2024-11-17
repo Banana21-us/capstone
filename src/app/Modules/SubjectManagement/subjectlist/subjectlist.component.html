@@ -12,7 +12,7 @@
             <div class="col d-flex justify-content-end">
                 <mat-form-field>
                     <mat-label>Filter by Subject</mat-label>
-                    <input matInput [formControl]="subjectFilterCtrl" placeholder="Search..." />
+                    <input matInput [(ngModel)]="keyword" placeholder="Search..." />
                 </mat-form-field>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let subject of filteredSubject">
+                <ng-container *ngFor="let subject of filteredSubject | searchFilter: keyword;">
                     <tr>
                         <td>
                             {{ subject.level }}

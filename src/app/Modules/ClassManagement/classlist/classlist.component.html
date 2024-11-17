@@ -9,7 +9,7 @@
       <div class="col d-flex justify-content-end">
         <mat-form-field>
           <mat-label>Filter by Class</mat-label>
-          <input matInput [formControl]="classFilterCtrl" placeholder="Search any..." />
+          <input matInput [(ngModel)]="keyword" placeholder="Search any..." />
         </mat-form-field>
       </div>
     </div>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let form of filteredClasses; let i = index">
+        <tr *ngFor="let form of filteredClasses| searchFilter: keyword; let i = index">
           <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand }} | {{ form.section_name }}</td>
           <td>{{ form.subject_name }}</td>
           <td>{{ form.fname }} {{ form.lname }}</td>

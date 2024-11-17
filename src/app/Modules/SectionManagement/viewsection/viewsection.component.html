@@ -9,7 +9,7 @@
           <div class="col d-flex justify-content-end">
             <mat-form-field>
                 <mat-label>Filter by Section</mat-label>
-                <input matInput [formControl]="sectionFilterCtrl" placeholder="Search..." />
+                <input matInput  [(ngModel)]="keyword" placeholder="Search..." />
             </mat-form-field>
         </div>
       </div>
@@ -23,7 +23,7 @@
               </tr>
           </thead>
           <tbody>
-            @for (grade of filteredGrades; track $index) {
+            @for (grade of filteredGrades | searchFilter: keyword; track $index) {
                 <ng-container >
                     <tr>
                       <td>{{ grade.level }} {{ grade.strand.trim() === '-' ? ' ' : grade.strand }}</td>
