@@ -38,39 +38,61 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserData();
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.admin_pic) {
-        this.adminPic = user.admin_pic;
-    } else {
-        console.warn('Admin picture URL not found in localStorage');
-    }
+    // const user = JSON.parse(localStorage.getItem('user') || '{}');
+    // if (user && user.admin_pic) {
+    //     this.adminPic = user.admin_pic;
+    // } else {
+    //     console.warn('Admin picture URL not found in localStorage');
+    // }
 }
 
+loadUserData(): void {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  this.user = user; // Set the user object
+  console.log('Loaded user:', this.user);
 
-  loadUserData(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.user = user;
-    console.log(user);
-
-    if (user) {
+  if (user) {
+      // Patch the profile form with user details
       this.profileForm.patchValue({
-        admin_id: user.admin_id,
-        fname: user.fname,
-        mname: user.mname,
-        lname: user.lname,
-        email: user.email,
-        address: user.address,
-        role: user.role,
-        oldPassword: user.oldPassword,
-      });
-    }
+          admin_id: user.admin_id,
+          fname: user.fname,
+          mname: user.mname,
+          lname: user.lname,
+          email: user.email,
+          address: user.address,
+          role: user.role,
+          oldPassword: user.oldPassword,
 
-    if (user && user.admin_pic) {
-      this.adminPic = user.admin_pic;
-    } else {
-      console.warn('Admin picture URL not found in localStorage');
-    }
+      });
   }
+
+  // Set admin picture
+  this.adminPic = user.admin_pic || 'default-image-url';
+}
+  // loadUserData(): void {
+  //   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  //   this.user = user;
+  //   console.log(user);
+
+  //   if (user) {
+  //     this.profileForm.patchValue({
+  //       admin_id: user.admin_id,
+  //       fname: user.fname,
+  //       mname: user.mname,
+  //       lname: user.lname,
+  //       email: user.email,
+  //       address: user.address,
+  //       role: user.role,
+  //       oldPassword: user.oldPassword,
+  //     });
+  //   }
+
+  //   if (user && user.admin_pic) {
+  //     this.adminPic = user.admin_pic;
+  //   } else {
+  //     console.warn('Admin picture URL not found in localStorage');
+  //   }
+  // }
 
   saveChanges(): void {
     if (this.profileForm.valid) {
@@ -87,13 +109,16 @@ export class AccountComponent implements OnInit {
           icon: "error"
         });
         return;
+        
       }
+      const adminPic = this.adminPic; //bago
       this.adminService.update(adminId, oldPassword, {
         fname: formData.fname,
         mname: formData.mname,
         lname: formData.lname,
         email: formData.email,
         address: formData.address,
+        admin_pic: adminPic, // bago
         newPassword: formData.newPassword,
         newPassword_confirmation: formData.newPassword_confirmation // Include confirmation if needed
       }).subscribe(
@@ -104,14 +129,17 @@ export class AccountComponent implements OnInit {
             icon: "success"
           });
           console.log('Profile updated successfully', result);
+
           const updatedUser = {
-            ...this.user,
+            ...this.user,            // Retain all existing properties from `this.user`
+            admin_pic: adminPic,     // Explicitly retain the old value of `admin_pic`
             fname: formData.fname,
             mname: formData.mname,
             lname: formData.lname,
             email: formData.email,
             address: formData.address,
-          };
+        };
+        
   
           localStorage.setItem('user', JSON.stringify(updatedUser));
           this.loadUserData();
@@ -119,6 +147,7 @@ export class AccountComponent implements OnInit {
           this.profileForm.patchValue({
             newPassword: '',
             newPassword_confirmation: ''
+
           });
         },
         (error) => {
@@ -141,6 +170,7 @@ export class AccountComponent implements OnInit {
       console.error('Form is invalid');
     }
   }
+
 
   onFileChange(event: any): void {
     const file = event.target.files[0];

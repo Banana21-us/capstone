@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TeacherListComponent } from '../teacher-list/teacher-list.component';
+// import { TeacherListComponent } from '../teacher-list/teacher-list.component';
 
 import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,9 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-teacher',
   standalone: true,
-  imports: [TeacherListComponent,CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule],
   templateUrl: './add-teacher.component.html',
   styleUrl: './add-teacher.component.css'
 })

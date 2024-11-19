@@ -146,6 +146,7 @@ removelrn(email: string, lrn: number): void {
             text: "The student has been removed.",
             icon: "success"
           });
+          this.fetchParent();
         },
         (error) => {
           console.error('Error removing student:', error); // Log error message
@@ -159,6 +160,8 @@ removelrn(email: string, lrn: number): void {
         }
       );
     }
+    
+
   });
 }
 

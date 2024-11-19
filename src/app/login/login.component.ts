@@ -5,6 +5,7 @@ import { RouterLink, RouterModule, Router } from '@angular/router';
 import { ConnectService } from '../connect.service';
 import Swal from 'sweetalert2'; 
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -12,7 +13,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
   imports: [
     RouterModule,
     ReactiveFormsModule,
-    CommonModule,
+    CommonModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'] // Corrected from styleUrl to styleUrls
@@ -56,6 +57,11 @@ export class LoginComponent {
         console.log(result);
       },
       (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong!",
+          text: "Invalid Email or Password",  
+        });
       }
     );
 }

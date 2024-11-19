@@ -36,6 +36,7 @@ export class CustomSidenavComponent {
   ngOnInit(): void {
 
     this.loadUserData();
+    
     this.conn.adminPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {
         this.adminPic = newImageUrl; // Update the component's admin picture
@@ -53,10 +54,10 @@ export class CustomSidenavComponent {
   loadUserData() {
     const userData = localStorage.getItem('user');
     if (userData) {
-        const parsedData = JSON.parse(userData);
-        this.role = parsedData.role || '';
-        this.lname = parsedData.lname || '';
-        this.fname = parsedData.fname || '';
+      const parsedData = JSON.parse(userData);
+      this.role = parsedData.role || '';
+      this.lname = parsedData.lname || '';
+      this.fname = parsedData.fname || '';
     }
   }
 

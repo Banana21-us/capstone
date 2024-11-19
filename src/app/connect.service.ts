@@ -3,28 +3,30 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Teacher } from './Modules/ClassManagement/addclass/addclass.component';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectService {
-  constructor(private http: HttpClient) {}
 
+
+  constructor(private http: HttpClient) {}
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
-  
   private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
   adminPic$ = this.adminPicSubject.asObservable();
 
+
+  // basics
   login(data:any){
     return this.http.post(this.url + 'login',data);
   }
-
   logout(): Observable<any> {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'logout', {}, { headers });
   }
+
+
+
   // dashboard
   getdash(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'dashboard');
@@ -32,6 +34,7 @@ export class ConnectService {
   getInquiries(){
     return this.http.get(this.url + 'getInquiries')
   }
+
 
 
   // classes section
@@ -45,24 +48,23 @@ export class ConnectService {
     return this.http.get<any[]>(this.url + 'class/sections'); 
   }
   getTeachers(): Observable<Teacher[]> {
-    return this.http.get<Teacher[]>(`${this.url}admins?role=Teacher`); // Ensure this URL is correct
+    return this.http.get<Teacher[]>(`${this.url}getAdminsteacher?role=Teacher`); 
   }
   deleteClass(classId: number): Observable<any> {
     return this.http.delete<any>(`${this.url}classes/${classId}`);
   }
   createClass(classData: any): Observable<any> {
-    return this.http.post(`${this.url}classes`, classData);
+    return this.http.post(`${this.url}storeClass`, classData);
   }
   updateClass(classData: any): Observable<any> {
     return this.http.put(`${this.url}classes/${classData.class_id}`, classData);
   }
-  removeSection(id: number): Observable<any> {
-    return this.http.delete(`${this.url}section/removesection/${id}`);
-}
+  
+
 
   // Subjects section
   postsubject(subjectData:any):Observable<any>{
-    return this.http.post<any>(this.url + 'subjects',subjectData)
+    return this.http.post<any>(this.url + 'postsubjects',subjectData)
   }
   getsubjects(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'subjects'); 
@@ -75,7 +77,7 @@ export class ConnectService {
   }
   removesubject(id: number): Observable<any> {
     return this.http.delete(`${this.url}subject/removesubject/${id}`);
-}
+  }
   
   
 
@@ -84,67 +86,67 @@ export class ConnectService {
     return this.http.post<any>(this.url + 'register',teacherData)
   }
   getteacher(): Observable<any[]> {
-    return this.http.get<any[]>(this.url + 'admins'); 
+    return this.http.get<any[]>(this.url + 'getAdminsteacher'); 
   }
   deleteteacher(admin_id: number): Observable<any> {
     return this.http.delete(`${this.url}admins/${admin_id}`);
   }
   updateAdmin(admin: any): Observable<any> {
     return this.http.put(`${this.url}admins/${admin.admin_id}`, admin);
-}
-
-  // announcement section 
-  submitannouncement(announcementData:any):Observable<any>{
-    return this.http.post<any>(this.url + 'announcements',announcementData)
   }
+ 
+
+  
+  // announcement 
   getannouncement(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'announcements'); 
+  }
+  submitannouncement(announcementData:any):Observable<any>{
+    return this.http.post<any>(this.url + 'postAnnouncements',announcementData)
   }
   getupdateannouncement(ancmnt_id: number): Observable<any> {
     return this.http.get<any>(`${this.url}announcements/${ancmnt_id}`); // Adjust the endpoint as necessary
   }
   updateannouncement(ancmnt_id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.url}announcements/${ancmnt_id}`, data);
+    return this.http.put<any>(`${this.url}updateAnnouncements/${ancmnt_id}`, data);
   }
-  
   deleteAnnouncement(ancmnt_id: number): Observable<any> {
-    return this.http.delete(`${this.url}announcements/${ancmnt_id}`);
+    return this.http.delete(`${this.url}destroyannouncements/${ancmnt_id}`);
   }
+
+
 
   // section section
   postsection(sectionData:any):Observable<any>{
-    return this.http.post<any>(this.url + 'sections',sectionData)
+    return this.http.post<any>(this.url + 'postsections',sectionData)
   }
   getsection(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'sections'); 
   }
-  getSubjects(): Observable<any[]> {
-    return this.http.get<any[]>(this.url + 'subjects'); // Adjust endpoint as necessary
-  }
-
   updateSectionsByGrade(gradeLevel: number, strand: string, sectionData: any): Observable<any> {
     return this.http.put(`${this.url}sections/${gradeLevel}/${strand}`, sectionData);
-}
+  }
   deleteSectionsByGrade(gradeLevel: number, strand: string): Observable<any> {
-    return this.http.delete(`${this.url}sections/${gradeLevel}/${strand}`); // No body sent here
-}
+    return this.http.delete(`${this.url}sections/${gradeLevel}/${strand}`); 
+  }
+  removeSection(id: number): Observable<any> {
+    return this.http.delete(`${this.url}section/removesection/${id}`);
+  }
   
 
+  
   // parent section
   getparent(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'parentguardian'); 
   }
-  deleteParent(email: string): Observable<void> {
-    return this.http.delete<void>(`${this.url}parentguardian/${email}`);
-  }
   getStudentByLRN(lrn: string): Observable<any> {
     return this.http.get<any>(`${this.url}student/${lrn}`); 
-  }
-  getAllStudents(): Observable<any[]> {
-    return this.http.get<any[]>(this.url + 'student');
-  }
+  } //add to create
   submitparent(parentData:any):Observable<any>{
-    return this.http.post<any>(this.url + 'parentguardian',parentData)
+    return this.http.post<any>(this.url + 'postparentguardian',parentData)
+  } //add to update
+  getAllStudents(): Observable<any[]> { 
+    return this.http.get<any[]>(this.url + 'student');
   }
   updateParentGuardian(email: string, lrn: string[]): Observable<any> {
     const payload = { LRN: lrn }; // Wrap LRN in an object
@@ -155,6 +157,11 @@ export class ConnectService {
       params: { LRN: lrn.toString() } // Send LRN as a query parameter
     });
   }
+  deleteParent(email: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}parentguardian/${email}`);
+  }
+
+
 
   // account 
   update(adminId: number, oldPassword: string, newData: any): Observable<any> {
@@ -171,15 +178,15 @@ export class ConnectService {
     this.adminPicSubject.next(newImageUrl); // Emit new image URL
   }
 
+
+
   // message
   getMessages(uid: any){
     return this.http.get(this.url + 'getMessages', {params: {uid: uid}});
   }
-
   getConvo(sid: any, uid: any){
     return this.http.get(this.url + 'getConvo/' + sid , {params: {uid: uid}});
   }
-
   sendMessage(mdata: any){
     return this.http.post(this.url + 'sendMessage', mdata );
   }
@@ -189,4 +196,5 @@ export class ConnectService {
   composeMessage(messageData: any): Observable<any> {
     return this.http.post(this.url + 'composemessage', messageData);
   }
+  
 }
