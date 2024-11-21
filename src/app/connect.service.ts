@@ -144,10 +144,10 @@ export class ConnectService {
   } //add to create
   submitparent(parentData:any):Observable<any>{
     return this.http.post<any>(this.url + 'postparentguardian',parentData)
-  } //add to update
+  } 
   getAllStudents(): Observable<any[]> { 
     return this.http.get<any[]>(this.url + 'student');
-  }
+  }//add to update
   updateParentGuardian(email: string, lrn: string[]): Observable<any> {
     const payload = { LRN: lrn }; // Wrap LRN in an object
     return this.http.patch(`${this.url}parentguardian/${email}`, payload);
@@ -195,6 +195,9 @@ export class ConnectService {
   }
   composeMessage(messageData: any): Observable<any> {
     return this.http.post(this.url + 'composemessage', messageData);
+  }
+  getStudentParents(){
+    return this.http.get(this.url + 'getStudentParents');
   }
   
 }

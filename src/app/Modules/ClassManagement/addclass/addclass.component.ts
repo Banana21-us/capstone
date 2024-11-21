@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,7 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { map, Observable, of, startWith } from 'rxjs';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 export interface Subject {
     subject_id: number | null; 
     subject_name: string;
@@ -37,7 +41,8 @@ export interface Teacher {
         MatInputModule,
         FormsModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatAutocompleteModule
     ],
     templateUrl: './addclass.component.html',
     styleUrls: ['./addclass.component.css'],
@@ -48,13 +53,15 @@ export class AddclassComponent implements OnInit {
     subjects: Subject[] = []; 
     teachers: Teacher[] = []; 
     sectionIdMap: { [key: string]: string } = {}; 
-
+    selectedSection: { grade_level: number; strand: string } | null = null;
+    
+    
     constructor(private fb: FormBuilder, private classService: ConnectService,private router: Router) {
         this.classManagementForm = this.fb.group({
             section: ['', Validators.required],
             room: ['', Validators.required],
-            
-            forms: this.fb.array([]) // Assuming this is set up correctly
+            semester: ['', Validators.nullValidator],
+            forms: this.fb.array([]), // Assuming this is set up correctly
         });
     }
 
@@ -106,7 +113,10 @@ export class AddclassComponent implements OnInit {
         const selectedSection = this.sections.find(section => section.section_id === sectionId);
         
         if (selectedSection) {
+            this.selectedSection = { grade_level: selectedSection.grade_level, strand: selectedSection.strand }; // Set selected section
             this.fetchSubjects(selectedSection.grade_level, selectedSection.strand);
+        } else {
+            this.selectedSection = null; // Reset if no section is found
         }
     }
     
@@ -177,7 +187,8 @@ createFormGroup(subject: Subject): FormGroup {
       if (this.classManagementForm.valid) {
           const formValues = {
               section_id: this.classManagementForm.value.section,
-              room: parseInt(this.classManagementForm.value.room, 10),
+              room: this.classManagementForm.value.room,
+              semester: this.classManagementForm.value.semester || null, // Ensure semester is nullable
               forms: this.classManagementForm.value.forms.map((formGroup: any) => ({
                   teacher: formGroup.teacher,
                   subject_id: formGroup.subject_id, // Ensure matches backend expectations

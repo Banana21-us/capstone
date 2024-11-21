@@ -22,7 +22,10 @@ body {
 .form-section h2 {
     margin-bottom: 1rem;
     font-size: 1.8rem; /* Adjusted to match inline style in HTML */
-    color: #0056b3;   /* Adjusted to match inline style in HTML */
+    color: #003366;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal; /* Adjusted to match inline style in HTML */
 }
 .form-section h3 {
     font-size: 1rem; /* Adjusted to match inline style in HTML */

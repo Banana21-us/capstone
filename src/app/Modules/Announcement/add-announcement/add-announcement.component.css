@@ -23,7 +23,10 @@
 .announcement-list h2 {
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
-    color: #0056b3;
+    color: #003366;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .form-group {

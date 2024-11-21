@@ -93,7 +93,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 180px; /* Adjust width as needed */
+    max-width: 180px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
 /* Active link style */
@@ -104,6 +106,16 @@
 }
 
 
+.scrollable-container {
+    max-height: calc(100vh - 250px); /* Adjust based on your layout */
+    overflow-y: scroll; /* Enable scrolling */
+    scrollbar-width: none; /* For Firefox: hide scrollbar */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.scrollable-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+}
 
 
 /* Main content styling */

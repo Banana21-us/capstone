@@ -8,21 +8,38 @@
                  
              </div>
              <div class="container mb-3 mt-3">
-                 <div class="input-group">
-                     <input type="text" [(ngModel)]="keyword" class="form-control" placeholder="Search chats" aria-label="Search chats" style="border-radius: 20px;">
-                 </div>
-             </div>
-             <input type="hidden"  >
+                <div class="input-group">
+                 @if(inputClicked){
+                     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="onBackClick()">
+                         <mat-icon>arrow_back</mat-icon>
+                     </button>
+                 }   
+                     <input type="text" [(ngModel)]="keyword" (click)="onInputClick()" class="form-control" placeholder="Search" aria-label="Search chats" style="border-radius: 20px;">
+                </div>
+              </div>
+             <input type="hidden"  [(ngModel)]="uid">
+             <div class="scrollable-container">
              <!-- List of Users -->
-              @for(msg of messages| searchFilter: keyword; track msg.message_id){
-                  <div class="user-list-item" [routerLink]="['/main-page/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
-                      <img src="/assets/mik.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
-                      <div class="content">
-                        <span>{{msg.sender_name}}</span>
-                        <h6>{{msg.message}}</h6>
+              @if(keyword || inputClicked){
+                @for(sp of stupar | searchFilter: keyword; track sp){
+                    <div class="user-list-item" [routerLink]="['/main-page/message/messagepage/messages/view/' + sp.account_id]" routerLinkActive="active-link">
+                        <img src="/assets/mik.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                        <span>{{sp.account_name}}<br></span>
                     </div>
-                  </div>
-              }
+                }
+            } @else if(messages && inputClicked == false) {
+                @for(msg of messages; track msg.message_id){
+                    <div class="user-list-item" [routerLink]="['/main-page/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
+                        <img src="/assets/mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                        <div class="content">
+                            <span>{{msg.sender_name}}</span>
+                            <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+                            <!-- <h6>{{msg.message}}</h6> -->
+                        </div>
+                    </div>
+                }
+            }
+            </div>
          </div>
   
          <!-- Main Content -->

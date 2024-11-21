@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReplyComponent } from '../reply/reply.component';
+import { MatIconModule } from '@angular/material/icon';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-send',
@@ -13,7 +15,9 @@ import { ReplyComponent } from '../reply/reply.component';
      RouterModule,
      SearchFilterPipe,
      RouterOutlet, 
-      FormsModule
+      FormsModule,
+      MatIconModule,
+      SlicePipe
     ],
   templateUrl: './send.component.html',
   styleUrl: './send.component.css'
@@ -25,6 +29,8 @@ export class SendComponent implements OnInit{
   keyword: any;
   sid: any;
   uid: any;
+  inputClicked: boolean = false;
+  stupar: any;
 
   constructor(private conn: ConnectService,
     private aroute: ActivatedRoute,
@@ -34,7 +40,8 @@ export class SendComponent implements OnInit{
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
-    this.getMessages()
+    this.getMessages();
+    this.getStudPar();
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(ReplyComponent, {
@@ -54,7 +61,22 @@ export class SendComponent implements OnInit{
       this.messages = result; 
     })
   }
+  onInputClick() {
+    this.inputClicked = true; // Set to true when the input is clicked
+    this.keyword = ''; // Clear the keyword if desired
+  }
 
+  onBackClick() {
+    this.inputClicked = false; // Set to true when the input is clicked
+    this.keyword = ''; // Clear the keyword if desired
+  }
+
+  getStudPar(){
+    this.conn.getStudentParents().subscribe((result: any) => {
+      // console.log(result)
+      this.stupar = result; 
+    })
+  }
   openConvo(sid: any, uid:any) {
     this.conn.getConvo(sid, uid).subscribe((result: any) => {
       this.route.navigate(['/main/message/messagepage/messages/view', sid])
