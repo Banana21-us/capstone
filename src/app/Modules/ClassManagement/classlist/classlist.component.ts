@@ -92,7 +92,16 @@ deleteClass(classId: number): void {
   });
 }
 
-
+getOrdinal(n: number): string {
+  if (n === null || n === undefined) {
+      return ''; // Return empty string if n is null or undefined
+  }
+  
+  const suffixes = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  
+  return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+}
   openEditSubjectModal(classData: any): void {
     console.log('Opening edit modal for class:', classData);
 
