@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit{
 
   adminPic: string | null = null;
 
-  collapsed = signal(false)
+  collapsed = signal(true)
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
   menunavWidth = computed(() => this.collapsed() ? '65px' : '450px');
   constructor(private conn: ConnectService, private router: Router) {}
@@ -47,7 +47,8 @@ export class MainPageComponent implements OnInit{
         (response) => {
             console.log('Logout successful:', response);
             localStorage.removeItem('token');
-            localStorage.removeItem('user'); // Clear the token from localStorage
+            localStorage.removeItem('user'); 
+            localStorage.removeItem('admin_id');// Clear the token from localStorage
             this.router.navigate(['/login']); // Navigate to the login page
         },
         (error) => {

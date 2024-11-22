@@ -84,7 +84,18 @@
                     <div class="col me-2">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Time</mat-label>
-                            <input matInput type="text" formControlName="time" required>
+                            <!-- <input matInput type="text" formControlName="time" required> -->
+                            <mat-select formControlName="time">
+                                <mat-option value="">Select Time</mat-option>
+                                <mat-option value="7:30 AM - 8:30 AM">7:30 AM - 8:30 AM</mat-option>
+                                <mat-option value="8:30 AM - 9:30 AM">8:30 AM - 9:30 AM</mat-option>
+                                <mat-option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</mat-option>
+                                <mat-option value="11:00 AM - 12:00 AM">11:00 AM - 12:00 AM</mat-option>
+                                <mat-option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</mat-option>
+                                <mat-option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</mat-option>
+                                <mat-option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</mat-option>
+                                <mat-option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</mat-option>
+                            </mat-select>
                             <mat-error *ngIf="formGroup.get('time')?.invalid && formGroup.get('time')?.touched">
                                 Time is required.
                             </mat-error>
@@ -95,11 +106,11 @@
                         <mat-form-field appearance="outline" class="custom-select">
                             <mat-label>Select Days</mat-label>
                             <mat-select multiple formControlName="selectedDays">
-                                <mat-option value="Monday">Monday</mat-option>
-                                <mat-option value="Tuesday">Tuesday</mat-option>
-                                <mat-option value="Wednesday">Wednesday</mat-option>
-                                <mat-option value="Thursday">Thursday</mat-option>
-                                <mat-option value="Friday">Friday</mat-option>
+                                <mat-option value="Mon">Monday</mat-option>
+                                <mat-option value="Tue">Tuesday</mat-option>
+                                <mat-option value="Wed">Wednesday</mat-option>
+                                <mat-option value="Thu">Thursday</mat-option>
+                                <mat-option value="Fri">Friday</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

@@ -5,6 +5,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin: 2rem auto 0;
+    overflow-x: auto; /* Enables horizontal scrolling if table overflows */
 }
 
 /* Heading styles */
@@ -22,7 +23,6 @@ table {
     border-collapse: collapse;
     border-radius: 10px 10px 0 0;
     overflow: hidden; /* Ensures rounded corners */
-    
 }
 
 table th, table td {
@@ -31,13 +31,14 @@ table th, table td {
     border-bottom: 1px solid #ddd;
     font-size: 1rem;
     white-space: nowrap;
+    word-wrap: break-word; /* Breaks long words if necessary */
 }
 
 table th {
     background-color: #003366;
     color: #fff;
     font-weight: 600;
-   /* Centers all headers */
+    /* Centers all headers */
 }
 
 table tbody tr:hover {
@@ -48,8 +49,7 @@ table td {
     color: #333;
 }
 
-
-
+/* Action button styles */
 .delete {
     background: linear-gradient(135deg, #ff6b6b, #c21807);
     -webkit-background-clip: text;
@@ -72,6 +72,10 @@ table td {
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto; /* Horizontal scrolling for table */
+    }
+
     table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -94,6 +98,7 @@ table td {
         padding: 0.8rem;
         position: relative;
         text-align: right;
+        white-space: normal; /* Allow text to wrap */
     }
 
     td::before {

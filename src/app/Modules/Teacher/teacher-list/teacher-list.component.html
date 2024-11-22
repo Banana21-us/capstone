@@ -20,7 +20,6 @@
                   <th>Email</th>
                   <th>Address</th>
                   <th>Action</th>
-                  <th></th>
               </tr>
           </thead>
           <tbody>
@@ -30,7 +29,6 @@
                       <td>{{ teach.email }}</td>
                       <td>{{ teach.address }}</td>
                       <td>
-                          <!-- <i class="bi bi-eye-fill me-3"></i> -->
                           <i class="bi bi-pencil-fill edit" type='button' (click)="openEditSubjectModal(teach)"></i> 
                           <i class="bi bi-trash3-fill ms-3 delete" title="Delete" (click)="onDelete(teach.admin_id)"></i>
                       </td>

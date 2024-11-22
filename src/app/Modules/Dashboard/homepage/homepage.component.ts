@@ -39,19 +39,32 @@ export class HomepageComponent implements AfterViewInit {
   juniorHighTotal: number = 0;
   seniorHighTotal: number = 0;
   currentDate: Date = new Date();
-  constructor(private dashboard: ConnectService) {}
+  constructor(private dashboard: ConnectService,) {}
 
-  getInquiries(){
-    this.dashboard.getInquiries().subscribe((result: any) => {
-      this.inquiries = result;
-      this.inquiries.forEach((inquiry:any) => {
-        console.log(inquiry);
+  getInquiry() {
+    const inqId = localStorage.getItem('admin_id');  // Get the inq_id from localStorage
+    if (inqId) {
+      this.dashboard.getInquiries().subscribe((result: any) => {
+        this.inquiries = result;
+  
+        // Filter the inquiries to only include those where message_reciever matches inq_id
+        this.inquiries = this.inquiries.filter((inquiry: any) => inquiry.message_reciever === parseInt(inqId));
+  
+        // Log the filtered inquiries
+        this.inquiries.forEach((inquiry: any) => {
+          console.log(inquiry);
+        });
       });
-    })
+    } else {
+      console.log('inq_id not found in localStorage');
+    }
   }
   
+  
+
+  
   ngAfterViewInit(): void {
-    this.getInquiries();
+    this.getInquiry();
     this.dashboard.getdash().subscribe((response: any) => {
         const enrollmentData: EnrollmentData = response;
         this.totalEnrollments = enrollmentData.totalEnrollments;

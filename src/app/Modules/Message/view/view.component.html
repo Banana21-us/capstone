@@ -3,12 +3,12 @@
     <!-- Chat Header -->
     <div class="chat-header d-flex align-items-center">
         <img src="/assets/mik.jpg" alt="User" class="rounded-circle" width="40" height="40">
-        <span class="ms-2" style="font-weight:500;">{{convo.user.account_name}}</span>
+        <span class="ms-2" style="font-weight:500;">{{convo?.user?.account_name}}</span>
     </div>
 
     <!-- Chat Area -->
     <div class="chat-area" #chatArea>
-        @for(cnv of convo.conversation; track cnv.message_id){
+        @for(cnv of convo?.conversation; track cnv.message_id){
         @if(cnv.me == null){
             <div class="message received">
             <img

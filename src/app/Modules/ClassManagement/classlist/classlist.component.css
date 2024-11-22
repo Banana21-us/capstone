@@ -91,6 +91,9 @@ table td {
     font-weight: 600;
     color: #0056b3;
   }
+  .actions-column {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+  }
 }
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
@@ -133,6 +136,9 @@ table td {
     font-weight: 600;
     color: #0056b3;
   }
+  .actions-column {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+  }
 }
 
 .delete {
@@ -145,4 +151,21 @@ table td {
   background: linear-gradient(135deg, #1e90ff, #008080);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Ensure the actions column uses flexbox */
+.actions-column {
+  flex-wrap: wrap; /* Allow wrapping when content is too wide */
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 10px; /* Space between buttons */
+}
+
+/* When the content is too long, stack buttons vertically */
+td .actions-column {
+  flex-direction: row;
+}
+
+td {
+  word-wrap: break-word; /* Allow word wrapping in table cells */
+  white-space: normal; /* Prevent text from overflowing */
 }

@@ -34,7 +34,7 @@ export class ConnectService {
   getInquiries(){
     return this.http.get(this.url + 'getInquiries')
   }
-
+  
 
 
   // classes section

@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit{
     input.style.height = `${input.scrollHeight}px`; // Set the height to match the scroll height
   }
 
-  convo: any;
+  convo: any = {};
   sid: any;
   uid: any;
   
@@ -61,6 +61,8 @@ export class ViewComponent implements OnInit{
         this.cdRef.detectChanges();
     });
 }
+
+
 
   sendMessage(){
     console.log(this.msgForm.value);

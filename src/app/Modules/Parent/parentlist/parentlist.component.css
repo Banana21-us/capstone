@@ -36,6 +36,8 @@ table td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 1rem;
+    word-wrap: break-word; /* Allow word wrapping in table cells */
+    white-space: normal; /* Prevent text from overflowing */
 
 }
 table th:nth-child(1), /* Contact Number */
@@ -83,7 +85,7 @@ table td {
 }
 
 /* Responsive design for smaller screens */
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -144,3 +146,14 @@ table td {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.actions-column {
+    flex-wrap: wrap; /* Allow wrapping when content is too wide */
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px; /* Space between buttons */
+  }
+  
+  /* When the content is too long, stack buttons vertically */
+  td .actions-column {
+    flex-direction: row;
+  }
+ 
