@@ -17,8 +17,8 @@ export class AddAnnouncementComponent {
 
 
   announcementform = new FormGroup({
-    // admin_id: new FormControl(1),
-    admin_id: new FormControl(localStorage.getItem('admin_id')),
+    admin_id: new FormControl(1),
+    // admin_id: new FormControl(localStorage.getItem('admin_id')),
     class_id: new FormControl(1),
     title: new FormControl(''),
     announcement: new FormControl(''),
