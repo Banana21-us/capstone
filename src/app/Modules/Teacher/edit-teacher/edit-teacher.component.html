@@ -17,7 +17,7 @@
             <div class="col ">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Middlename</mat-label>
-                  <input matInput type="text" formControlName="mname" required />
+                  <input matInput type="text" formControlName="mname" />
                 </mat-form-field>
             </div>
         </div>
@@ -46,7 +46,7 @@
     <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">
       Cancel
     </button>
-    <button mat-raised-button color="primary" [disabled]="editteacherform.invalid" (click)="onSubmit()">
+    <button mat-raised-button color="primary" (click)="onSubmit()">
       Save
     </button>
   </mat-dialog-actions>

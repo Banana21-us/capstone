@@ -26,11 +26,12 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let subject of filteredSubject | searchFilter: keyword;">
+                @for (subject of filteredSubject | searchFilter: keyword; track $index) {
+                <ng-container >
                     <tr>
                         <td>
                             {{ subject.level }}
-                            {{ subject.strand.trim() === '-' ? ' ' : subject.strand }}
+                            {{ subject.strand === '-' ? ' ' : subject.strand }}
                         </td>
 
                         <td>
@@ -53,6 +54,7 @@
                         </td>
                     </tr>
                 </ng-container>
+            }
             </tbody>
         </table>
     </div>

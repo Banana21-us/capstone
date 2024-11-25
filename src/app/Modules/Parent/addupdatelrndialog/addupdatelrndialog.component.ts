@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogContent, MatDialogActions, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ConnectService } from '../../../connect.service';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-addupdatelrndialog',
@@ -16,9 +19,12 @@ import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
     FormsModule,
     MatButtonModule,
     MatSelectModule,
-    MatDialogContent,
     MatDialogActions,
-    CommonModule
+    CommonModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatDialogContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './addupdatelrndialog.component.html',
@@ -27,19 +33,43 @@ import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
 export class AddupdatelrndialogComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<AddupdatelrndialogComponent>);
   readonly data = inject(MAT_DIALOG_DATA);
-  @Output() updateSuccess = new EventEmitter<void>(); // Create an 
-  
-  constructor(private parentservice: ConnectService) {}
+
+  @Output() updateSuccess = new EventEmitter<void>();
 
   students: any[] = [];
-  selectedStudent!: string; // Holds the selected student's LRN
+  filteredStudents!: Observable<any[]>;
+  myControl = new FormControl();
   fullName: string = this.data.fullName;
+  selectedStudent!: any; // Object for selected student
+
+  constructor(private parentService: ConnectService) {}
+
   ngOnInit(): void {
     this.fetchStudents();
+    this.filteredStudents = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : this.displayFn(value))),
+      map((name) => (name ? this._filter(name) : this.students.slice()))
+    );
+  }
+
+  private _filter(value: string): any[] {
+    const filterValue = value.toLowerCase();
+    return this.students.filter((student) =>
+      `${student.lname}, ${student.fname}`.toLowerCase().includes(filterValue)
+    );
+  }
+
+  displayFn(student: any): string {
+    return student ? `${student.lname}, ${student.fname}` : '';
+  }
+
+  onStudentSelected(selectedStudent: any): void {
+    this.selectedStudent = selectedStudent;
   }
 
   fetchStudents(): void {
-    this.parentservice.getAllStudents().subscribe(
+    this.parentService.getAllStudents().subscribe(
       (students) => {
         this.students = students;
       },
@@ -49,39 +79,42 @@ export class AddupdatelrndialogComponent implements OnInit {
     );
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   addupdateStudent(): void {
-    const email = this.data.email; // Get the email passed to the dialog
-    const lrnArray = [this.selectedStudent]; // Create an array with the selected LRN
-    
-    this.parentservice.updateParentGuardian(email, lrnArray).subscribe(
-      response => {
-        console.log('Success:', response);
-        
-        // Show success message
+    if (!this.selectedStudent) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Please select a student before proceeding.',
+        icon: 'error',
+      });
+      return;
+    }
+
+    const email = this.data.email;
+    const lrnArray = [this.selectedStudent.LRN];
+
+    this.parentService.updateParentGuardian(email, lrnArray).subscribe(
+      (response) => {
         Swal.fire({
-          title: "Success!",
-          text: "Student added successfully .",
-          icon: "success"
+          title: 'Success!',
+          text: 'Student added successfully.',
+          icon: 'success',
         });
-        
-        this.updateSuccess.emit(); // Emit event on success
-        this.dialogRef.close(); // Close the dialog on success
+        this.updateSuccess.emit();
+        this.dialogRef.close();
       },
-      error => {
+      (error) => {
         console.error('Error updating student:', error);
         Swal.fire({
-          title: "Error",
-          text: error.error?.message || "An error occurred while updating the student.",
-          icon: "error"
+          title: 'Error',
+          text: error.error?.message || 'An error occurred while updating the student.',
+          icon: 'error',
         });
       }
     );
   }
-  
-  
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

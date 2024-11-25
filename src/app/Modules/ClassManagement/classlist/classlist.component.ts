@@ -38,13 +38,28 @@ export class ClasslistComponent implements OnInit {
 }
 loadClasses() {
   this.classservice.getClasses().subscribe((data) => {
-      this.classes = data;
-      this.filteredClasses = [...this.classes]; // Initialize filteredClasses
-      console.log('Classes loaded:', this.classes); // Log the loaded classes
+    this.classes = data;
+
+    // Sort classes first by level (Junior first), then by semester (1st semester before 2nd semester)
+    this.filteredClasses = [...this.classes].sort((a, b) => {
+      // Sort Junior classes first (level 7-10)
+      if (a.level >= 7 && a.level <= 10 && !(b.level >= 7 && b.level <= 10)) return -1;
+      if (b.level >= 7 && b.level <= 10 && !(a.level >= 7 && a.level <= 10)) return 1;
+
+      // Then sort Senior classes by semester (1st before 2nd)
+      if (a.level >= 11 && a.level <= 12 && b.level >= 11 && b.level <= 12) {
+        return a.semester - b.semester;
+      }
+
+      return 0; // If both are either junior or senior classes, no need to change order
+    });
+
+    console.log('Classes loaded:', this.classes);
   }, error => {
-      console.error('Error fetching classes:', error);
+    console.error('Error fetching classes:', error);
   });
 }
+
 
 
 deleteClass(classId: number): void {

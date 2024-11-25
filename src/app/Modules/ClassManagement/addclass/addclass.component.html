@@ -7,18 +7,24 @@
             <div class="col me-2">
                 <mat-form-field appearance="outline" class="custom-select">
                     <mat-label>Section</mat-label>
-                    <mat-select formControlName="section" required (selectionChange)="onSectionChange($event.value)">
+                    <mat-select
+                        formControlName="section"
+                        required
+                        (selectionChange)="onSectionChange($event.value)"
+                    >
                         <mat-option value="">Select a Section</mat-option>
-                        <mat-option *ngFor="let section of sections" [value]="section.section_id">
+                        <mat-option
+                            *ngFor="let section of sections"
+                            [value]="section.section_id"
+                        >
                             {{ section.grade_level }} {{ section.strand.trim() === '-' ? ' ' : section.strand }} | {{ section.section_name }}
                         </mat-option>
                     </mat-select>
-                    @if (classManagementForm.get('section')?.invalid && classManagementForm.get('section')?.touched) {
-                    <mat-error>
+                    <mat-error *ngIf="classManagementForm.get('section')?.invalid && classManagementForm.get('section')?.touched">
                         Section is required.
                     </mat-error>
-                    }
                 </mat-form-field>
+                
             </div>
         
             <div class="col me-2">
@@ -32,7 +38,10 @@
             </div>
         
             <!-- Conditionally display the Semester field -->
-            <div class="col me-2" *ngIf="selectedSection && (selectedSection.grade_level === 11 || selectedSection.grade_level === 12)">
+            <div
+                class="col me-2"
+                *ngIf="selectedSection && (selectedSection.grade_level === 11 || selectedSection.grade_level === 12)"
+            >
                 <mat-form-field appearance="outline" class="w-100" style="height: 82px;">
                     <mat-label>Semester</mat-label>
                     <mat-select formControlName="semester">
@@ -40,11 +49,11 @@
                         <mat-option value="1">1</mat-option>
                         <mat-option value="2">2</mat-option>
                     </mat-select>
-                    @if (classManagementForm.get('semester')?.invalid && classManagementForm.get('semester')?.touched) {
-                        <mat-error>Semester is required.</mat-error>
-                    }
                 </mat-form-field>
             </div>
+
+
+
         </div>  
 
         <br>
@@ -67,7 +76,7 @@
                     </div> 
 
                     <div class="col me-2">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <!-- <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Teacher</mat-label>
                             <mat-select formControlName="teacher" required>
                                 <mat-option value="">Select a Teacher</mat-option>
@@ -78,7 +87,30 @@
                             <mat-error *ngIf="formGroup.get('teacher')?.invalid && formGroup.get('teacher')?.touched">
                                 Teacher is required.
                             </mat-error>
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Teacher</mat-label>
+                            <input 
+                                type="text" 
+                                placeholder="Teacher" 
+                                aria-label="Number" 
+                                matInput 
+                                [formControl]="myControl" 
+                                [matAutocomplete]="auto">
+                            
+                            <mat-autocomplete 
+                                autoActiveFirstOption 
+                                #auto="matAutocomplete" 
+                                [displayWith]="displayFn" 
+                                (optionSelected)="onOptionSelected($event.option.value)">
+                                <mat-option 
+                                    *ngFor="let option of filteredOptions | async" 
+                                    [value]="option">
+                                    {{ option.lname }}, {{ option.fname }}
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
+                        
                     </div>
 
                     <div class="col me-2">

@@ -28,61 +28,60 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let form of filteredClasses | searchFilter: keyword; let i = index">
-          <!-- Determine if we need to show a header for Junior -->
-          <tr *ngIf="i === 0 || (form.level >= 7 && form.level <= 10 && (filteredClasses[i - 1]?.level > 10 || filteredClasses[i - 1]?.level === undefined))">
+          <!-- Junior Classes Header -->
+          <tr *ngIf="form.level >= 7 && form.level <= 10 && (i === 0 || filteredClasses[i - 1]?.level < 7 || filteredClasses[i - 1]?.level > 10)">
             <td colspan="7" style="font-weight: bold; font-size: 1.2em;">
               Junior Classes
             </td>
           </tr>
       
-          <!-- Class Row for Junior Classes -->
+          <!-- Junior Class Rows -->
           <tr *ngIf="form.level >= 7 && form.level <= 10">
-            <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand }} | {{ form.section_name }}</td>
+            <td>{{ form.level }} {{ form.strand.trim() === '-' ? '' : form.strand }} | {{ form.section_name }}</td>
             <td>{{ form.subject_name }}</td>
             <td>{{ form.fname }} {{ form.lname }}</td>
             <td>{{ form.time }} | {{ form.schedule }}</td>
             <td>{{ form.room }}</td>
             <td class="actions-column">
-              <i class="bi bi-pencil-fill edit" type='button' (click)="openEditSubjectModal(form)"></i>
+              <i class="bi bi-pencil-fill edit" type="button" (click)="openEditSubjectModal(form)"></i>
               <i class="bi bi-trash3-fill ms-2 delete" title="Delete" (click)="deleteClass(form.class_id)"></i>
             </td>
           </tr>
       
-          <!-- Determine if we need to show a header for Senior -->
-          <tr *ngIf="(form.level >= 11 && form.level <= 12 && (filteredClasses[i - 1]?.level <= 10 || filteredClasses[i - 1]?.level === undefined))">
+          <!-- Senior Classes Header: 1st Semester -->
+          <tr *ngIf="form.level >= 11 && form.level <= 12 && form.semester === 1 && (i === 0 || filteredClasses[i - 1]?.semester !== 1)">
             <td colspan="7" style="font-weight: bold; font-size: 1.2em;">
-              Senior Classes {{ getOrdinal(form.semester) }} Semester
+              Senior Classes 1st Semester
             </td>
           </tr>
       
-          <!-- Class Row for Senior Classes -->
+          <!-- Senior Classes Header: 2nd Semester -->
+          <tr *ngIf="form.level >= 11 && form.level <= 12 && form.semester === 2 && (i === 0 || filteredClasses[i - 1]?.semester !== 2)">
+            <td colspan="7" style="font-weight: bold; font-size: 1.2em;">
+              Senior Classes 2nd Semester
+            </td>
+          </tr>
+      
+          <!-- Senior Class Rows -->
           <tr *ngIf="form.level >= 11 && form.level <= 12">
-            <td>{{ form.level }} {{ form.strand.trim() === '-' ? ' ' : form.strand }} | {{ form.section_name }}</td>
+            <td>{{ form.level }} {{ form.strand.trim() === '-' ? '' : form.strand }} | {{ form.section_name }}</td>
             <td>{{ form.subject_name }}</td>
             <td>{{ form.fname }} {{ form.lname }}</td>
             <td>{{ form.time }} | {{ form.schedule }}</td>
             <td>{{ form.room }}</td>
             <td class="actions-column">
-              <i class="bi bi-pencil-fill edit" type='button' (click)="openEditSubjectModal(form)"></i>
+              <i class="bi bi-pencil-fill edit" type="button" (click)="openEditSubjectModal(form)"></i>
               <i class="bi bi-trash3-fill ms-2 delete" title="Delete" (click)="deleteClass(form.class_id)"></i>
             </td>
           </tr>
-      
-          <!-- Check if the next item is a different semester and valid -->
-          <tr *ngIf="(form.level >= 11 && form.level <= 12 && filteredClasses[i + 1]?.semester !== undefined && filteredClasses[i + 1]?.semester !== null && filteredClasses[i + 1]?.semester !== form.semester)">
-            <td colspan="7" style="font-weight: bold; font-size: 1.2em;">
-              Senior Classes {{ getOrdinal(filteredClasses[i + 1].semester) }} Semester
-            </td>
-          </tr>
-      
         </ng-container>
       
-        <!-- If no classes available -->
+        <!-- If no classes are available -->
         <tr *ngIf="(filteredClasses | searchFilter: keyword)?.length === 0">
-          <td colspan="7"class="text-center">No classes available.</td>
+          <td colspan="7" class="text-center">No classes available.</td>
         </tr>
-      
       </tbody>
+      
     </table>
   </div>
 </div>

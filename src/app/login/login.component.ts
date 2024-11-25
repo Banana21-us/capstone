@@ -32,7 +32,6 @@ export class LoginComponent {
         if (result.token != null) {
           localStorage.setItem('token', result.token);
           localStorage.setItem('admin_id', result.admin.admin_id);
-          console.log('Stored inq_id:', localStorage.getItem('inq_id'));
           // image get
           const user = result.admin;
           if (user && user.admin_pic) {
@@ -70,6 +69,6 @@ export class LoginComponent {
   navigateToMainPage() {
     console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/homepage/Homepage']);
-    // window.location.reload()
+    window.location.reload()
     }
 }

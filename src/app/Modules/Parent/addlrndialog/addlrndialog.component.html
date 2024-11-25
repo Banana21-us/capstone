@@ -1,13 +1,32 @@
 <mat-dialog-content style="padding: 24px; font-family: 'Roboto', sans-serif; font-size: 16px; color: #424242;">
   <p>Add Student's Name</p>
   
-  <mat-form-field style="width: 100%; margin-top: 16px;">
+  <!-- <mat-form-field style="width: 100%; margin-top: 16px;">
       <mat-label>Select Student</mat-label>
       <mat-select [(ngModel)]="selectedStudent" (selectionChange)="searchStudent()">
         <mat-option *ngFor="let student of students; let i = index" [value]="student">
           {{ student.lname }}, {{ student.fname }}
         </mat-option>
       </mat-select>
+  </mat-form-field> -->
+  <mat-form-field style="width: 100%; margin-top: 16px;">
+    <mat-label>Select Student</mat-label>
+    <input 
+      type="text"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+      placeholder="Search student by name">
+    <mat-autocomplete 
+      #auto="matAutocomplete" 
+      [displayWith]="displayFn"
+      (optionSelected)="onOptionSelected($event.option.value)">
+      <mat-option 
+        *ngFor="let option of filteredOptions | async" 
+        [value]="option">
+        {{ option.lname }}, {{ option.fname }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 </mat-dialog-content>
 
