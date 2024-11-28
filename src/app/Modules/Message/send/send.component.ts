@@ -55,12 +55,23 @@ export class SendComponent implements OnInit{
   }
 
   getMessages(){
-    console.log("uid",this.uid)
+    console.log(this.uid)
     this.conn.getMessages(this.uid).subscribe((result: any) => {
-      console.log("result list:",result)
-      this.messages = result; 
+      console.log(result)
+      const uniqueMessages = [];
+      const seenSenders = new Set();
+
+      for (const msg of result) {
+          if (!seenSenders.has(msg.sender_name)) {
+              seenSenders.add(msg.sender_name);
+              uniqueMessages.push(msg);
+          }
+      }
+
+      this.messages = uniqueMessages; // Assign filtered messages to 'messages'
     })
   }
+
   onInputClick() {
     this.inputClicked = true; // Set to true when the input is clicked
     this.keyword = ''; // Clear the keyword if desired

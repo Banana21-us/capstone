@@ -7,7 +7,9 @@
         <div class="card-body text-center border-bottom profile-bx">
           <div class="profile-container">
             <div class="profile-image">
-              <img [src]="adminPic" alt="Profile Image" class="rounded-circle">
+              <img [src]="adminPic ? adminPic: 'assets/mik.jpg'" alt="Profile Image" class="rounded-circle">
+              <!-- <img [src]="adminPic ? adminPic: 'src/assets/mik.jpg'" class="prof-image" alt="Picture" /> -->
+
               <div class="upload-container">
                 <label for="fileUpload" class="upload-icon">
                   <i class="bi bi-camera"></i>

@@ -1,5 +1,5 @@
 <div class="sidenav-header">
-    <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic" class="prof-image" alt="Admin Profile Picture"> 
+    <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic ? adminPic: '/assets/mik.jpg'" class="prof-image" alt="Admin Profile Picture"> 
     <img />
 
       <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">

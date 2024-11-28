@@ -85,15 +85,12 @@ export interface Teacher {
         displayFn(teacher: Teacher): string {
             return teacher ? `${teacher.lname}, ${teacher.fname}` : '';
         }
-        onOptionSelected(selectedValue: Teacher) {
-            // Create a display value using first and last name
+        onOptionSelected(selectedValue: Teacher, index: number) {
             const displayValue = `${selectedValue.lname}, ${selectedValue.fname}`;
-            
-            // Find the current form group to update
-            const currentFormGroup = this.forms.at(0); // Adjust index based on your logic if necessary
+            const currentFormGroup = this.forms.at(index); // Use the provided index
             currentFormGroup.patchValue({
-                teacher: displayValue, // Set display name here
-                admin_id: selectedValue.admin_id // Store admin_id for submission
+                teacher: displayValue,
+                admin_id: selectedValue.admin_id
             });
         }
         fetchSections() {

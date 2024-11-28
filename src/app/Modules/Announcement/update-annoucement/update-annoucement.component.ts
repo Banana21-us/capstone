@@ -83,6 +83,8 @@ onSubmit(): void {
         console.error('Error updating announcement:', error);
       }
     );
+    localStorage.removeItem('AnnouncementID'); 
+
   } else {
     console.error('Form is invalid');
   }

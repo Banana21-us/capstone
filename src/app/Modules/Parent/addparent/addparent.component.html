@@ -28,12 +28,20 @@
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" formControlName="email" class="form-control" required>
+                    
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-group">
                     <label for="relationship">Relationship:</label>
-                    <input type="text" id="relationship" formControlName="relationship" class="form-control" required>
+                    <select id="relationship" formControlName="relationship" class="form-control" required  style="height: 50px;">
+                        <option value="" disabled selected>Select relationship</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Guardian">Guardian</option>
+                        <option value="Sibling">Sibling</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
             </div>
         </div>

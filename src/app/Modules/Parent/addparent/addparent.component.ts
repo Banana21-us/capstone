@@ -29,7 +29,7 @@ export class AddparentComponent {
   });
 
   studentList: any[] = []; // Array to hold objects with student names and LRNs
-
+  
   constructor(private dialog: MatDialog, private parentservice: ConnectService,private router: Router) {}
 
   openDialog(): void {

@@ -102,7 +102,7 @@
                                 autoActiveFirstOption 
                                 #auto="matAutocomplete" 
                                 [displayWith]="displayFn" 
-                                (optionSelected)="onOptionSelected($event.option.value)">
+                                (optionSelected)="onOptionSelected($event.option.value, i)"> <!-- Pass the index here -->
                                 <mat-option 
                                     *ngFor="let option of filteredOptions | async" 
                                     [value]="option">
@@ -137,7 +137,7 @@
                     <div class="col">
                         <mat-form-field appearance="outline" class="custom-select">
                             <mat-label>Select Days</mat-label>
-                            <mat-select multiple formControlName="selectedDays">
+                            <mat-select multiple formControlName="selectedDays" style="max-height: .5rem;">
                                 <mat-option value="Mon">Monday</mat-option>
                                 <mat-option value="Tue">Tuesday</mat-option>
                                 <mat-option value="Wed">Wednesday</mat-option>

@@ -6,19 +6,22 @@
             <div class="col-md-6 me-5">
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" formControlName="fname" name="firstname" class="form-control" required>
+                    <input type="text" id="firstName" formControlName="fname" name="firstname" class="form-control" 
+                    required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
                 </div>
-            </div>
+            </div>  
             <div class="col-md">
                 <div class="form-group">
                     <label for="middleInitial">Middle Name:</label>
-                    <input type="text" id="middleInitial" formControlName="mname" name="middlename" class="form-control" required>
+                    <input type="text" id="middleInitial" formControlName="mname" name="middlename" class="form-control"
+                    required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" formControlName="lname" class="form-control" required>
+            <input type="text" id="lastName" name="lastName" formControlName="lname" class="form-control"
+            required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
         </div>
         <div class="row">
             <div class="col-md-6 me-5">

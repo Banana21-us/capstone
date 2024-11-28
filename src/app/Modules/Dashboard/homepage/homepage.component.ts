@@ -4,6 +4,7 @@ import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
 import { Router } from 'express';
 import { RouterModule } from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 // Register all necessary components of Chart.js
 Chart.register(...registerables);
@@ -25,7 +26,7 @@ interface EnrollmentData {
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports:[CommonModule,RouterModule],
+  imports:[CommonModule,RouterModule,MatProgressSpinnerModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
@@ -39,31 +40,59 @@ export class HomepageComponent implements AfterViewInit {
   juniorHighTotal: number = 0;
   seniorHighTotal: number = 0;
   currentDate: Date = new Date();
+  private intervalId:any;
   constructor(private dashboard: ConnectService,) {}
 
   getInquiry() {
     const inqId = localStorage.getItem('admin_id');  // Get the inq_id from localStorage
+    console.log('inqId:', inqId); // Check the value of inqId
+
     if (inqId) {
-      this.dashboard.getInquiries().subscribe((result: any) => {
-        this.inquiries = result;
-  
-        // Filter the inquiries to only include those where message_reciever matches inq_id
-        this.inquiries = this.inquiries.filter((inquiry: any) => inquiry.message_reciever === parseInt(inqId));
-  
-        // Log the filtered inquiries
-        this.inquiries.forEach((inquiry: any) => {
-          console.log(inquiry);
+        this.dashboard.getInquiries().subscribe((result: any) => { // No parameters needed here
+            console.log('All inquiries:', result); // Log the full result
+            this.inquiries = result;
+
+            // Log inquiries before filtering
+            console.log('All inquiries before filtering:', this.inquiries);
+
+            const uniqueMessages = [];
+            const seenSenders = new Set();
+
+            // Filter to get only the latest message from each sender
+            for (const inquiry of this.inquiries) {
+                if (inquiry.message_reciever === parseInt(inqId) && !seenSenders.has(inquiry.sender_name)) {
+                    seenSenders.add(inquiry.sender_name);
+                    uniqueMessages.push(inquiry);
+                }
+            }
+
+            this.inquiries = uniqueMessages; // Assign filtered messages to 'inquiries'
+
+            // Log the filtered inquiries
+            console.log('Filtered inquiries:', this.inquiries);
+        }, error => {
+            console.error("Error fetching inquiries:", error); // Handle errors if necessary
         });
-      });
     } else {
-      console.log('inq_id not found in localStorage');
+        console.log('inq_id not found in localStorage');
+    }
+}
+
+  
+  
+  ngOnDestroy(): void {
+    // Clear the interval when the component is destroyed
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
   
-  
-
-  
   ngAfterViewInit(): void {
+    this.intervalId = setInterval(()=>{
+      this.getInquiry();
+      this.dashboard.getdash();
+    },60000)
+
     this.getInquiry();
     this.dashboard.getdash().subscribe((response: any) => {
         const enrollmentData: EnrollmentData = response;

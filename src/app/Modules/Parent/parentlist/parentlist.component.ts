@@ -137,13 +137,13 @@ removelrn(email: string, lrn: number): void {
     if (result.isConfirmed) {
       this.parentservice.removelrn(email, lrn).subscribe(
         (response) => {
-          console.log('Student removed successfully!'); // Log success message
+          console.log('Student LRN set to null successfully!'); // Log success message
           this.updateParentsList(email, lrn); // Update local state after deletion
 
           // Show success message
           Swal.fire({
             title: "Removed!",
-            text: "The student has been removed.",
+            text: "Student removed successfully!",
             icon: "success"
           });
           this.fetchParent();
@@ -160,8 +160,6 @@ removelrn(email: string, lrn: number): void {
         }
       );
     }
-    
-
   });
 }
 
