@@ -6,12 +6,14 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 import Swal from 'sweetalert2'; 
+import { MatError } from '@angular/material/form-field';
 @Component({
   selector: 'app-add-teacher',
   standalone: true,
   imports: [
     CommonModule, 
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  MatError],
   templateUrl: './add-teacher.component.html',
   styleUrl: './add-teacher.component.css'
 })

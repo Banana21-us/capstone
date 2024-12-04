@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConnectService } from '../../connect.service';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-account',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatError
   ],
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']

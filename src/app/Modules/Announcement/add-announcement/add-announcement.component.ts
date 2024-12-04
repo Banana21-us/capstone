@@ -4,10 +4,11 @@ import { ConnectService } from '../../../connect.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { MatError } from '@angular/material/form-field';
 @Component({
   selector: 'app-add-announcement',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,MatError],
   templateUrl: './add-announcement.component.html',
   styleUrl: './add-announcement.component.css'
 })

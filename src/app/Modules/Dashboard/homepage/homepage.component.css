@@ -10,10 +10,43 @@ canvas {
   padding: 20px;
 }
 
+
+.header-container {
+  display: flex;                      
+  align-items: center;              
+}
+
+.clickable-header {
+  cursor: pointer;                   
+}
+
 h3 {
   font-size: 24px;
-  font-weight: bold;
-  color: #333; /* Dark gray for readability */
+  font-weight: bold;                
+  transition: background-color 0.5s; 
+  border-bottom: 2px solid transparent;
+}
+
+.header-container h3.active {
+  border-bottom: 2px solid #003366; /* Original blue underline for active state */
+}
+
+.header-container h3.selected {
+  border-bottom: 2px solid #002244; /* Darker blue underline when selected */
+}
+.filter-container {
+  margin-left: auto; /* Pushes the filter container to the right */
+  /* margin-top:-15px */
+}
+
+.student-switch{
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  margin-bottom: 30px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  height:auto;
 }
 
 /* Card Styles */
@@ -432,3 +465,31 @@ h3 {
 }
 
 
+table {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+table td {
+  padding: .5rem;
+  padding-left: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+table th {
+  padding:1rem;
+  background-color: #003366;
+  color: #fff;
+  font-weight: 600;
+}
+
+table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+table td {
+  color: #333;
+}

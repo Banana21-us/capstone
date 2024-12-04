@@ -80,7 +80,8 @@ export class ViewComponent implements OnInit {
     );
   }
 
-  sendMessage() {
+  sendMessage(event: Event) {
+    event.preventDefault();
     console.log(this.msgForm.value);
     this.conn.sendMessage(this.msgForm.value).subscribe((result: any) => {
       console.log(result);

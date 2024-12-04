@@ -28,7 +28,7 @@ import { SearchFilterPipe } from '../../../search-filter.pipe';
 export class ClasslistComponent implements OnInit {
 
   classes: any[] = [];
-  classss: string[] = ['Emerald','Diamond'];
+  // classss: string[] = ['Emerald','Diamond'];
   filteredClasses: any[] = []; // To hold filtered results
   keyword: any;
 

@@ -85,6 +85,9 @@
                     <label for="oldPassword">Old Password</label>
                     <input formControlName="oldPassword" id="oldPassword" type="password"
                       placeholder="Enter old password" class="form-control">
+                      @if (profileForm.get('oldPassword')?.invalid && profileForm.get('oldPassword')?.touched) {
+                        <mat-error class="text-danger">Old Password is required to save changes.</mat-error>
+                    }
                   </div>
                 </div>
                 <div class="col-xl-4 col-sm-6">

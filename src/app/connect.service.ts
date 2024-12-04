@@ -11,6 +11,8 @@ export class ConnectService {
 
   constructor(private http: HttpClient) {}
   url = "http://localhost:8000/api/";
+  
+
   token = localStorage.getItem('token');
   private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
   adminPic$ = this.adminPicSubject.asObservable();
@@ -34,7 +36,10 @@ export class ConnectService {
   getInquiries(){
     return this.http.get(this.url + 'getInquiries')
   }
-  
+  getdashStudents(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'allstudents'); // Fetch data from the API
+  }
+    
 
 
   // classes section

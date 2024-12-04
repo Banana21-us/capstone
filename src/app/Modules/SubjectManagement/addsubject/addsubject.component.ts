@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { ConnectService } from '../../../connect.service';
 import { AddsubjectdialogComponent } from '../addsubjectdialog/addsubjectdialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-addsubject',
   standalone: true,
   imports: [CommonModule,
-    ReactiveFormsModule,],
+    ReactiveFormsModule,MatError],
   templateUrl: './addsubject.component.html',
   styleUrls: ['./addsubject.component.css']
 })

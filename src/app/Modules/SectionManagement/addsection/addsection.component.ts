@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConnectService } from '../../../connect.service';
-import { ViewsectionComponent } from '../viewsection/viewsection.component';
+// import { ViewsectionComponent } from '../viewsection/viewsection.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddsectiondialogComponent } from '../addsectiondialog/addsectiondialog.component';
 import Swal from 'sweetalert2'; 
+import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-addsection',
   standalone: true,
-  imports: [ViewsectionComponent,CommonModule, ReactiveFormsModule],
+  imports: [MatError,CommonModule, ReactiveFormsModule],
   templateUrl: './addsection.component.html',
   styleUrl: './addsection.component.css'
 })

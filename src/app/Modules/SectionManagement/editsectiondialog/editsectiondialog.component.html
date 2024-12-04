@@ -22,7 +22,7 @@
                 </button>
             </div>
         </div>
-        <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addSection()">Add Section</button> <!-- Add button -->
+        <button mat-raised-button  type="button" class="mb-3  text-success" (click)="addSection()">Add Section</button> <!-- Add button -->
 
         <div *ngIf="editSectionForm.invalid && (editSectionForm.dirty || editSectionForm.touched)">
             <p style="color:red;">Please fill out all required fields.</p>

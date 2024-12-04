@@ -3,24 +3,35 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddlrndialogComponent } from '../addlrndialog/addlrndialog.component';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators, AbstractControl, ValidatorFn, FormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { ConnectService } from '../../../connect.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { MatError, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatOption } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-addparent',
   standalone: true,
   templateUrl: './addparent.component.html',
   styleUrls: ['./addparent.component.css'],
-  imports: [MatButtonModule, CommonModule, ReactiveFormsModule], // Add ReactiveFormsModule here
+  imports: [MatButtonModule, CommonModule, ReactiveFormsModule,MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,MatError], // Add ReactiveFormsModule here
 })
 export class AddparentComponent {
   parentform = new FormGroup({
     fname: new FormControl(''),
     lname: new FormControl(''),
     mname: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email, customEmailValidator()]),
     relationship: new FormControl(''),
     address: new FormControl(''),
     contact_no: new FormControl(''),
@@ -94,7 +105,6 @@ export class AddparentComponent {
                   <p>The following issues need to be resolved:</p>
                   <ul style="text-align: left;">
                     <li>Email address is already registered. Please use a different one.</li>
-                    <li>Contact must be all numbers</li>
                     <li>Password must be at least 8 characters long.</li>
                   </ul>
                 `,
@@ -103,6 +113,18 @@ export class AddparentComponent {
             }
         );
     } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oopps! Validation Errors",
+        html: `
+          <p>The following issues need to be resolved:</p>
+          <ul style="text-align: left;">
+            <li>Email address is already registered. Please use a different one.</li>
+            <li>Contact must be all numbers</li>
+            <li>Password must be at least 8 characters long.</li>
+          </ul>
+        `,
+      });
         console.log('Form is invalid', this.parentform.errors); // Log form errors if any
     }
 }
@@ -110,4 +132,25 @@ export class AddparentComponent {
       console.log('Router:', this.router); // Check if router is defined
       this.router.navigate(['/main-page/parent/parentlist']);
     }
+}
+export function customEmailValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const email = control.value;
+    
+    // Basic email regex to validate format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    // Check if the email is in a valid format
+    if (!emailRegex.test(email)) {
+      return { invalidEmailFormat: true };
+    }
+
+    // Check for specific invalid domains (e.g., .vom)
+    const domain = email.split('@')[1];
+    if (domain && domain.endsWith('.vom')) {
+      return { invalidDomain: true };
+    }
+
+    return null; // Valid email
+  };
 }

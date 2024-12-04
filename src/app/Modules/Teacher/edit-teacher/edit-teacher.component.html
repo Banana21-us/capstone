@@ -1,52 +1,57 @@
 <mat-dialog-content>
-    <h1>Edit Teacher</h1>
-    <form [formGroup]="editteacherform" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <div class="col ">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Lastname</mat-label>
-                  <input matInput type="text" formControlName="lname" required />
-                </mat-form-field>
-            </div>
-            <div class="col ">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Firstname</mat-label>
-                  <input matInput type="text" formControlName="fname" required />
-                </mat-form-field>
-            </div>
-            <div class="col ">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Middlename</mat-label>
-                  <input matInput type="text" formControlName="mname" />
-                </mat-form-field>
-            </div>
-        </div>
-      <div class="row">
-  
-        <div class="col ">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Email</mat-label>
-            <input matInput type="text" formControlName="email" required />
-          </mat-form-field>
-        </div>
-  
-        
-  
-        <div class="col ">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Address</mat-label>
-              <input matInput type="text" formControlName="address" required />
-            </mat-form-field>
-          </div>
+  <h1>Edit Teacher</h1>
+  <form [formGroup]="editteacherform" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Lastname</mat-label>
+          <input matInput type="text" formControlName="lname" required />
+        </mat-form-field>
       </div>
-    </form>
-  </mat-dialog-content>
-  
-  <mat-dialog-actions class="border-top">
-    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">
-      Cancel
-    </button>
-    <button mat-raised-button color="primary" (click)="onSubmit()">
-      Save
-    </button>
-  </mat-dialog-actions>
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Firstname</mat-label>
+          <input matInput type="text" formControlName="fname" required />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Middlename</mat-label>
+          <input matInput type="text" formControlName="mname" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="address" required />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="email" required />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>New Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="border-top">
+  <button
+    mat-button
+    class="ms-3"
+    style="color: white; background-color: #f32c52"
+    (click)="onCancel()"
+  >
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>

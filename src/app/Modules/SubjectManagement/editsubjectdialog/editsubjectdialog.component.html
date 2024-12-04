@@ -25,7 +25,7 @@
         </div>
         
 
-        <button mat-raised-button color="accent" type="button" class="mb-3" (click)="addsubject()">Add Subject</button> 
+        <button mat-raised-button  type="button" class="mb-3 text-success " (click)="addsubject()">Add Subject</button> 
 
         <div *ngIf="editSubjectForm.invalid && (editSubjectForm.dirty || editSubjectForm.touched)">
             <p style="color:red;">Please fill out all required fields.</p>

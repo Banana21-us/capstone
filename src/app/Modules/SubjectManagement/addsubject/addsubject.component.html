@@ -19,6 +19,9 @@
                   <option value="11">11</option>
                   <option value="12">12</option>
               </select>
+              @if (subjectManagementForm.get('grade_level')?.invalid && subjectManagementForm.get('grade_level')?.touched) {
+                <mat-error class="text-danger">Grade Level is required.</mat-error>
+                }
           </div>
 
           <div class="form-group" *ngIf="isStrandVisible">
@@ -29,6 +32,9 @@
                   <option value="HUMMS">HUMMS</option>
                   <option value="ABM">ABM</option>
               </select>
+              @if (subjectManagementForm.get('strand')?.invalid && subjectManagementForm.get('strand')?.touched) {
+                <mat-error class="text-danger">Strand is required.</mat-error>
+                }
           </div>
 
           <div class="container">

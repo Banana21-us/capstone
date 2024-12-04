@@ -16,10 +16,16 @@
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" id="title" formControlName="title" name="title" required>
+            @if (announcementform.get('title')?.invalid && announcementform.get('title')?.touched) {
+                <mat-error class="text-danger">Title Field is required.</mat-error>
+            }
         </div>
         <div class="form-group">
             <label for="announcement">Message:</label>
             <textarea id="announcement" name="announcement" formControlName="announcement" rows="13" required></textarea>
+            @if (announcementform.get('announcement')?.invalid && announcementform.get('announcement')?.touched) {
+                <mat-error class="text-danger">Announcement Field is required.</mat-error>
+            }
         </div>
         <button type="submit">Post</button>
     </form>

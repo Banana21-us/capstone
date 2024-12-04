@@ -26,7 +26,8 @@ export class EditTeacherComponent {
     fname: new FormControl(''),
     mname: new FormControl(''),
     email: new FormControl(''),
-    address: new FormControl('')
+    address: new FormControl(''),
+    password: new FormControl(''),
   });
 
   constructor(
