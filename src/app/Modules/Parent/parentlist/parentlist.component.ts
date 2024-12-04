@@ -76,7 +76,7 @@ openDialog(email: string, parent: any): void {
   const fullName = `${parent.lname}, ${parent.fname} ${parent.mname ? parent.mname : ''}`;  // Build the full name here
   
   const dialogRef = this.dialog.open(AddupdatelrndialogComponent, {
-    width: '500px',
+    width: '700px',
       data: { email, fullName } // Pass the full name and email to the dialog
   });
 

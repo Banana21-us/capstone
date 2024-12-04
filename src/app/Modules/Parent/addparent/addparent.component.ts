@@ -45,6 +45,7 @@ export class AddparentComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddlrndialogComponent, {
+      width: '700px',
       data: { children: 'LRN' },
     });
   
