@@ -45,12 +45,11 @@
                                     {{ student.fname }} {{ student.lname }}
                                     {{ student.mname ? student.mname : '' }}
                                 </span>
-                                <i class="bi bi-x delete" type="button" (click)="removelrn(parent.email, student.LRN)">
-                                </i>
+                                <!-- <i class="bi bi-x delete" type="button" (click)="removelrn(parent.email, student.LRN)"></i> -->
                             </li>
                         </td>
                         <td class="actions-column">
-                            <i class="bi bi-person-fill-add ms-3 edit" type="button"
+                            <i class="bi bi-pencil-fill ms-3 edit" type="button"
                                 (click)="openDialog(parent.email, parent)">
                             </i>
                             <i class="bi bi-trash3-fill ms-3 delete" type="button" title="Delete"

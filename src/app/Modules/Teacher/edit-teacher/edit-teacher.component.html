@@ -45,13 +45,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="border-top">
-  <button
-    mat-button
-    class="ms-3"
-    style="color: white; background-color: #f32c52"
-    (click)="onCancel()"
-  >
-    Cancel
-  </button>
-  <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+  <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+  <button mat-button (click)="onSubmit()" class="ok-button">Ok</button>
 </mat-dialog-actions>

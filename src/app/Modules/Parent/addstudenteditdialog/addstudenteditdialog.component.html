@@ -1,0 +1,31 @@
+<mat-dialog-content style="padding: 24px; font-family: 'Roboto', sans-serif; font-size: 16px; color: #424242;">
+    <p>Add Student's Name</p>
+    <mat-form-field style="width: 100%; margin-top: 16px;">
+      <mat-label>Select Student</mat-label>
+      <input 
+        type="text"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+        placeholder="Search student by name">
+      <mat-autocomplete 
+        #auto="matAutocomplete" 
+        [displayWith]="displayFn"
+        (optionSelected)="onOptionSelected($event.option.value)">
+        <mat-option 
+          *ngFor="let option of filteredOptions | async" 
+          [value]="option">
+          {{ option.lname }}, {{ option.fname }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions style="display: flex; justify-content: flex-start; padding: 16px; margin-top: -30px; text-transform: uppercase; font-weight: 500;">
+    <button mat-button (click)="onNoClick()" style="font-size: 14px; padding: 8px 16px;">Cancel</button>
+    
+    <button mat-button (click)="searchStudent()" 
+            style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;" 
+            onmouseover="this.style.backgroundColor='#2c387e';" 
+            onmouseout="this.style.backgroundColor='#3f51b5';">Ok</button>
+  </mat-dialog-actions>

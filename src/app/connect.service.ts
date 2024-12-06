@@ -153,19 +153,21 @@ export class ConnectService {
   getAllStudents(): Observable<any[]> { 
     return this.http.get<any[]>(this.url + 'student');
   }//add to update
-  updateParentGuardian(email: string, lrn: string[]): Observable<any> {
-    const payload = { LRN: lrn }; // Wrap LRN in an object
+  updateParentGuardian(email: string, updatedData: any): Observable<any> {
+    const payload = {
+      email: updatedData.email,
+      password: updatedData.password,
+      LRN: updatedData.LRN
+    };
     return this.http.patch(`${this.url}parentguardian/${email}`, payload);
-  }
-  removelrn(email: string, lrn: number): Observable<any> {
-    return this.http.delete(`${this.url}parentguardian/${email}/remove`, {
-      params: { LRN: lrn.toString() } // Send LRN as a query parameter
-    });
   }
   deleteParent(email: string): Observable<void> {
     return this.http.delete<void>(`${this.url}parentguardian/${email}`);
   }
-
+  deleteGuardian(email: string, lrn: number): Observable<any> {
+    const url = `${this.url}guardian/delete/${encodeURIComponent(email)}/${lrn}`;
+    return this.http.delete(url);
+  }
 
 
   // account 

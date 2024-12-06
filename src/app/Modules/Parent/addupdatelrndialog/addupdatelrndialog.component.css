@@ -1,0 +1,38 @@
+.btn {
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.cancel-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    color: black;                /* Text color */
+    background-color: white;     /* White background */
+    border: .1px solid #f32c52;   /* Red border */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .cancel-button:hover {
+    background-color: #f32c52;   /* Red background on hover */
+    color: white;                /* White text color on hover */
+  }
+  .ok-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    color: black;                /* Text color */
+    background-color: white;     /* White background */
+    border: .1px solid #3f51b5;   /* Red border */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .ok-button:hover {
+    background-color: #3f51b5;   /* Red background on hover */
+    color: white;                /* White text color on hover */
+  }
+
+  
