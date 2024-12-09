@@ -6,7 +6,6 @@ import { Router } from 'express';
 import { RouterLink, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { SearchFilterPipe } from '../../../search-filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,7 +29,7 @@ interface EnrollmentData {
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatProgressSpinnerModule,MatFormField,MatLabel,SearchFilterPipe,
+  imports: [CommonModule, RouterModule, MatProgressSpinnerModule,MatFormField,MatLabel,
     RouterLink,
     MatFormFieldModule,
     MatSelectModule,
@@ -38,7 +37,6 @@ interface EnrollmentData {
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    SearchFilterPipe
   ],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
@@ -48,21 +46,20 @@ export class HomepageComponent implements AfterViewInit {
 
   chart: Chart | undefined;
   inquiries: any;
-  // students:any;
   students: any[] = [];
-  // Initialize totals
   totalEnrollments: number = 0;
   juniorHighTotal: number = 0;
   seniorHighTotal: number = 0;
   currentDate: Date = new Date();
   activeSection: string = 'dashboard'; // Default active section
-  keyword: any;
+  uid: any;
+  searchTerm: string = '';
   private intervalId: any;
   
   constructor(private dashboard: ConnectService) {}
+  
 
-
-  getstudents(){
+  getStudents() {
     this.dashboard.getdashStudents().subscribe(
       (data) => {
         this.students = data; 
@@ -73,6 +70,15 @@ export class HomepageComponent implements AfterViewInit {
       }
     );
   }
+
+  get filteredStudents() {
+    return this.students.filter(student => 
+      student.grade_level.toLowerCase().includes(this.searchTerm.toLowerCase())
+
+    );
+  }
+
+  
   setActive(section: string): void {
     this.activeSection = section; // Update the active section
     if (this.activeSection === 'dashboard') {
@@ -89,54 +95,75 @@ export class HomepageComponent implements AfterViewInit {
       clearInterval(this.intervalId);
     }
   }
-  getInquiry() {
-    const inqId = localStorage.getItem('admin_id'); // Get the inq_id from localStorage
-    console.log('inqId:', inqId); // Check the value of inqId
+  getInquiry(){
+    this.dashboard.getInquiries(this.uid).subscribe((result: any) => {
+      this.inquiries = result;
+      this.inquiries.forEach((inquiry:any) => {
+        console.log(inquiry);
 
-    if (inqId) {
-      this.dashboard.getInquiries().subscribe(
-        (result: any) => {
-          // No parameters needed here
-          console.log('All inquiries:', result); // Log the full result
-          this.inquiries = result;
-
-          // Log inquiries before filtering
-          console.log('All inquiries before filtering:', this.inquiries);
-
-          const uniqueMessages = [];
-          const seenSenders = new Set();
-
-          // Filter to get only the latest message from each sender
-          for (const inquiry of this.inquiries) {
-            if (
-              inquiry.message_reciever === parseInt(inqId) &&
-              !seenSenders.has(inquiry.sender_name)
-            ) {
-              seenSenders.add(inquiry.sender_name);
-              uniqueMessages.push(inquiry);
+        const uniqueMessages = [];
+        const seenSenders = new Set();
+  
+        for (const msg of result) {
+            if (!seenSenders.has(msg.sender_name)) {
+                seenSenders.add(msg.sender_name);
+                uniqueMessages.push(msg);
             }
-          }
-
-          this.inquiries = uniqueMessages; // Assign filtered messages to 'inquiries'
-
-          // Log the filtered inquiries
-          console.log('Filtered inquiries:', this.inquiries);
-        },
-        (error) => {
-          console.error('Error fetching inquiries:', error); // Handle errors if necessary
         }
-      );
-    } else {
-      console.log('inq_id not found in localStorage');
-    }
+  
+        this.inquiries = uniqueMessages;
+      });
+    })
   }
+  // getInquiry() {
+  //   const inqId = localStorage.getItem('admin_id'); // Get the inq_id from localStorage
+  //   console.log('inqId:', inqId); // Check the value of inqId
+
+  //   if (inqId) {
+  //     this.dashboard.getInquiries().subscribe(
+  //       (result: any) => {
+  //         // No parameters needed here
+  //         console.log('All inquiries:', result); // Log the full result
+  //         this.inquiries = result;
+
+  //         // Log inquiries before filtering
+  //         console.log('All inquiries before filtering:', this.inquiries);
+
+  //         const uniqueMessages = [];
+  //         const seenSenders = new Set();
+
+  //         // Filter to get only the latest message from each sender
+  //         for (const inquiry of this.inquiries) {
+  //           if (
+  //             inquiry.message_reciever === parseInt(inqId) &&
+  //             !seenSenders.has(inquiry.sender_name)
+  //           ) {
+  //             seenSenders.add(inquiry.sender_name);
+  //             uniqueMessages.push(inquiry);
+  //           }
+  //         }
+
+  //         this.inquiries = uniqueMessages; // Assign filtered messages to 'inquiries'
+
+  //         // Log the filtered inquiries
+  //         console.log('Filtered inquiries:', this.inquiries);
+  //       },
+  //       (error) => {
+  //         console.error('Error fetching inquiries:', error); // Handle errors if necessary
+  //       }
+  //     );
+  //   } else {
+  //     console.log('inq_id not found in localStorage');
+  //   }
+  // }
 
   ngAfterViewInit(): void {
+    this.uid = localStorage.getItem('admin_id');
     this.intervalId = setInterval(() => {
       this.getInquiry();
       this.dashboard.getdash();
     }, 60000);
-    this.getstudents();
+    this.getStudents();
     this.getInquiry();
     this.dashboard.getdash().subscribe((response: any) => {
       const enrollmentData: EnrollmentData = response;

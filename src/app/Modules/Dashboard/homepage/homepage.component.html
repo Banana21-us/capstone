@@ -26,8 +26,10 @@
           <!-- Conditional Form Field -->
           <div *ngIf="activeSection === 'students'" class="filter-container">
               <mat-form-field>
-                  <mat-label>Filter by Class</mat-label>
-                  <input matInput [(ngModel)]="keyword" placeholder="Search " />
+                  <mat-label>Filter Grade level</mat-label>
+                  <!-- <input matInput [(ngModel)]="keyword" placeholder="Search " /> -->
+                  <input matInput placeholder="Search by Grade Level" [(ngModel)]="searchTerm" />
+                  
               </mat-form-field>
           </div>
       </div>
@@ -69,25 +71,24 @@
         </div>
     
         <div class="student-switch" *ngIf="activeSection === 'students'">
-          <table class="table table-striped">
-            <tr>
-              <th>LRN</th>
-              <th>Name</th>
-              <th>Level</th>
-              <th>Email</th>
-              <th>Guardian Name</th>
-              
-            </tr>
-            <tr *ngFor="let student of students | searchFilter: keyword">
-              <td>{{ student.LRN }}</td>
-              <td> {{ student.lname }} {{ student.fname }} {{ student.mname }}</td>
-              <td>{{ student.grade_level }} {{ student.strand }}</td>
-              <td>{{ student.email }}</td>
-              <td>{{ student.guardian_name }}</td>
-              
-              
-            </tr>
-          </table>
+          <div class="table-container">
+            <table class="table table-striped">
+              <tr>
+                <th>LRN</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Email</th>
+                <th>Guardian Name</th>
+              </tr>
+              <tr *ngFor="let student of filteredStudents">
+                <td>{{ student.LRN }}</td>
+                <td>{{ student.lname }} {{ student.fname }} {{ student.mname }}</td>
+                <td>{{ student.grade_level }} {{ student.strand }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.guardian_name }}</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
           <!-- messege -->              
@@ -101,7 +102,7 @@
                    @for (inq of inquiries; track $index) {
                   <div class="notification-item" [routerLink]="['/main-page/message/messagepage/messages/view/' + inq.message_sender]">
                     <div class="notification-header">
-                      <div class="sender-name">{{ inq.sender_name }} <span style="font-size: 12px; font-weight: 400;" > <br>{{ inq.label}}</span> </div>
+                      <div class="sender-name">{{ inq.sender_name }} <span style="font-size: 12px; font-weight: 400;" > <br> Grade {{ inq.label}}</span> </div>
                       <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
                     </div>
                     <div class="notification-message"> {{ inq.message }}</div>

@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <h1><strong>Edit Subjects: Grade {{grade_level}}   {{ (strand && strand.trim() === '-') ? ' ' : strand }} </strong></h1>
+    <h2 class="border-bottom"><strong>Edit Subjects: Grade {{grade_level}}   {{ (strand && strand.trim() === '-') ? ' ' : strand }} </strong></h2>
     <form [formGroup]="editSubjectForm" (ngSubmit)="onSubmit()">
         
         <mat-form-field style="display: none;" appearance="outline" class="w-100 mt-3">
@@ -31,9 +31,40 @@
             <p style="color:red;">Please fill out all required fields.</p>
          </div>
     </form>
-</mat-dialog-content>
 
+</mat-dialog-content>
 <mat-dialog-actions class="border-top">
-    <button mat-button class="ms-3" style="color: white; background-color: #F32C52;" (click)="onCancel()">Close</button>
-    <button mat-raised-button color="primary" [disabled]="editSubjectForm.invalid" (click)="onSubmit()">Update</button>
+    <button 
+    class="ms-3"
+  mat-button 
+  (click)="onCancel()" 
+  style="
+    font-size: 14px; 
+    padding: 8px 16px; 
+    color: black; 
+    background-color: white; 
+    border: 0.1px solid #f32c52; 
+    transition: background-color 0.3s ease, color 0.3s ease;"
+  onmouseover="this.style.backgroundColor='#f32c52'; this.style.color='white';"
+  onmouseout="this.style.backgroundColor='white'; this.style.color='black';">
+  Cancel
+</button>
+
+<button 
+  mat-button 
+  (click)="onSubmit()" 
+  style="
+    font-size: 14px; 
+    padding: 8px 16px; 
+    color: black; 
+    background-color: white; 
+    border: 0.1px solid #3f51b5; 
+    transition: background-color 0.3s ease, color 0.3s ease;"
+  onmouseover="this.style.backgroundColor='#3f51b5'; this.style.color='white';"
+  onmouseout="this.style.backgroundColor='white'; this.style.color='black';"
+  [disabled]="editSubjectForm.invalid">
+  Update
+</button>
+
 </mat-dialog-actions>
+

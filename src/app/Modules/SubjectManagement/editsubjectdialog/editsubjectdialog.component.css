@@ -13,23 +13,9 @@
 .subject-item button {
     min-width: 100px; /* Set a minimum width for the button */
 }
-.mat-button {
-    margin-right: 8px; /* Space between buttons */
-}
 
-.mat-raised-button {
-    background-color: #3f51b5; /* Primary color */
-    color: white;
-}
 
-.mat-raised-button:hover {
-    background-color: #303f9f; /* Darker shade on hover */
-}
 
-button[type='button'] {
-    margin-top: 8px; /* Space above the button */
-}
 
-button[type='button']:hover {
-    background-color: #e0e0e0; /* Light gray on hover */
-}
+
+

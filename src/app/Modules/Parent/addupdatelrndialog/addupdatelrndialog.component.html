@@ -1,24 +1,24 @@
 <mat-dialog-content style="padding: 24px; font-family: 'Roboto', sans-serif; font-size: 16px; color: #424242;">
-  <p><strong>Edit Parent Account</strong></p>
-  <p>Parent: {{ fullName }}</p>
+  <h2 class="border-bottom"><strong>Edit Parent Account</strong></h2>
+  <h3><strong>Parent: {{ fullName }}</strong></h3>
 
   <div class="row g-3 mt-3">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" style="display: none;">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
         <input matInput [formControl]="emailControl" />
       </mat-form-field>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>New Password</mat-label>
         <input matInput type="password" [formControl]="passwordControl" />
       </mat-form-field>
     </div>
   </div>
-    <h3>Student's Name: 
+    <h4><strong>Student's Name: </strong>
       <button type='button' (click)="openaddStudent()" class='btn btn-primary ms-2'>+</button>
-    </h3>
+    </h4>
     <ul style="display: flex; flex-wrap: wrap; gap: 16px; list-style-type: none; padding: 0;" *ngIf="students && students.length">
         <li *ngFor="let getstu of students; trackBy: trackByStudent"
             style="flex: 0 0 calc(33.33% - 16px); /* Make each item take 1/3 of the width */
@@ -46,6 +46,6 @@
     </ul>
 </mat-dialog-content>
 <mat-dialog-actions class="border-top">
-  <button mat-button (click)="onNoClick()" class="cancel-button">Cancel</button>
+  <button mat-button (click)="onNoClick()" class="cancel-button ms-3">Cancel</button>
   <button mat-button (click)="onSubmit()" class="ok-button">Ok</button>
 </mat-dialog-actions>

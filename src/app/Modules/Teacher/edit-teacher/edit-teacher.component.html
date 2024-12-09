@@ -1,5 +1,5 @@
 <mat-dialog-content>
-  <h1>Edit Teacher</h1>
+  <h2 class="border-bottom"><strong>Edit Teacher</strong></h2>
   <form [formGroup]="editteacherform" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col">
@@ -45,6 +45,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="border-top">
-  <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+  <button mat-button (click)="onCancel()" class="cancel-button ms-3">Cancel</button>
   <button mat-button (click)="onSubmit()" class="ok-button">Ok</button>
 </mat-dialog-actions>

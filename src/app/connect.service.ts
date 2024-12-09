@@ -11,6 +11,7 @@ export class ConnectService {
 
   constructor(private http: HttpClient) {}
   url = "http://localhost:8000/api/";
+  // url = "http://10.0.136.238:8000/api/";
   
 
   token = localStorage.getItem('token');
@@ -33,8 +34,8 @@ export class ConnectService {
   getdash(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'dashboard');
   }
-  getInquiries(){
-    return this.http.get(this.url + 'getInquiries')
+  getInquiries(uid: any){
+    return this.http.get(this.url + 'getInquiries', {params: {uid: uid}})
   }
   getdashStudents(): Observable<any[]> {
     return this.http.get<any[]>(this.url + 'allstudents'); // Fetch data from the API

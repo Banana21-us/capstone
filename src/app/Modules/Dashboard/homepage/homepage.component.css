@@ -39,16 +39,30 @@ h3 {
   /* margin-top:-15px */
 }
 
-.student-switch{
+.student-switch {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: none;
   margin-bottom: 30px;
   transition: all 0.3s ease-in-out;
   width: 100%;
-  height:auto;
 }
 
+.table-container {
+  max-height: 532.8px; /* Set your desired max height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scrolling */
+}
+
+/* Optional: Hide scrollbar for WebKit browsers */
+.table-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+/* Optional: For Firefox */
+.table-container {
+  scrollbar-width: none; /* Hide scrollbar */
+}
 /* Card Styles */
 .card {
   border-radius: 5px;

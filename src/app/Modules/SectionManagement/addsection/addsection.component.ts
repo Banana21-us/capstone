@@ -35,7 +35,7 @@ export class AddsectionComponent {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddsectiondialogComponent, {
-      width: '250px',
+      width: '380px',
       data: {}
     });
   

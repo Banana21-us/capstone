@@ -1,76 +1,55 @@
 <section class="form-section">
-  <h2 >Subject Management</h2>
-
-  <form [formGroup]="subjectManagementForm" (ngSubmit)="submitsubjects()">
-      <div class="row">
-          <!-- <div class="form-group">
-              <label for="section">Section Name:</label>
-              <input type="text" id="section" formControlName="section_name" required>
-          </div> -->
-
-          <div class="form-group">
-              <label for="gradelevel">Grade Level:</label>
-              <select id="gradelevel" formControlName="grade_level" required (change)="onGradeChange()">
-                  <option value="">Select a Grade Level</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-              </select>
-              @if (subjectManagementForm.get('grade_level')?.invalid && subjectManagementForm.get('grade_level')?.touched) {
-                <mat-error class="text-danger">Grade Level is required.</mat-error>
-                }
-          </div>
-
-          <div class="form-group" *ngIf="isStrandVisible">
-              <label for="strand">Strand:</label>
-              <select id="strand" formControlName="strand">
-                  <option value="">Select a strand</option>
-                  <option value="STEM">STEM</option>
-                  <option value="HUMMS">HUMMS</option>
-                  <option value="ABM">ABM</option>
-              </select>
-              @if (subjectManagementForm.get('strand')?.invalid && subjectManagementForm.get('strand')?.touched) {
-                <mat-error class="text-danger">Strand is required.</mat-error>
-                }
-          </div>
-
-          <div class="container">
-              <div class="form-group">
-                  <label for="subjects">Subject List: <button type="button" class="btn btn-success ms-1" (click)="openDialog()">+</button>
-                  </label>
-                  <!-- Display added subjects -->
-                  <ul style="display: flex; flex-wrap: wrap; gap: 16px; list-style-type: none; padding: 0;">
-                    <li *ngFor="let subject of subjectsList; let i = index" 
-                        style="flex: 0 0 calc(33.33% - 16px); /* Ensure each item takes up 1/3 of the width */
-                               display: flex; 
-                               align-items: center; 
-                               position: relative; 
-                               border: 1px solid #ccc; 
-                               border-radius: 4px; 
-                               background-color: #f0f8ff; 
-                               padding: 12px; 
-                               margin-bottom: 10px; 
-                               height: 60px;">
-                        
-                        <span style="flex-grow: 1; 
-                                     font-size: 16px; 
-                                     font-weight: 500;">
-                            {{ subject }}
-                        </span>
-                        <i *ngIf="subjectsList.length > 0" 
-                            (click)="removeSubject(i)" 
-                            style="color: red; font-size: 15px;" 
-                            class="bi bi-trash me-2"></i>
-                    </li>
-                </ul>
-                
-              </div>
-          </div>
-      </div>
-
-      <button class="button-submit mt-2" type="submit" >Submit</button>
-  </form>
-</section>
+    <h2>Subject Management</h2>
+    <form [formGroup]="subjectManagementForm" (ngSubmit)="submitsubjects()">
+        <div class="row">
+            <div class="form-group">
+                <label for="gradelevel">Grade Level:</label>
+                <select id="gradelevel" formControlName="grade_level" required (change)="onGradeChange()">
+                    <option value="">Select a Grade Level</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <mat-error *ngIf="subjectManagementForm.get('grade_level')?.invalid && subjectManagementForm.get('grade_level')?.touched">
+                  Grade Level is required.
+                </mat-error>
+            </div>
+  
+            <div class="form-group" *ngIf="isStrandVisible">
+                <label for="strand">Strand:</label>
+                <select id="strand" formControlName="strand">
+                    <option value="">Select a strand</option>
+                    <option value="STEM">STEM</option>
+                    <option value="HUMMS">HUMMS</option>
+                    <option value="ABM">ABM</option>
+                </select>
+                <mat-error *ngIf="subjectManagementForm.get('strand')?.invalid && subjectManagementForm.get('strand')?.touched">
+                  Strand is required.
+                </mat-error>
+            </div>
+  
+            <div class="container">
+                <div class="form-group">
+                    <label for="subjects">Subject List:
+                        <button type="button" class="btn btn-success ms-1" (click)="openDialog()">+</button>
+                    </label>
+                    <ul style="display: flex; flex-wrap: wrap; gap: 16px; list-style-type: none; padding: 0;">
+                      <li *ngFor="let subject of subjectsList; let i = index" 
+                          style="flex: 0 0 calc(33.33% - 16px); display: flex; align-items: center; position: relative; border: 1px solid #ccc; border-radius: 4px; background-color: #f0f8ff; padding: 12px; margin-bottom: 10px; height: 60px;">
+                          <span style="flex-grow: 1; font-size: 16px; font-weight: 500;">
+                              {{ subject.name }}
+                          </span>
+                          <i *ngIf="subjectsList.length > 0" (click)="removeSubject(i)" style="color: red; font-size: 15px;" class="bi bi-trash me-2"></i>
+                      </li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+  
+        <button class="button-submit mt-2" type="submit">Submit</button>
+    </form>
+  </section>
+  

@@ -41,8 +41,8 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
     stu: any[] = [];
     filteredStudents!: Observable<any[]>;
     myControl = new FormControl();
-    emailControl = new FormControl(this.data.email, [Validators.email]);
-    passwordControl = new FormControl('', Validators.required);
+    emailControl = new FormControl(this.data.email, Validators.required);
+    passwordControl = new FormControl('');
     fullName: string = this.data.fullName;
     selectedStudent!: any;
 
@@ -56,8 +56,8 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
     }
 
     ngOnInit(): void {
-      console.log('Current students:', this.students);
       this.fetchStudents();
+      console.log('Current students:', this.students);
       console.log("Injected email:", this.data.email);
       console.log("Parent object:", parent);
     }
@@ -132,7 +132,7 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
     
     onSubmit(): void {
       const updatedData = {
-        email: this.emailControl.value,
+        email: this.emailControl.value || undefined,
         password: this.passwordControl.value || undefined,
         LRN: this.students.map(student => student.LRN), // Include LRN array
       };
@@ -150,7 +150,7 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
         },
         (error) => {
           console.error('Error updating parent:', error);
-          let errorMessage = 'There was an issue updating the parent details.';
+          let errorMessage = 'Password must be at least 8 characters long.';
           if (error && error.error && error.error.message) {
             errorMessage = error.error.message;
           } else if (error && error.status && error.statusText) {
@@ -161,8 +161,9 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
       );
     }
     removelrn(email: string, lrn: number): void {
-      console.log("Email:", email, "LRN:", lrn); // Log the incoming parameters
+      console.log("Email:", email, "LRN:", lrn); // Log parameters
       console.log("Injected email:", this.data.email);
+      
       Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -176,7 +177,7 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
               this.parentService.deleteGuardian(email, lrn).subscribe(
                   (response) => {
                       console.log('Student LRN nullified successfully!');
-                      this.updatenewList(email, lrn); // Update the list
+                      this.updatenewList(email, lrn); // Update local list
                       Swal.fire({
                           title: "Removed!",
                           text: "Student removed successfully!",
@@ -185,11 +186,19 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
                   },
                   (error) => {
                       console.error('Error removing student:', error);
-                      Swal.fire({
-                          title: "Error",
-                          text: error.error?.message || "An error occurred while removing the student's LRN.",
-                          icon: "error"
-                      });
+                      
+                      // Attempt to remove from local list regardless of API success
+                      const indexToRemove = this.students.findIndex(student => student.LRN === lrn);
+                      if (indexToRemove !== -1) {
+                          this.students.splice(indexToRemove, 1);
+                          console.log(`Student with LRN ${lrn} removed from local list.`);
+                          
+                          // Trigger change detection to update UI
+                          this.cdr.detectChanges();
+                          
+                      } else {
+                          console.warn(`Student with LRN ${lrn} not found in local list.`);
+                      }
                   }
               );
           }
@@ -211,4 +220,5 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
         console.warn(`Student with LRN ${lrn} not found in the list.`);
       }
     }
+    
   }
