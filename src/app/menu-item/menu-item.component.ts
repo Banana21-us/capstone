@@ -4,7 +4,8 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
 import { animate, style, transition, trigger } from '@angular/animations';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 @Component({
   selector: 'app-menu-item',
   standalone: true,
@@ -19,7 +20,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
       ])
     ])
   ],
-  imports: [MatListModule, RouterModule, MatIcon],
+  imports: [MatListModule, RouterModule, MatIcon, MatTooltipModule,MatBadgeModule],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css'
 })

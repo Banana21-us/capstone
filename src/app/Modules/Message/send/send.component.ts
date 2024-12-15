@@ -96,5 +96,11 @@ export class SendComponent implements OnInit{
     });
   }
   
+  markAsRead(sid: any){
+    this.conn.markAsRead(sid).subscribe((result: any) => {
+      console.log('Messages marked as read:', result.updated_count);
+    })
 
+    this.getMessages()
+  }
 }

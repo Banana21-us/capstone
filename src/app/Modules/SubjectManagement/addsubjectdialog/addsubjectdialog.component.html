@@ -12,7 +12,7 @@
   <p class="selected-image-title">Selected Image</p>
   <div *ngIf="imagePreviewUrl" class="image-preview">
       <img [src]="imagePreviewUrl" alt="Image Preview" class="preview-image" />
-      <button mat-icon-button (click)="removeImage()" class="remove-image-button">
+      <button mat-icon-button (click)="removeImage()" class="remove-image-button bg-danger">
           <mat-icon>clear</mat-icon>
       </button>
   </div>

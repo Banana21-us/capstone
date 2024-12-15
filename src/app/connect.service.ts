@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Teacher } from './Modules/ClassManagement/addclass/addclass.component';
@@ -206,6 +206,13 @@ export class ConnectService {
   }
   getStudentParents(){
     return this.http.get(this.url + 'getStudentParents');
+  }
+  markAsRead(sid: any){
+    return this.http.post(this.url + 'markAsRead', {sid});
+  }
+  getUnreadMessagesCount(uid: any) {
+    const params = new HttpParams().set('uid', uid);
+    return this.http.get(this.url + 'getUnreadCount', {params});
   }
   
 }

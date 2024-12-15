@@ -40,7 +40,7 @@ export class ViewsectionComponent {
   grades: any[] = [];
   section: any;
   strand:any;
-  filteredGrades: any[] = [];
+  // filteredGrades: any[] = [];
   keyword: any;
 
   constructor(private sectionservice: ConnectService,private dialog: MatDialog,) {}
@@ -49,7 +49,15 @@ export class ViewsectionComponent {
     this.fetchSections();
 
   }
-  
+  get filteredGrades() {
+    if (!this.keyword) {
+      return this.grades; // Return all grades if no keyword is entered
+    }
+    return this.grades.filter(grade =>
+      grade.level.toLowerCase().includes(this.keyword.toLowerCase())
+    );
+  }
+
   fetchSections() {
     this.sectionservice.getsection().subscribe((data) => {
       console.log('Fetched Grades:', data);
@@ -57,12 +65,12 @@ export class ViewsectionComponent {
         ...grade,
         sections: Array.isArray(grade.sections) ? grade.sections : []
       }));
-  
-      this.filteredGrades = [...this.grades];
     }, error => {
       console.error('Error fetching grades:', error);
     });
   }
+
+
   deleteGrade(gradeLevel: number, strand: string) {
     Swal.fire({
       title: "Are you sure?",
@@ -78,13 +86,6 @@ export class ViewsectionComponent {
           response => {
             console.log('Sections deleted successfully:', response);
             this.fetchSections(); // Refresh section list
-  
-            // Show success message
-            Swal.fire({
-              title: "Deleted!",
-              text: "The sections have been deleted.",
-              icon: "success"
-            });
           },
           error => {
             console.error('Error deleting sections:', error);

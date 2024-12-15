@@ -48,11 +48,11 @@ export class AnnouncementListComponent implements OnInit{
         this.announcement.deleteAnnouncement(ancmnt_id).subscribe(
           response => {
             console.log('Deleting announcement:', response.message);
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your announcement has been deleted successfully.",
-              icon: "success"
-            });
+            // Swal.fire({
+            //   title: "Deleted!",
+            //   text: "Your announcement has been deleted successfully.",
+            //   icon: "success"
+            // });
             this.fetchAnnouncements();
           },
           error => {

@@ -40,7 +40,7 @@ interface SubjectData {
 })
 export class SubjectlistComponent implements OnInit {
     subjects: any[] = [];
-    filteredSubject: any[] = [];
+    // filteredSubject: any[] = [];
     keyword: any;
 
     constructor(private subjectservice: ConnectService, private dialog: MatDialog) {}
@@ -50,19 +50,29 @@ export class SubjectlistComponent implements OnInit {
 
     }
 
-    fetchSubjects() {
+    
+      fetchSubjects() {
         this.subjectservice.getsubjects().subscribe((data: SubjectData[]) => {
-            console.log('Fetched subjects:', data);
-            this.subjects = data.map(subject => ({
-                ...subject,
-                subject_name: Array.isArray(subject.subject_name) ? subject.subject_name : []
-            }));
-            // Initialize filteredSubject with all subjects
-            this.filteredSubject = [...this.subjects];
+          console.log('Fetched subjects:', data);
+          this.subjects = data.map(subject => ({
+            ...subject,
+            subject_name: Array.isArray(subject.subject_name) ? subject.subject_name : []
+          }));
         }, (error: any) => {
-            console.error('Error fetching subjects:', error);
+          console.error('Error fetching subjects:', error);
         });
-    }
+      }
+    
+      get filteredSubject() {
+        if (!this.keyword) {
+          return this.subjects; // Return all subjects if no keyword is entered
+        }
+        return this.subjects.filter(subject =>
+          subject.level.toLowerCase().includes(this.keyword.toLowerCase())
+        );
+      }
+    
+    
 
     openEditSubjectModal(subject: SubjectData): void {
         const dialogRef = this.dialog.open(Editsubjectdialogcomponent, {
@@ -136,11 +146,11 @@ export class SubjectlistComponent implements OnInit {
                 this.fetchSubjects();
     
                 // Show success message
-                Swal.fire({
-                  title: "Deleted!",
-                  text: "The subjects have been deleted.",
-                  icon: "success"
-                });
+                // Swal.fire({
+                //   title: "Deleted!",
+                //   text: "The subjects have been deleted.",
+                //   icon: "success"
+                // });
               },
               (error: any) => {
                 console.error('Error deleting subjects:', error);

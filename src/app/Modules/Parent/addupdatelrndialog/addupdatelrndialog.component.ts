@@ -178,11 +178,11 @@ import { AddstudenteditdialogComponent } from '../addstudenteditdialog/addstuden
                   (response) => {
                       console.log('Student LRN nullified successfully!');
                       this.updatenewList(email, lrn); // Update local list
-                      Swal.fire({
-                          title: "Removed!",
-                          text: "Student removed successfully!",
-                          icon: "success"
-                      });
+                      // Swal.fire({
+                      //     title: "Removed!",
+                      //     text: "Student removed successfully!",
+                      //     icon: "success"
+                      // });
                   },
                   (error) => {
                       console.error('Error removing student:', error);

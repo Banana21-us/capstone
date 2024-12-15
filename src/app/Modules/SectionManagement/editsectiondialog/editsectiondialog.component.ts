@@ -112,11 +112,11 @@ export class EditsectiondialogComponent {
             console.log('Section removed from backend successfully!', response)
 
             // Show success message
-            Swal.fire({
-              title: 'Deleted!',
-              text: 'The section has been deleted.',
-              icon: 'success'
-            })
+            // Swal.fire({
+            //   title: 'Deleted!',
+            //   text: 'The section has been deleted.',
+            //   icon: 'success'
+            // })
           },
           error => {
             console.error('Error removing section from backend:', error)

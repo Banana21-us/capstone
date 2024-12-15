@@ -11,6 +11,7 @@ export type MenuItem = {
   label: string,
   route: string,
   subItems?: MenuItem[];
+  unreadCount?: any;
 }
 
 @Component({
@@ -30,19 +31,26 @@ export class CustomSidenavComponent {
   lname = '';
   fname = '';
   adminPic: string | null = null;
+  uid: any;
+  private intervalId: any;
+  unreadMessagesCount: any = 0;
   
   constructor(private conn: ConnectService,) {}
 
   ngOnInit(): void {
-
+    this.uid = localStorage.getItem('admin_id')
     this.loadUserData();
     
+    this.intervalId = setInterval(() => {
+      this.loadUnreadMessagesCount();
+    }, 10000)
+
     this.conn.adminPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {
         this.adminPic = newImageUrl; // Update the component's admin picture
       }
     });
-
+    
     // Optionally, initialize with the image from localStorage
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && user.admin_pic) {
@@ -61,7 +69,62 @@ export class CustomSidenavComponent {
     }
   }
 
+  loadUnreadMessagesCount() {
+      if (this.uid) {
+        this.conn.getUnreadMessagesCount(this.uid).subscribe(response => {
+          console.log(response)
+          this.unreadMessagesCount = response; // Extract the count from the response
+          console.log('Unread Messages Count:', this.unreadMessagesCount); // Check value here
+          this.updateMenuItems(); // Update menu items with the new count
+        });
+      }
+    }
+    updateMenuItems() {
+      this.menuItems.set([
+        {
+          icon: 'dashboard',
+          label: 'Dashboard',
+          route: 'homepage'
+        },
+        {
+          icon: 'class',
+          label: 'Class',
+          route: 'classmanagement'
+        },
+        {
+          icon: 'subject',
+          label: 'Subject',
+          route: 'subjectmanagement'
+        },
+        {
+          icon: 'meeting_room',
+          label: 'Section',
+          route: 'section'
+        },
+        {
+          icon: 'person',
+          label: 'Teacher',
+          route: 'teacher'
+        },
+        {
+          icon: 'family_restroom',
+          label: 'Parent',
+          route: 'parent'
+        },
+        {
+          icon: 'announcement',
+          label: 'Announcement',
+          route: 'announcement'
+        },
+        {
+          icon: 'chat',
+          label: 'Message',
+          route: 'message',
+          unreadCount: this.unreadMessagesCount
+        }
+      ]);
 
+    }
   menuItems = signal<MenuItem[]>([
     {
       icon: 'dashboard',
@@ -101,10 +164,15 @@ export class CustomSidenavComponent {
     {
       icon: 'chat',
       label: 'Message',
-      route: 'message'
+      route: 'message',
+      unreadCount: this.unreadMessagesCount
     },
     
   ]);
+
+  trackByFn(index: number, item: MenuItem) {
+    return item.route; // or any unique identifier
+  }
 
   profilePicSize = computed( ()=> this.sideNavCollapsed() ? '50' : '100');
 }

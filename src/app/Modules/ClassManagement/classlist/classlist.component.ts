@@ -85,11 +85,11 @@ deleteClass(classId: number): void {
           console.log('Updated class list after deletion:', this.classes);
 
           // Show success message
-          Swal.fire({
-            title: "Deleted!",
-            text: "The class has been deleted.",
-            icon: "success"
-          });
+          // Swal.fire({
+          //   title: "Deleted!",
+          //   text: "The class has been deleted.",
+          //   icon: "success"
+          // });
           this.loadClasses();
         },
         error => {

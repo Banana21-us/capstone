@@ -4,11 +4,14 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #003366;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-
 
 p {
     display: block;
@@ -38,11 +41,6 @@ label{
     /* max-width: 600px; */
 }
 
-.form-section h2 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #333;
-}
 
 .form-group {
     margin-bottom: 1rem;

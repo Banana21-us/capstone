@@ -131,11 +131,11 @@ export class ParentlistComponent implements OnInit {
             );
 
             // Show success message
-            Swal.fire({
-              title: "Deleted!",
-              text: "The Parent/Guardian has been deleted.",
-              icon: "success",
-            });
+            // Swal.fire({
+            //   title: "Deleted!",
+            //   text: "The Parent/Guardian has been deleted.",
+            //   icon: "success",
+            // });
           },
           (error) => {
             console.error("Error deleting Parent/Guardian:", error);

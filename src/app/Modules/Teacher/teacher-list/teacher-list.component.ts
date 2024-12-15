@@ -53,11 +53,11 @@ export class TeacherListComponent implements OnInit {
           this.teacherservice.deleteteacher(admin_id).subscribe(
             response => {
               console.log('Deleting account:', response.message);
-              Swal.fire({
-                title: "Deleted!",
-                text: "The account has been deleted.",
-                icon: "success"
-              });
+              // Swal.fire({
+              //   title: "Deleted!",
+              //   text: "The account has been deleted.",
+              //   icon: "success"
+              // });
               this.fetchteacher();
             },
             error => {

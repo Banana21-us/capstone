@@ -114,9 +114,12 @@ loadUserData(): void {
         
       }
       const adminPic = this.adminPic; //bago
+
+      // const mname = formData.mname === '' ? null : formData.mname;
       this.adminService.update(adminId, oldPassword, {
         fname: formData.fname,
         mname: formData.mname,
+        // mname: mname
         lname: formData.lname,
         email: formData.email,
         address: formData.address,

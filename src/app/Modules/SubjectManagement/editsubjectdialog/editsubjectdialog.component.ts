@@ -114,11 +114,11 @@ export class Editsubjectdialogcomponent {
             console.log('Subject removed from backend successfully!', response);
 
             // Show success message
-            Swal.fire({
-              title: 'Deleted!',
-              text: 'The subject has been deleted.',
-              icon: 'success',
-            });
+            // Swal.fire({
+            //   title: 'Deleted!',
+            //   text: 'The subject has been deleted.',
+            //   icon: 'success',
+            // });
           },
           (error) => {
             console.error('Error removing subject from backend:', error);
