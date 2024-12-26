@@ -140,8 +140,17 @@
             </div>
         </div>
 
-        <button class="btnsbmt" mat-raised-button color="primary" type="submit">
+        <!-- <button class="btnsbmt" mat-raised-button color="primary" type="submit">
             Submit
+        </button> -->
+        <button class="btnsbmt" 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="isLoading">
+            <span *ngIf="!isLoading">Submit</span>
+            <span *ngIf="isLoading">Processing...</span>
         </button>
+
     </form>
 </section>

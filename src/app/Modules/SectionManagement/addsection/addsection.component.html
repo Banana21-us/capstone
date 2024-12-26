@@ -65,6 +65,13 @@
             
           </div>
       </div>
-      <button type="submit" class="button-submit mt-2">Submit</button>
+      <!-- <button type="submit" class="button-submit mt-2">Submit</button> -->
+      <button type="submit" 
+      class="button-submit mt-2" 
+      [disabled]="isLoading">
+    <span *ngIf="!isLoading">Submit</span>
+    <span *ngIf="isLoading">Processing...</span>
+    </button>
+
   </form>
 </div>

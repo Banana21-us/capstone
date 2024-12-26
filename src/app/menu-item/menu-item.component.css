@@ -1,3 +1,8 @@
+::ng-deep .mat-badge-content {
+  background-color: red !important;
+  color: white !important;
+}
+
 :host * {
     transition: all 500ms ease-in-out;
   }

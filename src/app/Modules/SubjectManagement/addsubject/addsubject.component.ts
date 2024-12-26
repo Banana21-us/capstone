@@ -27,6 +27,7 @@ interface Subject {
 export class AddsubjectComponent implements OnInit {
   isStrandVisible: boolean = false
   subjectsList: Array<{ name: string; image: File | Blob | string | null }> = []
+  isLoading: boolean = false; 
 
   subjectManagementForm = new FormGroup({
     subject_name: new FormControl(''),
@@ -54,12 +55,15 @@ export class AddsubjectComponent implements OnInit {
   }
 
   submitsubjects(): void {
+    this.isLoading = true;
+
     if (this.subjectsList.length === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Something went wrong!',
             text: 'No subjects to submit'
         });
+        this.isLoading = false;
         return;
     }
 
@@ -99,6 +103,7 @@ export class AddsubjectComponent implements OnInit {
             title: 'Submission Error',
             text: 'All subjects must have valid images.'
         });
+        this.isLoading = false;
         return; // Exit the function early
     }
 
@@ -137,7 +142,10 @@ export class AddsubjectComponent implements OnInit {
                     text: JSON.stringify(error.error.errors)
                 });
             }
-        }
+        },
+        () => {
+          this.isLoading = false;
+      }
     );
 }
 

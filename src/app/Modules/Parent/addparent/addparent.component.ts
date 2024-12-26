@@ -40,7 +40,8 @@ export class AddparentComponent {
   });
 
   studentList: any[] = []; // Array to hold objects with student names and LRNs
-  
+  isLoading: boolean = false; 
+
   constructor(private dialog: MatDialog, private parentservice: ConnectService,private router: Router) {}
 
   openDialog(): void {
@@ -85,6 +86,9 @@ export class AddparentComponent {
   
 
   registerParent(): void {
+    // Set loading state to true
+    this.isLoading = true;
+
     console.log('Form Values:', this.parentform.value); // Log form values
     if (this.parentform.valid) {
         this.parentservice.submitparent(this.parentform.value).subscribe(
@@ -92,43 +96,48 @@ export class AddparentComponent {
                 console.log('Registration successful:', response);
                 this.navigateToMainPage();
                 Swal.fire({
-                  title: "Success!",
-                  text: "Parent account created successfully!",
-                  icon: "success"
+                    title: "Success!",
+                    text: "Parent account created successfully!",
+                    icon: "success"
                 });
-                
             },
             error => {
-              Swal.fire({
-                icon: "error",
-                title: "Oopps! Validation Errors",
-                html: `
-                  <p>The following issues need to be resolved:</p>
-                  <ul style="text-align: left;">
-                    <li>Email address is already registered. Please use a different one.</li>
-                    <li>Password must be at least 8 characters long.</li>
-                  </ul>
-                `,
-              });
+                Swal.fire({
+                    icon: "error",
+                    title: "Oopps! Validation Errors",
+                    html: `
+                      <p>The following issues need to be resolved:</p>
+                      <ul style="text-align: left;">
+                        <li>Email address is already registered. Please use a different one.</li>
+                        <li>Password must be at least 8 characters long.</li>
+                      </ul>
+                    `,
+                });
                 console.error('Error during registration:', error.error); // Log specific error details
+            },
+            () => {
+                // Reset loading state after completion of request
+                this.isLoading = false;
             }
         );
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oopps! Validation Errors",
-        html: `
-          <p>The following issues need to be resolved:</p>
-          <ul style="text-align: left;">
-            <li>Email address is already registered. Please use a different one.</li>
-            <li>Contact must be all numbers</li>
-            <li>Password must be at least 8 characters long.</li>
-          </ul>
-        `,
-      });
+        Swal.fire({
+            icon: "error",
+            title: "Oopps! Validation Errors",
+            html: `
+              <p>The following issues need to be resolved:</p>
+              <ul style="text-align: left;">
+                <li>Email address is already registered. Please use a different one.</li>
+                <li>Contact must be all numbers</li>
+                <li>Password must be at least 8 characters long.</li>
+              </ul>
+            `,
+        });
         console.log('Form is invalid', this.parentform.errors); // Log form errors if any
+        this.isLoading = false; // Reset loading state if the form is invalid
     }
 }
+
     navigateToMainPage() {
       console.log('Router:', this.router); // Check if router is defined
       this.router.navigate(['/main-page/parent/parentlist']);

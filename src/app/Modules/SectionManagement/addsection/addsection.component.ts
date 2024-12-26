@@ -19,6 +19,7 @@ import { MatError } from '@angular/material/form-field';
 export class AddsectionComponent {
   sectionList: { name: string; strand: string }[] = []; // Updated to hold both name and strand
   isStrandVisible: boolean = false;
+  isLoading: boolean = false; 
   constructor(private dialog: MatDialog, private sectionservice: ConnectService, private router: Router) {}
 
   sectionform = new FormGroup({
@@ -48,6 +49,8 @@ export class AddsectionComponent {
   }
 
   submitsection() {
+    this.isLoading = true;
+
     if (this.sectionList.length === 0) {
       console.error('No sections to submit');
       Swal.fire({
@@ -55,6 +58,7 @@ export class AddsectionComponent {
         title: "Something went wrong!",
         text: "No sections to submit",  
       });
+      this.isLoading = false;
       return;
     }
     const form = {
@@ -71,6 +75,7 @@ export class AddsectionComponent {
         title: "Something went wrong!",
         text: "No grade level to submit",  
       });
+      this.isLoading = false; 
       console.error('Form is invalid:', form);
       return;
     }
@@ -89,7 +94,11 @@ export class AddsectionComponent {
       },
       (error) => {
         console.error('Error submitting section account:', error);
-      }
+      },
+      () => {
+        // Reset loading state after completion of request
+        this.isLoading = false;
+    }
     );
   }
 

@@ -15,6 +15,7 @@ import { MatError } from '@angular/material/form-field';
 export class AddAnnouncementComponent {
 
   constructor (private announcementservice: ConnectService,private router: Router) {}
+  isLoading: boolean = false; 
 
 
   announcementform = new FormGroup({
@@ -26,24 +27,37 @@ export class AddAnnouncementComponent {
   });
 
   postannouncement() {
-    this.announcementservice.submitannouncement(this.announcementform.value).subscribe(
-      (result: any) => {
-        console.log('Announcement submitted successfully:', result);
-        // Display success message
-        Swal.fire({
-          title: 'Success!',
-          text: 'Your announcement was posted successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK' // You can customize the button text
-        });
+    // Set loading state to true
+    this.isLoading = true;
 
-        this.navigateToMainPage(); // Navigate to the main page
-      },
-      (error) => {
-        console.error('Error submitting announcement:', error);
-      }
+    this.announcementservice.submitannouncement(this.announcementform.value).subscribe(
+        (result: any) => {
+            console.log('Announcement submitted successfully:', result);
+            // Display success message
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your announcement was posted successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK' // You can customize the button text
+            });
+
+            this.navigateToMainPage(); // Navigate to the main page
+        },
+        (error) => {
+            console.error('Error submitting announcement:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops! Something went wrong.",
+                text: "There was an error posting your announcement. Please try again."
+            });
+        },
+        () => {
+            // Reset loading state after completion of request
+            this.isLoading = false;
+        }
     );
-  }
+}
+
   navigateToMainPage() {
     console.log('Router:', this.router); // Check if router is defined
     this.router.navigate(['/main-page/announcement/announcementlist']);

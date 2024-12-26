@@ -65,6 +65,11 @@
                 <mat-error class="text-danger">Password is required.</mat-error>
             }
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <!-- <button type="submit" class="btn btn-primary">Register</button> -->
+        <button type="submit" class="btn btn-primary"
+        [disabled]="isLoading">
+        <span *ngIf="!isLoading">Register</span>
+        <span *ngIf="isLoading">Processing...</span>
+        </button>
     </form>
 </div>

@@ -27,6 +27,10 @@
                 <mat-error class="text-danger">Announcement Field is required.</mat-error>
             }
         </div>
-        <button type="submit">Post</button>
+        <!-- <button type="submit">Post</button> -->
+        <button type="submit" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Post</span>
+            <span *ngIf="isLoading">Processing...</span>
+        </button>
     </form>
 </section>

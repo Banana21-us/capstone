@@ -137,6 +137,11 @@
         </div>
 
         <!-- Submit Button -->
-        <button type='submit' class='btn btn-primary'>Register</button>
+        <!-- <button type='submit' class='btn btn-primary'>Register</button> -->
+        <button type='submit' class='btn btn-primary'
+        [disabled]="isLoading">
+        <span *ngIf="!isLoading">Register</span>
+        <span *ngIf="isLoading">Processing...</span>
+        </button>
     </form>
 </div>

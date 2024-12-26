@@ -58,7 +58,7 @@ export class AddclassComponent implements OnInit {
 
     myControl = new FormControl();
     filteredOptions!: Observable<Teacher[]>;
-
+    isLoading: boolean = false; 
     constructor(private fb: FormBuilder, private classService: ConnectService, private router: Router) {
         this.classManagementForm = this.fb.group({
             section: ['', Validators.required],
@@ -225,6 +225,7 @@ export class AddclassComponent implements OnInit {
 
     onSubmit() {
         if (this.classManagementForm.valid) {
+            this.isLoading = true;
             const formValues = {
                 section_id: this.classManagementForm.value.section,
                 room: this.classManagementForm.value.room,
@@ -252,6 +253,9 @@ export class AddclassComponent implements OnInit {
                 },
                 (error) => {
                     console.error('Error submitting form:', error);
+                },
+                () => {
+                    this.isLoading = false; // Reset loading state after completion
                 }
             );
         } else {
